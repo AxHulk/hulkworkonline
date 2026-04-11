@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const serviceLinks = [
+  { label: "Создание сайтов", href: "/services/web-development" },
+  { label: "Поведенческие факторы", href: "/services/behavioral-factors" },
+  { label: "SEO-продвижение", href: "/services/seo" },
+  { label: "SMM-продвижение", href: "/services/smm" },
+];
+
 const navLinks = [
-  { label: "Услуги", href: "/services" },
   { label: "Портфолио", href: "/portfolio" },
   { label: "Блог", href: "/blog" },
   { label: "О нас", href: "/about" },
@@ -13,6 +19,8 @@ const navLinks = [
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -26,6 +34,34 @@ const Header = () => {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-6 md:flex">
+          {/* Services dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
+          >
+            <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              Услуги
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+            </button>
+            {servicesOpen && (
+              <div className="absolute left-0 top-full pt-2">
+                <div className="min-w-[220px] rounded-lg border bg-background p-1.5 shadow-lg">
+                  {serviceLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                      onClick={() => setServicesOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -51,18 +87,41 @@ const Header = () => {
       {/* Mobile nav */}
       {mobileOpen && (
         <div className="border-t bg-background md:hidden">
-          <nav className="container flex flex-col gap-3 py-4">
+          <nav className="container flex flex-col gap-1 py-4">
+            {/* Mobile services accordion */}
+            <button
+              className="flex items-center justify-between rounded-md px-1 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+            >
+              Услуги
+              <ChevronDown className={`h-4 w-4 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`} />
+            </button>
+            {mobileServicesOpen && (
+              <div className="ml-3 flex flex-col gap-1 border-l pl-3">
+                {serviceLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className="py-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
+                    onClick={() => { setMobileOpen(false); setMobileServicesOpen(false); }}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="rounded-md px-1 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <Button size="sm" className="w-fit">Войти</Button>
+            <Button size="sm" className="mt-2 w-fit">Войти</Button>
           </nav>
         </div>
       )}
