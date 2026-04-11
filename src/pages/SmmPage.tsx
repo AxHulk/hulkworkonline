@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import {
-  BrushCleaning,
+  Paintbrush,
   CalendarRange,
   ChartColumnIncreasing,
   Megaphone,
@@ -34,7 +34,7 @@ const packagingItems = [
     desc: "Создаём визуальную систему аккаунта: обложки, аватары, обложки актуального и единый стиль публикаций.",
   },
   {
-    icon: BrushCleaning,
+    icon: Paintbrush,
     title: "Дизайн-материалы",
     desc: "Подготавливаем шаблоны постов, stories и рекламных креативов под задачу бренда.",
   },
