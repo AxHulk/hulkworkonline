@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import {
-  BrushCleaning,
+  Paintbrush,
   CalendarRange,
   ChartColumnIncreasing,
   Megaphone,
