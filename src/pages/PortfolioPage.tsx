@@ -23,12 +23,12 @@ import portfolioSmm from "@/assets/portfolio_smm.png";
 /* ---------- data ---------- */
 
 const newProjects = [
-  { name: "PayCross", desc: "Международное платёжное решение со сложной архитектурой безопасности", link: "" },
-  { name: "HulkWork", desc: "Инновационная биржа фриланса нового поколения", link: "" },
-  { name: "EventClick", desc: "Современный сайт агентства о путешествиях с удобной навигацией", link: "" },
-  { name: "Kvanteks", desc: "Масштабный магазин электроники с интеграцией складских баз", link: "" },
-  { name: "Танец Души", desc: "Атмосферный проект: Прогулки по Питеру", link: "" },
-  { name: "Акклиматизация", desc: "Портал для любителей путешествий по России", link: "" },
+  { name: "PayCross", desc: "Международное платёжное решение со сложной архитектурой безопасности", link: "paycross.io" },
+  { name: "HulkWork", desc: "Инновационная биржа фриланса нового поколения", link: "hulkwork.com" },
+  { name: "EventClick", desc: "Современный сайт агентства о путешествиях с удобной навигацией", link: "eventclick.ru" },
+  { name: "Kvanteks", desc: "Масштабный магазин электроники с интеграцией складских баз", link: "kvanteks.ru" },
+  { name: "Танец Души", desc: "Атмосферный проект: Прогулки по Питеру", link: "tanecdushi.ru" },
+  { name: "Акклиматизация", desc: "Портал для любителей путешествий по России", link: "akklimatizaciya.ru" },
 ];
 
 const classicProjects = [
@@ -107,20 +107,26 @@ const PortfolioPage = () => {
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {newProjects.map((p) => (
-              <Card key={p.name} className="group transition-shadow hover:shadow-lg">
-                <CardContent className="p-5">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-heading text-lg font-semibold">{p.name}</h3>
-                    {p.link && (
-                      <a href={`https://${p.link}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-primary">
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    )}
-                  </div>
-                  <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
-                  <Badge variant="outline" className="mt-3"><Rocket className="mr-1 h-3 w-3" />Новый</Badge>
-                </CardContent>
-              </Card>
+              <a
+                key={p.name}
+                href={p.link ? `https://${p.link}` : undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <Card className="group flex h-full flex-col transition-shadow hover:shadow-lg">
+                  <CardContent className="flex flex-1 flex-col p-5">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-heading text-lg font-semibold">{p.name}</h3>
+                      {p.link && (
+                        <ExternalLink className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                      )}
+                    </div>
+                    <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.desc}</p>
+                    <Badge variant="outline" className="mt-auto w-fit pt-3"><Rocket className="mr-1 h-3 w-3" />Новый</Badge>
+                  </CardContent>
+                </Card>
+              </a>
             ))}
           </div>
         </div>
