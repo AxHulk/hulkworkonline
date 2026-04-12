@@ -10,6 +10,7 @@ import SeoPage from "./pages/SeoPage.tsx";
 import SmmPage from "./pages/SmmPage.tsx";
 import PortfolioPage from "./pages/PortfolioPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
+import BlogPage from "./pages/BlogPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/services/smm" element={<SmmPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/blog" element={<BlogPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
