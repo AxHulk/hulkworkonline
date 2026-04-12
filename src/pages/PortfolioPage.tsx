@@ -188,7 +188,7 @@ const PortfolioPage = () => {
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex"
               >
-                <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline" className="<Button variant="outline" className="border-green-400 text-green-400 hover:bg-green-400 hover:text-black">">
                   <Github className="mr-2 h-4 w-4" />
                   Открыть на GitHub
                 </Button>
