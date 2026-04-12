@@ -23,12 +23,12 @@ import portfolioSmm from "@/assets/portfolio_smm.png";
 /* ---------- data ---------- */
 
 const newProjects = [
-  { name: "PayCross", desc: "Международное платёжное решение со сложной архитектурой безопасности", link: "paycross.io" },
-  { name: "HulkWork", desc: "Инновационная биржа фриланса нового поколения", link: "hulkwork.com" },
-  { name: "EventClick", desc: "Современный сайт агентства о путешествиях с удобной навигацией", link: "eventclick.ru" },
-  { name: "Kvanteks", desc: "Масштабный магазин электроники с интеграцией складских баз", link: "kvanteks.ru" },
-  { name: "Танец Души", desc: "Атмосферный проект: Прогулки по Питеру", link: "tanecdushi.ru" },
-  { name: "Акклиматизация", desc: "Портал для любителей путешествий по России", link: "akklimatizaciya.ru" },
+  { name: "PayCross", desc: "Международное платёжное решение со сложной архитектурой безопасности", link: "" },
+  { name: "HulkWork", desc: "Инновационная биржа фриланса нового поколения", link: "" },
+  { name: "EventClick", desc: "Современный сайт агентства о путешествиях с удобной навигацией", link: "" },
+  { name: "Kvanteks", desc: "Масштабный магазин электроники с интеграцией складских баз", link: "" },
+  { name: "Танец Души", desc: "Атмосферный проект: Прогулки по Питеру", link: "" },
+  { name: "Акклиматизация", desc: "Портал для любителей путешествий по России", link: "" },
 ];
 
 const classicProjects = [
