@@ -1,21 +1,27 @@
 
+Исправлю это точечно и без выдумок.
 
-# Fix Unreadable Button in Open Source Section
+1. Возьму источником только ваш загруженный документ/скрин с таблицей блока 2025–2026.
+2. Обновлю `src/pages/PortfolioPage.tsx` в массиве `newProjects`, заменив пустые `link` на реальные ссылки из документа:
+   - `PayCross` → `paycross.tech`
+   - `HulkWork` → `hulkwork.ru`
+   - `EventClick` → `eventclick.ru`
+   - `Kvanteks` → `kvanteks.ru`
+   - `Танец Души` → `tanec-dushi.ru`
+   - `Акклиматизация` → `akklimatizaciya.ru`
+3. Оставлю текущую механику кликабельных карточек, чтобы каждая карточка открывала именно свой реальный сайт.
+4. Ничего больше не буду “угадывать”:
+   - не трогаю классические проекты, если там уже стоят ссылки из документа;
+   - не добавляю никаких новых доменов от себя;
+   - не меняю тексты проектов, кроме случаев, если в документе есть точное отличие.
+5. После правки проверю, что:
+   - все 6 карточек блока 2025–2026 кликабельны;
+   - у каждой карточки открывается правильный адрес;
+   - иконка внешней ссылки показывается только там, где ссылка реально есть.
 
-The GitHub button in the dark Open Source section uses `border-white/20 text-white` which makes it nearly invisible against the dark background, and `hover:bg-white/10` doesn't improve readability on hover.
+Технически:
+- Файл: `src/pages/PortfolioPage.tsx`
+- Меняется только `newProjects`
+- Формат хранения ссылок сохраню таким же, как сейчас в проекте: без протокола в данных (`paycross.tech`), а в `href` останется `https://${p.link}`
 
-## Changes
-
-**File: `src/pages/PortfolioPage.tsx` (line ~191)**
-
-Replace the button styling with a solid, high-contrast design:
-
-```tsx
-<Button variant="outline" className="border-green-400 text-green-400 hover:bg-green-400 hover:text-black">
-  <Github className="mr-2 h-4 w-4" />
-  Открыть на GitHub
-</Button>
-```
-
-This uses green (matching the "Open Source" badge visible in the screenshot) for both border and text, with a solid green fill on hover — readable in both states against the dark background.
-
+Если одобрено, следующим действием будет именно замена этих 6 ссылок по списку выше и больше ничего лишнего.
