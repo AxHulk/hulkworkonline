@@ -8,6 +8,7 @@ import WebDevelopment from "./pages/WebDevelopment.tsx";
 import BehavioralFactors from "./pages/BehavioralFactors.tsx";
 import SeoPage from "./pages/SeoPage.tsx";
 import SmmPage from "./pages/SmmPage.tsx";
+import PortfolioPage from "./pages/PortfolioPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/services/behavioral-factors" element={<BehavioralFactors />} />
           <Route path="/services/seo" element={<SeoPage />} />
           <Route path="/services/smm" element={<SmmPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
