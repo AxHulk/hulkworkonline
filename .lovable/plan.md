@@ -1,78 +1,23 @@
 
 
-# План разработки сайта HulkWork Studio
+# Fix "Новый" Badge Styling
 
-Проект: сайт-магазин услуг для объединения фрилансеров (веб-разработка, поведенческие факторы, SEO, SMM). Фиолетовая цветовая схема (#6B2FA0), шрифты Montserrat + Inter, минималистичный стиль.
+The badge currently uses `mt-auto w-fit pt-3` which stretches it vertically with extra top padding, making it look ugly. 
 
-## Фаза 1 — Фундамент и главная страница
+## Changes
 
-### 1. Настройка дизайн-системы
-- Обновить `index.css`: цветовые переменные на фиолетовую палитру (#6B2FA0, #8B3FB0, #D4A5E8), серые (#2C2C2C, #F5F5F5), функциональные (#2ECC71, #E74C3C, #3498DB)
-- Подключить Google Fonts: Montserrat (500/600/700) и Inter (400)
-- Обновить `tailwind.config.ts` с кастомными цветами и анимациями
+**File: `src/pages/PortfolioPage.tsx` (line 126)**
 
-### 2. Загрузить логотип
-- Скопировать загруженный `Логотип.png` в `public/logo.png`
+Replace the badge line with a cleaner, compact style:
+- Remove `pt-3` (causes vertical stretch)
+- Add `mt-3` instead of `mt-auto` for consistent spacing below text
+- Use a subtle styled badge with primary color accent instead of plain `outline` variant
 
-### 3. Сквозные компоненты
-- **Header**: логотип, навигация (Услуги, Портфолио, Блог, О нас, Контакты), кнопка входа, фиксация при скролле, мобильное гамбургер-меню
-- **Footer**: 4 колонки (описание, услуги, ресурсы, контакты), копирайт
-- **Layout**: обёртка с Header + Footer для всех страниц
+```tsx
+<Badge variant="outline" className="mt-3 w-fit border-primary/30 text-primary">
+  <Rocket className="mr-1 h-3 w-3" />Новый
+</Badge>
+```
 
-### 4. Главная страница (6 секций)
-- **Hero**: заголовок, подзаголовок, CTA-кнопка, фоновый паттерн
-- **Витрина услуг**: 4 карточки (иконка, название, описание, цена, кнопка)
-- **Преимущества**: 6 пунктов с иконками
-- **Избранные кейсы**: сетка из 3-4 проектов (статичные данные)
-- **Блок доверия**: статистика (проекты, клиенты, опыт)
-- **CTA-блок**: форма захвата контактов (имя, email, телефон)
-
-## Фаза 2 — Страницы услуг
-
-### 5. Страница каталога услуг `/services`
-- Заголовок + 4 интерактивных карточки услуг
-
-### 6. Подстраницы услуг (4 штуки)
-- `/services/web-development` — Создание сайтов
-- `/services/behavioral-factors` — Поведенческие факторы
-- `/services/seo` — SEO аналитика
-- `/services/smm` — SMM продвижение
-- Каждая: описание, тарифы, процесс работы, FAQ, форма заказа
-
-## Фаза 3 — Остальные страницы
-
-### 7. Портфолио `/portfolio`
-- Фильтры по типу услуги, сетка проектов с карточками
-
-### 8. О нас `/about`
-- История, команда, ценности, процесс работы, технологии
-
-### 9. Блог `/blog`
-- Список статей с категориями (статичные данные)
-
-### 10. Контакты `/contacts`
-- Контактная информация, форма обратной связи
-
-## Фаза 4 — База данных и личный кабинет (позже)
-
-### 11. База данных
-- Таблицы: services, pricing_packages, portfolio_projects, blog_posts, contact_requests, orders
-- RLS-политики
-
-### 12. Авторизация и ЛК
-- Регистрация/вход, дашборд, заказы, финансы, поддержка
-
----
-
-## Что будет сделано сейчас (при одобрении)
-
-Реализация **Фазы 1** целиком: дизайн-система, Header, Footer, Layout и полная главная страница со всеми 6 секциями. Контент на русском языке, данные статичные (захардкожены). Все компоненты адаптивные (mobile-first).
-
-## Технические детали
-
-- Шрифты: Montserrat и Inter через Google Fonts (CDN в `index.html`)
-- Иконки: Lucide React (уже в проекте)
-- Анимации: CSS transitions 0.3s, hover-эффекты на карточках (translateY)
-- Фоновый паттерн: CSS-градиент с точками в цвете #D4A5E8 / opacity 0.05
-- Роутинг: React Router (уже настроен)
+This gives a compact, stylish badge with a purple-tinted border that matches the design system, without stretching or floating to the bottom awkwardly.
 
