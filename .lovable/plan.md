@@ -1,23 +1,21 @@
 
 
-# Fix "Новый" Badge Styling
+# Fix Unreadable Button in Open Source Section
 
-The badge currently uses `mt-auto w-fit pt-3` which stretches it vertically with extra top padding, making it look ugly. 
+The GitHub button in the dark Open Source section uses `border-white/20 text-white` which makes it nearly invisible against the dark background, and `hover:bg-white/10` doesn't improve readability on hover.
 
 ## Changes
 
-**File: `src/pages/PortfolioPage.tsx` (line 126)**
+**File: `src/pages/PortfolioPage.tsx` (line ~191)**
 
-Replace the badge line with a cleaner, compact style:
-- Remove `pt-3` (causes vertical stretch)
-- Add `mt-3` instead of `mt-auto` for consistent spacing below text
-- Use a subtle styled badge with primary color accent instead of plain `outline` variant
+Replace the button styling with a solid, high-contrast design:
 
 ```tsx
-<Badge variant="outline" className="mt-3 w-fit border-primary/30 text-primary">
-  <Rocket className="mr-1 h-3 w-3" />Новый
-</Badge>
+<Button variant="outline" className="border-green-400 text-green-400 hover:bg-green-400 hover:text-black">
+  <Github className="mr-2 h-4 w-4" />
+  Открыть на GitHub
+</Button>
 ```
 
-This gives a compact, stylish badge with a purple-tinted border that matches the design system, without stretching or floating to the bottom awkwardly.
+This uses green (matching the "Open Source" badge visible in the screenshot) for both border and text, with a solid green fill on hover — readable in both states against the dark background.
 
