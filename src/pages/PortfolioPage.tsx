@@ -123,7 +123,7 @@ const PortfolioPage = () => {
                       )}
                     </div>
                     <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.desc}</p>
-                    <Badge variant="outline" className="mt-auto w-fit pt-3"><Rocket className="mr-1 h-3 w-3" />Новый</Badge>
+                    <Badge variant="outline" className="mt-3 w-fit border-primary/30 text-primary"><Rocket className="mr-1 h-3 w-3" />Новый</Badge>
                   </CardContent>
                 </Card>
               </a>
