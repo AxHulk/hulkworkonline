@@ -1,4 +1,5 @@
 import { ArrowRight, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { BlogArticle } from "@/data/blogArticles";
 import { categoryLabels } from "@/data/blogArticles";
 
@@ -10,7 +11,8 @@ const FeaturedSection = ({ articles }: { articles: BlogArticle[] }) => {
       <h2 className="mb-8 font-heading text-2xl font-bold text-foreground">Главное</h2>
       <div className="grid gap-6 md:grid-cols-2">
         {articles.slice(0, 2).map((article) => (
-          <div
+          <Link
+            to={`/blog/${article.id}`}
             key={article.id}
             className="group cursor-pointer overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:shadow-lg"
           >
@@ -37,7 +39,7 @@ const FeaturedSection = ({ articles }: { articles: BlogArticle[] }) => {
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

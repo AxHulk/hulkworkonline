@@ -1,4 +1,5 @@
 import { ArrowRight, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { BlogArticle } from "@/data/blogArticles";
 import { categoryLabels } from "@/data/blogArticles";
 
@@ -6,7 +7,8 @@ const ArticleGrid = ({ articles }: { articles: BlogArticle[] }) => (
   <section className="container mx-auto px-4 py-12">
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {articles.map((article) => (
-        <article
+        <Link
+          to={`/blog/${article.id}`}
           key={article.id}
           className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:shadow-lg"
         >
@@ -34,7 +36,7 @@ const ArticleGrid = ({ articles }: { articles: BlogArticle[] }) => (
               </span>
             </div>
           </div>
-        </article>
+        </Link>
       ))}
     </div>
   </section>
