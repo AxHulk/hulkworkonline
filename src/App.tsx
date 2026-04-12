@@ -8,6 +8,7 @@ import WebDevelopment from "./pages/WebDevelopment.tsx";
 import BehavioralFactors from "./pages/BehavioralFactors.tsx";
 import SeoPage from "./pages/SeoPage.tsx";
 import SmmPage from "./pages/SmmPage.tsx";
+import PortfolioPage from "./pages/PortfolioPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
