@@ -13,6 +13,7 @@ import AboutPage from "./pages/AboutPage.tsx";
 import BlogPage from "./pages/BlogPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import BlogArticlePage from "./pages/BlogArticlePage.tsx";
+import ContactsPage from "./pages/ContactsPage.tsx";
 
 const queryClient = new QueryClient();
 
