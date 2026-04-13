@@ -4,7 +4,7 @@ import heroImg from "@/assets/main_hero.png";
 
 const HeroSection = () => (
   <section
-    className="relative min-h-screen overflow-hidden"
+    className="relative overflow-hidden py-16 md:py-24"
     style={{ background: "#FAFAFA" }}
   >
     {/* Hex pattern */}
@@ -16,7 +16,7 @@ const HeroSection = () => (
       }}
     />
 
-    <div className="container relative z-10 flex min-h-screen items-center">
+    <div className="container relative z-10 flex items-center">
       <div className="grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-16">
         {/* Text */}
         <div className="order-2 text-center lg:order-1 lg:text-left">
