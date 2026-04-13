@@ -9,9 +9,9 @@ function Logo3D() {
   const { scene } = useGLTF("/models/logo_3d.glb");
   const ref = useRef<Group>(null);
   useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.y += delta * 0.8;
+    if (ref.current) ref.current.rotation.y += delta * 0.5;
   });
-  return <primitive ref={ref} object={scene} scale={0.35} position={[0, 0, 0]} />;
+  return <primitive ref={ref} object={scene} scale={0.45} position={[0, 0, 0]} />;
 }
 
 const serviceLinks = [
