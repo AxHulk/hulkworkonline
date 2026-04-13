@@ -14,6 +14,7 @@ import BlogPage from "./pages/BlogPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import BlogArticlePage from "./pages/BlogArticlePage.tsx";
 import ContactsPage from "./pages/ContactsPage.tsx";
+import OfferPage from "./pages/OfferPage.tsx";
 
 const queryClient = new QueryClient();
 
