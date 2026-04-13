@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { logConsent } from "@/lib/consent";
 import type { Group } from "three";
 
 function HulkModel() {
@@ -29,14 +31,24 @@ function HulkModel() {
 
 const CTASection = () => {
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consent) {
+      setConsentError(true);
+      toast.error("Необходимо дать согласие на обработку персональных данных");
+      return;
+    }
+    setConsentError(false);
     setLoading(true);
+    logConsent("home_cta");
     setTimeout(() => {
       setLoading(false);
       toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
       (e.target as HTMLFormElement).reset();
+      setConsent(false);
     }, 800);
   };
 
@@ -67,6 +79,7 @@ const CTASection = () => {
                 rows={4}
                 className="resize-none"
               />
+              <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
               <Button
                 type="submit"
                 size="lg"
@@ -80,7 +93,6 @@ const CTASection = () => {
 
           {/* Right — 3D model + Telegram */}
           <div className="flex flex-col items-center gap-8">
-            {/* 3D Model */}
             <div className="h-72 w-full max-w-sm overflow-hidden rounded-2xl bg-background shadow-lg md:h-80">
               <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
                 <ambientLight intensity={0.6} />
@@ -97,7 +109,6 @@ const CTASection = () => {
               </Canvas>
             </div>
 
-            {/* Telegram */}
             <div className="w-full max-w-sm rounded-2xl bg-background p-6 text-center shadow-lg">
               <p className="mb-4 text-sm text-muted-foreground">
                 Или напишите нам напрямую. Мы отвечаем за&nbsp;5&nbsp;минут и
