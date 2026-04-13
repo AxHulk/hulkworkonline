@@ -30,6 +30,7 @@ const Footer = () => (
             <li><Link to="/portfolio" className="hover:text-background">Портфолио</Link></li>
             <li><Link to="/blog" className="hover:text-background">Блог</Link></li>
             <li><Link to="/about" className="hover:text-background">О нас</Link></li>
+            <li><Link to="/offer" className="hover:text-background">Публичная оферта</Link></li>
           </ul>
         </div>
 
