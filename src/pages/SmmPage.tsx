@@ -1,4 +1,6 @@
 import { FormEvent, useState } from "react";
+import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { logConsent } from "@/lib/consent";
 import {
   Paintbrush,
   CalendarRange,
