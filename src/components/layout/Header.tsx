@@ -11,7 +11,7 @@ function Logo3D() {
   useFrame((_, delta) => {
     if (ref.current) ref.current.rotation.y += delta * 0.5;
   });
-  return <primitive ref={ref} object={scene} scale={0.45} position={[0, 0, 0]} />;
+  return <primitive ref={ref} object={scene} scale={0.9} position={[0, 0, 0]} />;
 }
 
 const serviceLinks = [
