@@ -1,4 +1,6 @@
 import { FormEvent, useState } from "react";
+import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { logConsent } from "@/lib/consent";
 import {
   Paintbrush,
   CalendarRange,
@@ -111,14 +113,24 @@ const pricingItems = [
 
 const SmmPage = () => {
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consent) {
+      setConsentError(true);
+      toast.error("Необходимо дать согласие на обработку персональных данных");
+      return;
+    }
+    setConsentError(false);
     setLoading(true);
+    logConsent("smm");
     setTimeout(() => {
       setLoading(false);
       toast.success("Заявка отправлена! Мы свяжемся с вами в течение 24 часов.");
       (e.target as HTMLFormElement).reset();
+      setConsent(false);
     }, 800);
   };
 
@@ -273,6 +285,7 @@ const SmmPage = () => {
             <Input placeholder="Ссылка на проект или аккаунт" name="project" required className="bg-primary-foreground" />
             <Input placeholder="Email или Telegram" name="contact" required className="bg-primary-foreground" />
             <Textarea placeholder="Кратко опишите задачу" name="description" required className="min-h-[110px] bg-primary-foreground" />
+            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
             <Button type="submit" size="lg" variant="secondary" className="w-full font-heading font-semibold" disabled={loading}>
               {loading ? "Отправка..." : "Получить SMM-стратегию"}
             </Button>

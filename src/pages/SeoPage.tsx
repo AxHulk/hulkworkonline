@@ -1,4 +1,6 @@
 import { useState, FormEvent } from "react";
+import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { logConsent } from "@/lib/consent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -58,14 +60,24 @@ const pricingItems = [
 
 const SeoPage = () => {
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consent) {
+      setConsentError(true);
+      toast.error("Необходимо дать согласие на обработку персональных данных");
+      return;
+    }
+    setConsentError(false);
     setLoading(true);
+    logConsent("seo");
     setTimeout(() => {
       setLoading(false);
       toast.success("Заявка отправлена! Мы свяжемся с вами в течение 24 часов.");
       (e.target as HTMLFormElement).reset();
+      setConsent(false);
     }, 800);
   };
 
@@ -278,6 +290,7 @@ const SeoPage = () => {
               required
               className="flex min-h-[100px] w-full rounded-md border border-input bg-primary-foreground px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
+            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
             <Button
               type="submit"
               size="lg"

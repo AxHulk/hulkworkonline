@@ -1,4 +1,6 @@
 import { FormEvent, useState } from "react";
+import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { logConsent } from "@/lib/consent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -59,6 +61,8 @@ const PortfolioPage = () => {
   const [contact, setContact] = useState("");
   const [site, setSite] = useState("");
   const [service, setService] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -66,8 +70,15 @@ const PortfolioPage = () => {
       toast.error("Пожалуйста, заполните имя и контакт для связи");
       return;
     }
+    if (!consent) {
+      setConsentError(true);
+      toast.error("Необходимо дать согласие на обработку персональных данных");
+      return;
+    }
+    setConsentError(false);
+    logConsent("portfolio");
     toast.success("Спасибо! Мы свяжемся с вами в ближайшее время.");
-    setName(""); setContact(""); setSite(""); setService("");
+    setName(""); setContact(""); setSite(""); setService(""); setConsent(false);
   };
 
   return (
@@ -258,6 +269,7 @@ const PortfolioPage = () => {
                 <option key={s} value={s}>{s}</option>
               ))}
             </select>
+            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
             <Button type="submit" size="lg" className="w-full">
               <Shield className="mr-2 h-4 w-4" />
               Стать успешным кейсом

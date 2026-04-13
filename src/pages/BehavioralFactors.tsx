@@ -1,4 +1,6 @@
 import { useState, FormEvent } from "react";
+import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { logConsent } from "@/lib/consent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -66,14 +68,24 @@ const pricingRows = [
 
 const BehavioralFactors = () => {
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consent) {
+      setConsentError(true);
+      toast.error("Необходимо дать согласие на обработку персональных данных");
+      return;
+    }
+    setConsentError(false);
     setLoading(true);
+    logConsent("behavioral_factors");
     setTimeout(() => {
       setLoading(false);
       toast.success("Заявка отправлена! Мы свяжемся с вами в течение 24 часов.");
       (e.target as HTMLFormElement).reset();
+      setConsent(false);
     }, 800);
   };
 
@@ -305,6 +317,7 @@ const BehavioralFactors = () => {
             <Input placeholder="Ваше имя" name="name" required className="bg-primary-foreground" />
             <Input placeholder="Ссылка на сайт" name="website" type="url" required className="bg-primary-foreground" />
             <Input placeholder="Email или Telegram" name="contact" required className="bg-primary-foreground" />
+            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
             <Button
               type="submit"
               size="lg"

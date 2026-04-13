@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Copy, Check, Send, MessageCircle } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 import contactsHero from "@/assets/contacts_hero.png";
 import contactsMessengers from "@/assets/contacts_messengers.png";
 import contactsLegal from "@/assets/contacts_legal.png";
+import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { logConsent } from "@/lib/consent";
+import { toast } from "sonner";
 
 /* ───── Hero ───── */
 const HeroSection = () => (
@@ -65,11 +67,7 @@ const MessengersSection = () => (
           <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
             Быстрее всего мы отвечаем именно здесь. Обсуждение проектов, быстрые вопросы, старт работы — всё начинается с одного сообщения.
           </p>
-          <a
-            href="https://t.me/MalHulk"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://t.me/MalHulk" target="_blank" rel="noopener noreferrer">
             <Button className="w-full">Написать в Telegram</Button>
           </a>
         </div>
@@ -94,11 +92,7 @@ const MessengersSection = () => (
           <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
             Официальное сообщество студии. Здесь публикуются кейсы, новости и обновления. Свяжитесь с нами через личные сообщения.
           </p>
-          <a
-            href="https://vk.ru/visfursa"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://vk.ru/visfursa" target="_blank" rel="noopener noreferrer">
             <Button variant="outline" className="w-full">Написать ВКонтакте</Button>
           </a>
         </div>
@@ -111,13 +105,23 @@ const MessengersSection = () => (
 const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consent) {
+      setConsentError(true);
+      toast.error("Необходимо дать согласие на обработку персональных данных");
+      return;
+    }
+    setConsentError(false);
     setLoading(true);
+    logConsent("contacts_form");
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
+      setConsent(false);
       setTimeout(() => setSubmitted(false), 4000);
     }, 800);
   };
@@ -150,6 +154,7 @@ const ContactForm = () => {
             placeholder="Что будем создавать? Расскажите о проекте..."
             className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary resize-none"
           />
+          <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
           <Button type="submit" className="w-full" size="lg" disabled={loading || submitted}>
             {submitted ? (
               <span className="flex items-center gap-2">
