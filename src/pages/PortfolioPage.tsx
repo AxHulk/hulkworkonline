@@ -269,6 +269,7 @@ const PortfolioPage = () => {
                 <option key={s} value={s}>{s}</option>
               ))}
             </select>
+            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
             <Button type="submit" size="lg" className="w-full">
               <Shield className="mr-2 h-4 w-4" />
               Стать успешным кейсом

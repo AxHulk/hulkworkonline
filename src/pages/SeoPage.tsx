@@ -290,6 +290,7 @@ const SeoPage = () => {
               required
               className="flex min-h-[100px] w-full rounded-md border border-input bg-primary-foreground px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
+            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
             <Button
               type="submit"
               size="lg"

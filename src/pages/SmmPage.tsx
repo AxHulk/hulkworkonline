@@ -285,6 +285,7 @@ const SmmPage = () => {
             <Input placeholder="Ссылка на проект или аккаунт" name="project" required className="bg-primary-foreground" />
             <Input placeholder="Email или Telegram" name="contact" required className="bg-primary-foreground" />
             <Textarea placeholder="Кратко опишите задачу" name="description" required className="min-h-[110px] bg-primary-foreground" />
+            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
             <Button type="submit" size="lg" variant="secondary" className="w-full font-heading font-semibold" disabled={loading}>
               {loading ? "Отправка..." : "Получить SMM-стратегию"}
             </Button>

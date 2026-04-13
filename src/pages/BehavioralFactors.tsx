@@ -317,6 +317,7 @@ const BehavioralFactors = () => {
             <Input placeholder="Ваше имя" name="name" required className="bg-primary-foreground" />
             <Input placeholder="Ссылка на сайт" name="website" type="url" required className="bg-primary-foreground" />
             <Input placeholder="Email или Telegram" name="contact" required className="bg-primary-foreground" />
+            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
             <Button
               type="submit"
               size="lg"
