@@ -68,14 +68,24 @@ const pricingRows = [
 
 const BehavioralFactors = () => {
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consent) {
+      setConsentError(true);
+      toast.error("Необходимо дать согласие на обработку персональных данных");
+      return;
+    }
+    setConsentError(false);
     setLoading(true);
+    logConsent("behavioral_factors");
     setTimeout(() => {
       setLoading(false);
       toast.success("Заявка отправлена! Мы свяжемся с вами в течение 24 часов.");
       (e.target as HTMLFormElement).reset();
+      setConsent(false);
     }, 800);
   };
 
