@@ -46,9 +46,6 @@ const Header = () => {
               </Canvas>
             </Suspense>
           </div>
-          <span className="hidden font-heading text-lg font-bold text-foreground sm:inline-block">
-            HulkWork Studio
-          </span>
         </Link>
 
         {/* Desktop nav */}
