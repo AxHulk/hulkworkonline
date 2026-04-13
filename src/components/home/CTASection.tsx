@@ -21,8 +21,8 @@ function HulkModel() {
     <primitive
       ref={ref}
       object={scene}
-      scale={1.8}
-      position={[0, -1.2, 0]}
+      scale={1.2}
+      position={[0, -0.5, 0]}
     />
   );
 }
