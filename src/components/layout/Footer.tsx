@@ -32,6 +32,7 @@ const Footer = () => (
             <li><Link to="/about" className="hover:text-background">О нас</Link></li>
             <li><Link to="/offer" className="hover:text-background">Публичная оферта</Link></li>
             <li><Link to="/terms" className="hover:text-background">Условия услуг</Link></li>
+            <li><Link to="/privacy" className="hover:text-background">Конфиденциальность</Link></li>
           </ul>
         </div>
 
