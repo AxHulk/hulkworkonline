@@ -1,7 +1,18 @@
-import { useState } from "react";
+import { useState, Suspense, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
+import type { Group } from "three";
+
+function Logo3D() {
+  const { scene } = useGLTF("/models/logo_3d.glb");
+  const ref = useRef<Group>(null);
+  useFrame((_, delta) => {
+    if (ref.current) ref.current.rotation.y += delta * 0.8;
+  });
+  return <primitive ref={ref} object={scene} scale={0.35} position={[0, 0, 0]} />;
+}
 
 const serviceLinks = [
   { label: "Создание сайтов", href: "/services/web-development" },
@@ -26,7 +37,15 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="HulkWork Studio" className="h-9 w-auto" />
+          <div className="h-10 w-10 overflow-hidden rounded">
+            <Suspense fallback={<img src="/logo.png" alt="HulkWork Studio" className="h-10 w-auto" />}>
+              <Canvas camera={{ position: [0, 0, 3], fov: 40 }} style={{ width: 40, height: 40 }}>
+                <ambientLight intensity={0.7} />
+                <directionalLight position={[3, 3, 3]} intensity={1} />
+                <Logo3D />
+              </Canvas>
+            </Suspense>
+          </div>
           <span className="hidden font-heading text-lg font-bold text-foreground sm:inline-block">
             HulkWork Studio
           </span>
@@ -34,7 +53,6 @@ const Header = () => {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-6 md:flex">
-          {/* Services dropdown */}
           <div
             className="relative"
             onMouseEnter={() => setServicesOpen(true)}
@@ -71,7 +89,6 @@ const Header = () => {
               {link.label}
             </Link>
           ))}
-          <Button size="sm">Войти</Button>
         </nav>
 
         {/* Mobile toggle */}
@@ -88,7 +105,6 @@ const Header = () => {
       {mobileOpen && (
         <div className="border-t bg-background md:hidden">
           <nav className="container flex flex-col gap-1 py-4">
-            {/* Mobile services accordion */}
             <button
               className="flex items-center justify-between rounded-md px-1 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
               onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
@@ -121,7 +137,6 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
-            <Button size="sm" className="mt-2 w-fit">Войти</Button>
           </nav>
         </div>
       )}
