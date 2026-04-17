@@ -31,11 +31,11 @@ import {
 import SEO from "@/components/SEO";
 import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
-import bfHero from "@/assets/bf_hero.webp";
-import bfTechnology from "@/assets/bf_technology.webp";
-import bfSafety from "@/assets/bf_safety.webp";
-import bfActions from "@/assets/bf_actions.webp";
-import bfResults from "@/assets/bf_results.webp";
+import bfHero from "@/assets/bf_hero.png";
+import bfTechnology from "@/assets/bf_technology.png";
+import bfSafety from "@/assets/bf_safety.png";
+import bfActions from "@/assets/bf_actions.png";
+import bfResults from "@/assets/bf_results.png";
 
 const techFeatures = [
   { icon: Code, label: "Тип разработки", value: "Собственный код, не публичные инструменты" },

@@ -28,11 +28,11 @@ import {
   ListChecks,
 } from "lucide-react";
 
-import seoHero from "@/assets/seo_hero.webp";
-import seoAudit from "@/assets/seo_audit.webp";
-import seoContent from "@/assets/seo_content.webp";
-import seoYandex from "@/assets/seo_yandex.webp";
-import seoProcess from "@/assets/seo_process.webp";
+import seoHero from "@/assets/seo_hero.png";
+import seoAudit from "@/assets/seo_audit.png";
+import seoContent from "@/assets/seo_content.png";
+import seoYandex from "@/assets/seo_yandex.png";
+import seoProcess from "@/assets/seo_process.png";
 
 const auditItems = [
   { check: "Технические ошибки (404, редиректы)", fix: "Устранение битых ссылок и цепочек редиректов", icon: Link2Off },

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import approachImg from "@/assets/main_approach.webp";
+import approachImg from "@/assets/main_approach.png";
 
 const ApproachSection = () => (
   <section className="relative overflow-hidden py-20 md:py-28" style={{ background: "#1A0A2E" }}>

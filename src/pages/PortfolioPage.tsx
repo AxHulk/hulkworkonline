@@ -18,11 +18,11 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-import portfolioHero from "@/assets/portfolio_hero.webp";
-import portfolioNew from "@/assets/portfolio_new.webp";
-import portfolioClassic from "@/assets/portfolio_classic.webp";
-import portfolioBot from "@/assets/portfolio_bot.webp";
-import portfolioSmm from "@/assets/portfolio_smm.webp";
+import portfolioHero from "@/assets/portfolio_hero.png";
+import portfolioNew from "@/assets/portfolio_new.png";
+import portfolioClassic from "@/assets/portfolio_classic.png";
+import portfolioBot from "@/assets/portfolio_bot.png";
+import portfolioSmm from "@/assets/portfolio_smm.png";
 
 /* ---------- data ---------- */
 

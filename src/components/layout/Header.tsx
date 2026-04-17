@@ -1,6 +1,18 @@
-import { useState } from "react";
+import { useState, Suspense, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
+import type { Group } from "three";
+
+function Logo3D() {
+  const { scene } = useGLTF("/models/logo_3d.glb");
+  const ref = useRef<Group>(null);
+  useFrame((_, delta) => {
+    if (ref.current) ref.current.rotation.y += delta * 0.5;
+  });
+  return <primitive ref={ref} object={scene} scale={0.9} position={[0, 0, 0]} />;
+}
 
 const serviceLinks = [
   { label: "Создание сайтов", href: "/services/web-development" },
@@ -24,16 +36,16 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2" aria-label="HulkWork Studio — на главную">
-          <img
-            src="/logo.png"
-            alt="HulkWork Studio"
-            width={40}
-            height={40}
-            className="h-10 w-10 object-contain"
-            loading="eager"
-            decoding="async"
-          />
+        <Link to="/" className="flex items-center gap-2">
+          <div className="h-10 w-10 overflow-hidden rounded">
+            <Suspense fallback={<img src="/logo.png" alt="HulkWork Studio" className="h-10 w-auto" />}>
+              <Canvas camera={{ position: [0, 0, 3], fov: 40 }} style={{ width: 40, height: 40 }}>
+                <ambientLight intensity={0.7} />
+                <directionalLight position={[3, 3, 3]} intensity={1} />
+                <Logo3D />
+              </Canvas>
+            </Suspense>
+          </div>
         </Link>
 
         {/* Desktop nav */}

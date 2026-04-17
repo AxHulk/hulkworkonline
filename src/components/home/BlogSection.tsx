@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { blogArticles, categoryLabels } from "@/data/blogArticles";
-import blogImg from "@/assets/main_blog.webp";
+import blogImg from "@/assets/main_blog.png";
 
 // Pick one from each of 3 different categories
 const getLatestArticles = () => {

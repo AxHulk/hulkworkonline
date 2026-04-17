@@ -1,5 +1,5 @@
 import { Palette, Settings, ShoppingCart, FileText, Clock } from "lucide-react";
-import aboutChallenge from "@/assets/about_challenge.webp";
+import aboutChallenge from "@/assets/about_challenge.png";
 
 const features = [
   { icon: Palette, text: "Уникальный логотип и базовый брендбук" },
