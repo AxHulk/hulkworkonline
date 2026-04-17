@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd } from "@/lib/seo";
 import { toast } from "sonner";
 import {
   ExternalLink,
@@ -83,6 +85,11 @@ const PortfolioPage = () => {
 
   return (
     <Layout>
+      <SEO
+        title="Портфолио HulkWork Studio — наши работы"
+        description="Кейсы и реализованные проекты HulkWork Studio: сайты, интернет-магазины, лендинги, SMM-проекты и платёжные системы. Ссылки на работающие домены."
+        jsonLd={buildBreadcrumbJsonLd([{ name: "Портфолио", url: "/portfolio" }])}
+      />
       {/* ===== Hero ===== */}
       <section className="relative overflow-hidden bg-[#1A0A2E] py-20 md:py-28">
         <div className="container relative z-10 grid items-center gap-10 md:grid-cols-2">

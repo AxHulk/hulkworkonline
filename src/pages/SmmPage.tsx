@@ -18,6 +18,8 @@ import {
   Clock3,
 } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -111,6 +113,17 @@ const pricingItems = [
   },
 ];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "SMM продвижение в социальных сетях",
+  provider: { "@type": "Organization", name: "HulkWork Studio", url: SITE_URL },
+  areaServed: "RU",
+  url: `${SITE_URL}/services/smm`,
+  description:
+    "SMM-продвижение в VK, Telegram, Дзен: контент-стратегия, дизайн, ведение, таргетированная реклама.",
+};
+
 const SmmPage = () => {
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);
@@ -136,6 +149,18 @@ const SmmPage = () => {
 
   return (
     <Layout>
+      <SEO
+        title="SMM-продвижение в соцсетях — HulkWork Studio"
+        description="SMM-продвижение в VK, Telegram, Дзен: контент-стратегия, дизайн, ведение, таргетированная реклама. Рост вовлечённости и продаж через социальные сети."
+        keywords="SMM, продвижение в соцсетях, ВКонтакте, Telegram, контент-маркетинг"
+        jsonLd={[
+          serviceJsonLd,
+          buildBreadcrumbJsonLd([
+            { name: "Услуги", url: "/" },
+            { name: "SMM продвижение", url: "/services/smm" },
+          ]),
+        ]}
+      />
       <section className="relative overflow-hidden bg-[hsl(272,45%,12%)] py-20 md:py-28">
         <div className="container grid items-center gap-10 md:grid-cols-2">
           <div className="text-center md:text-left">

@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { toast } from "sonner";
 import {
   Lightbulb,
@@ -54,6 +56,17 @@ const pricingRows = [
   { icon: Plus, label: "Дополнительно", value: "Магазин, Telegram-бот, личные кабинеты, CMS, ИИ-функции" },
 ];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Создание сайтов под ключ",
+  provider: { "@type": "Organization", name: "HulkWork Studio", url: SITE_URL },
+  areaServed: "RU",
+  url: `${SITE_URL}/services/web-development`,
+  description:
+    "Разработка сайтов любой сложности: лендинги, корпоративные сайты, интернет-магазины, SaaS-платформы.",
+};
+
 const WebDevelopment = () => {
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);
@@ -79,6 +92,18 @@ const WebDevelopment = () => {
 
   return (
     <Layout>
+      <SEO
+        title="Создание сайтов под ключ — HulkWork Studio"
+        description="Разработка сайтов любой сложности: лендинги, корпоративные сайты, интернет-магазины, SaaS-платформы. Современный стек, скорость, конверсия и SEO с первого дня."
+        keywords="создание сайтов, разработка сайтов, лендинг, интернет-магазин, веб-разработка"
+        jsonLd={[
+          serviceJsonLd,
+          buildBreadcrumbJsonLd([
+            { name: "Услуги", url: "/" },
+            { name: "Создание сайтов", url: "/services/web-development" },
+          ]),
+        ]}
+      />
       {/* Block 1: Hero */}
       <section className="relative overflow-hidden bg-[hsl(272,45%,12%)] py-20 md:py-28">
         <div className="container grid items-center gap-10 md:grid-cols-2">

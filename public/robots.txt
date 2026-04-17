@@ -10,5 +10,14 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: Yandex
+Allow: /
+
 User-agent: *
 Allow: /
+Disallow: /offer
+Disallow: /terms
+Disallow: /privacy
+
+Host: hulkwork.online
+Sitemap: https://hulkwork.online/sitemap.xml

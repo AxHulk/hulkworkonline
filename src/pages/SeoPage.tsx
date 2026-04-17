@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { toast } from "sonner";
 import {
   Link2Off,
@@ -58,6 +60,17 @@ const pricingItems = [
   { icon: ListChecks, label: "Рекомендации по улучшению", value: "Подробный план дальнейшего развития" },
 ];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "SEO-продвижение сайтов",
+  provider: { "@type": "Organization", name: "HulkWork Studio", url: SITE_URL },
+  areaServed: "RU",
+  url: `${SITE_URL}/services/seo`,
+  description:
+    "Комплексное SEO-продвижение в Яндекс и Google: технический аудит, семантика, on-page оптимизация, ссылочное.",
+};
+
 const SeoPage = () => {
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);
@@ -83,6 +96,18 @@ const SeoPage = () => {
 
   return (
     <Layout>
+      <SEO
+        title="SEO-продвижение сайтов в Яндекс и Google — HulkWork"
+        description="Комплексное SEO: технический аудит, семантика, on-page оптимизация, ссылочное и контент. Прозрачные отчёты, рост трафика и позиций в Яндексе и Google."
+        keywords="SEO, продвижение сайта, оптимизация, Яндекс, Google, поисковое продвижение"
+        jsonLd={[
+          serviceJsonLd,
+          buildBreadcrumbJsonLd([
+            { name: "Услуги", url: "/" },
+            { name: "SEO аналитика", url: "/services/seo" },
+          ]),
+        ]}
+      />
       {/* Block 1: Hero */}
       <section className="relative overflow-hidden bg-[hsl(272,45%,12%)] py-20 md:py-28">
         <div className="container grid items-center gap-10 md:grid-cols-2">
