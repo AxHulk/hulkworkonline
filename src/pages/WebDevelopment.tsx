@@ -79,6 +79,18 @@ const WebDevelopment = () => {
 
   return (
     <Layout>
+      <SEO
+        title="Создание сайтов под ключ — HulkWork Studio"
+        description="Разработка сайтов любой сложности: лендинги, корпоративные сайты, интернет-магазины, SaaS-платформы. Современный стек, скорость, конверсия и SEO с первого дня."
+        keywords="создание сайтов, разработка сайтов, лендинг, интернет-магазин, веб-разработка"
+        jsonLd={[
+          serviceJsonLd,
+          buildBreadcrumbJsonLd([
+            { name: "Услуги", url: "/" },
+            { name: "Создание сайтов", url: "/services/web-development" },
+          ]),
+        ]}
+      />
       {/* Block 1: Hero */}
       <section className="relative overflow-hidden bg-[hsl(272,45%,12%)] py-20 md:py-28">
         <div className="container grid items-center gap-10 md:grid-cols-2">

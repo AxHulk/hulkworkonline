@@ -240,6 +240,11 @@ const LegalSection = () => {
 /* ───── Page ───── */
 const ContactsPage = () => (
   <Layout>
+    <SEO
+      title="Контакты HulkWork Studio — связаться с нами"
+      description="Свяжитесь с HulkWork Studio: телефон, email, мессенджеры, форма обратной связи. Адрес: г. Симферополь, ул. Кечкеметская, 94-А. Отвечаем в течение часа."
+      jsonLd={buildBreadcrumbJsonLd([{ name: "Контакты", url: "/contacts" }])}
+    />
     <HeroSection />
     <MessengersSection />
     <ContactForm />

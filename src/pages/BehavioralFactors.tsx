@@ -91,6 +91,18 @@ const BehavioralFactors = () => {
 
   return (
     <Layout>
+      <SEO
+        title="Поведенческие факторы — накрутка ПФ для Яндекса"
+        description="Безопасная работа с поведенческими факторами в Яндексе: эмуляция реальных пользователей, рост позиций, контроль метрик. Прозрачные отчёты в Яндекс.Метрике."
+        keywords="поведенческие факторы, накрутка ПФ, продвижение в Яндексе"
+        jsonLd={[
+          serviceJsonLd,
+          buildBreadcrumbJsonLd([
+            { name: "Услуги", url: "/" },
+            { name: "Поведенческие факторы", url: "/services/behavioral-factors" },
+          ]),
+        ]}
+      />
       {/* Block 1: Hero */}
       <section className="relative overflow-hidden bg-[hsl(272,45%,12%)] py-20 md:py-28">
         <div className="container grid items-center gap-10 md:grid-cols-2">

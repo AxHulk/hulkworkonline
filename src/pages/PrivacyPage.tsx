@@ -1,7 +1,13 @@
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 
 const PrivacyPage = () => (
   <Layout>
+    <SEO
+      title="Политика конфиденциальности — HulkWork Studio"
+      description="Политика обработки и защиты персональных данных пользователей сайта HulkWork Studio (ИП Фурса Н. Н.)."
+      noindex
+    />
     {/* Hero */}
     <section className="relative overflow-hidden bg-[#1A0A2E] py-16 md:py-24">
       <div className="container relative z-10 text-center">

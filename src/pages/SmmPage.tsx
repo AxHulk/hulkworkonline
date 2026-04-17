@@ -136,6 +136,18 @@ const SmmPage = () => {
 
   return (
     <Layout>
+      <SEO
+        title="SMM-продвижение в соцсетях — HulkWork Studio"
+        description="SMM-продвижение в VK, Telegram, Дзен: контент-стратегия, дизайн, ведение, таргетированная реклама. Рост вовлечённости и продаж через социальные сети."
+        keywords="SMM, продвижение в соцсетях, ВКонтакте, Telegram, контент-маркетинг"
+        jsonLd={[
+          serviceJsonLd,
+          buildBreadcrumbJsonLd([
+            { name: "Услуги", url: "/" },
+            { name: "SMM продвижение", url: "/services/smm" },
+          ]),
+        ]}
+      />
       <section className="relative overflow-hidden bg-[hsl(272,45%,12%)] py-20 md:py-28">
         <div className="container grid items-center gap-10 md:grid-cols-2">
           <div className="text-center md:text-left">
