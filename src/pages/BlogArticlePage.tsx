@@ -1,8 +1,10 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Clock } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import { blogArticles, categoryLabels } from "@/data/blogArticles";
 import { articleContents } from "@/data/articleContents";
+import { buildBreadcrumbJsonLd, buildCanonical, DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo";
 import NotFound from "./NotFound";
 
 const BlogArticlePage = () => {
@@ -12,9 +14,39 @@ const BlogArticlePage = () => {
   if (!article) return <NotFound />;
 
   const content = articleContents[article.id] ?? [];
+  const url = buildCanonical(`/blog/${article.id}`);
+
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt,
+    image: DEFAULT_OG_IMAGE,
+    datePublished: article.date,
+    dateModified: article.date,
+    author: { "@type": "Organization", name: "HulkWork Studio", url: SITE_URL },
+    publisher: {
+      "@type": "Organization",
+      name: "HulkWork Studio",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    articleSection: categoryLabels[article.category],
+  };
+
+  const breadcrumbs = buildBreadcrumbJsonLd([
+    { name: "Блог", url: "/blog" },
+    { name: article.title, url: `/blog/${article.id}` },
+  ]);
 
   return (
     <Layout>
+      <SEO
+        title={`${article.title} — HulkWork Blog`}
+        description={article.excerpt}
+        ogType="article"
+        jsonLd={[articleJsonLd, breadcrumbs]}
+      />
       <article className="bg-[#1A0A2E] py-16 md:py-24">
         <div className="container mx-auto px-4">
           <Link
