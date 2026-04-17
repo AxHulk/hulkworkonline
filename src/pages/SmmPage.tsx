@@ -18,6 +18,8 @@ import {
   Clock3,
 } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";

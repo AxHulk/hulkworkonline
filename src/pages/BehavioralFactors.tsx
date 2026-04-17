@@ -28,6 +28,8 @@ import {
   ClipboardCheck,
   Lock,
 } from "lucide-react";
+import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
 import bfHero from "@/assets/bf_hero.png";
 import bfTechnology from "@/assets/bf_technology.png";

@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd } from "@/lib/seo";
 import { toast } from "sonner";
 import {
   ExternalLink,

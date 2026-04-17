@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Copy, Check, Send, MessageCircle } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import contactsHero from "@/assets/contacts_hero.png";
 import contactsMessengers from "@/assets/contacts_messengers.png";
