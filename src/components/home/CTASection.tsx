@@ -1,33 +1,13 @@
-import { useState, FormEvent, Suspense, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { useState, FormEvent, Suspense, lazy } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import ConsentCheckbox from "@/components/ConsentCheckbox";
 import { logConsent } from "@/lib/consent";
-import type { Group } from "three";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
-function HulkModel() {
-  const { scene } = useGLTF("/models/hulk_bust.glb");
-  const ref = useRef<Group>(null);
-
-  useFrame((_, delta) => {
-    if (ref.current) {
-      ref.current.rotation.y += delta * 0.4;
-    }
-  });
-
-  return (
-    <primitive
-      ref={ref}
-      object={scene}
-      scale={1.1}
-      position={[0, -0.2, 0]}
-    />
-  );
-}
+const Hulk3DScene = lazy(() => import("./Hulk3DScene"));
 
 const CTASection = () => {
   const [loading, setLoading] = useState(false);
@@ -94,19 +74,26 @@ const CTASection = () => {
           {/* Right — 3D model + Telegram */}
           <div className="flex flex-col items-center gap-8">
             <div className="h-72 w-full max-w-sm overflow-hidden rounded-2xl bg-background shadow-lg md:h-80">
-              <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
-                <ambientLight intensity={0.6} />
-                <directionalLight position={[5, 5, 5]} intensity={1} />
-                <pointLight position={[-3, 3, 2]} intensity={0.5} color="#6B2FA0" />
-                <Suspense fallback={null}>
-                  <HulkModel />
+              <ErrorBoundary
+                silent
+                fallback={
+                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-accent/20 p-6 text-center">
+                    <p className="font-heading text-lg font-semibold text-primary">
+                      HulkWork Studio
+                    </p>
+                  </div>
+                }
+              >
+                <Suspense
+                  fallback={
+                    <div className="flex h-full w-full items-center justify-center bg-muted/30">
+                      <div className="h-8 w-8 animate-pulse rounded-full bg-primary/30" />
+                    </div>
+                  }
+                >
+                  <Hulk3DScene />
                 </Suspense>
-                <OrbitControls
-                  enableZoom={false}
-                  enablePan={false}
-                  autoRotate={false}
-                />
-              </Canvas>
+              </ErrorBoundary>
             </div>
 
             <div className="w-full max-w-sm rounded-2xl bg-background p-6 text-center shadow-lg">
