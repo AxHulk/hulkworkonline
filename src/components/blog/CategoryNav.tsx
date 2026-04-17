@@ -1,10 +1,10 @@
 import { Monitor, Search, Megaphone, MousePointerClick, Target } from "lucide-react";
 import type { BlogCategory } from "@/data/blogArticles";
-import blogCatWeb from "@/assets/blog_cat_web.png";
-import blogCatSeo from "@/assets/blog_cat_seo.png";
-import blogCatSmm from "@/assets/blog_cat_smm.png";
-import blogCatPf from "@/assets/blog_cat_pf.png";
-import blogCatAds from "@/assets/blog_cat_ads.png";
+import blogCatWeb from "@/assets/blog_cat_web.webp";
+import blogCatSeo from "@/assets/blog_cat_seo.webp";
+import blogCatSmm from "@/assets/blog_cat_smm.webp";
+import blogCatPf from "@/assets/blog_cat_pf.webp";
+import blogCatAds from "@/assets/blog_cat_ads.webp";
 
 interface Props {
   active: BlogCategory | "all";

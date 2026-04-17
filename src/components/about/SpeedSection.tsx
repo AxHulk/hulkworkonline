@@ -1,5 +1,5 @@
 import { Zap } from "lucide-react";
-import aboutSpeed from "@/assets/about_speed.png";
+import aboutSpeed from "@/assets/about_speed.webp";
 
 const SpeedSection = () => (
   <section className="bg-secondary/30 py-16 md:py-24">

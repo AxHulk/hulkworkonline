@@ -1,5 +1,5 @@
 import { Check, X } from "lucide-react";
-import aboutBusinessModel from "@/assets/about_business_model.png";
+import aboutBusinessModel from "@/assets/about_business_model.webp";
 
 const comparisons = [
   { traditional: "Вы оплачиваете аренду офиса", hulkwork: "Только время специалиста" },

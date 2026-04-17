@@ -25,11 +25,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import smmHero from "@/assets/smm_hero.png";
-import smmDesign from "@/assets/smm_design.png";
-import smmContentPlan from "@/assets/smm_content_plan.png";
-import smmManagement from "@/assets/smm_management.png";
-import smmLaunch from "@/assets/smm_launch.png";
+import smmHero from "@/assets/smm_hero.webp";
+import smmDesign from "@/assets/smm_design.webp";
+import smmContentPlan from "@/assets/smm_content_plan.webp";
+import smmManagement from "@/assets/smm_management.webp";
+import smmLaunch from "@/assets/smm_launch.webp";
 
 const packagingItems = [
   {
