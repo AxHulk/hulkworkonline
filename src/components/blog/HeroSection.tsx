@@ -1,4 +1,4 @@
-import blogHero from "@/assets/blog_hero.png";
+import blogHero from "@/assets/blog_hero.webp";
 
 const BlogHeroSection = () => (
   <section className="relative overflow-hidden bg-[#1A0A2E] py-20 md:py-28">

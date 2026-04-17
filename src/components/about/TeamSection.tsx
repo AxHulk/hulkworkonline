@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import aboutTeamAvatars from "@/assets/about_team_avatars.png";
+import aboutTeamAvatars from "@/assets/about_team_avatars.webp";
 
 const team = [
   {

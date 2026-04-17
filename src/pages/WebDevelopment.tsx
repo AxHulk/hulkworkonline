@@ -29,11 +29,11 @@ import {
   Plus,
 } from "lucide-react";
 
-import heroWebdev from "@/assets/hero_webdev.png";
-import techStackIcons from "@/assets/tech_stack_icons.png";
-import aiToolsIcons from "@/assets/ai_tools_icons.png";
-import serviceFeatureIcons from "@/assets/service_feature_icons.png";
-import infrastructureIllustration from "@/assets/infrastructure_illustration.png";
+import heroWebdev from "@/assets/hero_webdev.webp";
+import techStackIcons from "@/assets/tech_stack_icons.webp";
+import aiToolsIcons from "@/assets/ai_tools_icons.webp";
+import serviceFeatureIcons from "@/assets/service_feature_icons.webp";
+import infrastructureIllustration from "@/assets/infrastructure_illustration.webp";
 
 const features = [
   { icon: Lightbulb, title: "Концепция и логотип", desc: "Разработка фирменного стиля с нуля — по необходимости, в рамках единого проекта" },
