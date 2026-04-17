@@ -113,6 +113,17 @@ const pricingItems = [
   },
 ];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "SMM продвижение в социальных сетях",
+  provider: { "@type": "Organization", name: "HulkWork Studio", url: SITE_URL },
+  areaServed: "RU",
+  url: `${SITE_URL}/services/smm`,
+  description:
+    "SMM-продвижение в VK, Telegram, Дзен: контент-стратегия, дизайн, ведение, таргетированная реклама.",
+};
+
 const SmmPage = () => {
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);

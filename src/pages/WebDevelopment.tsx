@@ -56,6 +56,17 @@ const pricingRows = [
   { icon: Plus, label: "Дополнительно", value: "Магазин, Telegram-бот, личные кабинеты, CMS, ИИ-функции" },
 ];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Создание сайтов под ключ",
+  provider: { "@type": "Organization", name: "HulkWork Studio", url: SITE_URL },
+  areaServed: "RU",
+  url: `${SITE_URL}/services/web-development`,
+  description:
+    "Разработка сайтов любой сложности: лендинги, корпоративные сайты, интернет-магазины, SaaS-платформы.",
+};
+
 const WebDevelopment = () => {
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);

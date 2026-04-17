@@ -60,6 +60,17 @@ const pricingItems = [
   { icon: ListChecks, label: "Рекомендации по улучшению", value: "Подробный план дальнейшего развития" },
 ];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "SEO-продвижение сайтов",
+  provider: { "@type": "Organization", name: "HulkWork Studio", url: SITE_URL },
+  areaServed: "RU",
+  url: `${SITE_URL}/services/seo`,
+  description:
+    "Комплексное SEO-продвижение в Яндекс и Google: технический аудит, семантика, on-page оптимизация, ссылочное.",
+};
+
 const SeoPage = () => {
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);

@@ -68,6 +68,17 @@ const pricingRows = [
   { icon: Lock, label: "Безопасность", value: "Проходит все проверки вебмастера, GA, Яндекс Метрики" },
 ];
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Работа с поведенческими факторами",
+  provider: { "@type": "Organization", name: "HulkWork Studio", url: SITE_URL },
+  areaServed: "RU",
+  url: `${SITE_URL}/services/behavioral-factors`,
+  description:
+    "Безопасная работа с поведенческими факторами в Яндексе: эмуляция реальных пользователей, рост позиций.",
+};
+
 const BehavioralFactors = () => {
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);
