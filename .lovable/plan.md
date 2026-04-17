@@ -1,49 +1,110 @@
 
 
-## Plan: Blog Hero Restyle + Full Article Pages
+## Анализ текущего SEO
 
-### Task 1 — Blog Hero Section Restyle
+**Что уже есть:**
+- Yandex.Metrika (108573099) с webvisor, clickmap
+- Yandex.Webmaster верификация
+- robots.txt (открыт для всех)
+- Базовые meta: title, description, og:title, og:description, og:image, twitter cards
+- HTML lang="ru"
+- ScrollToTop, чистые URL через React Router
 
-Current blog hero uses a full-bleed background image with overlay. The "About" page hero uses a two-column grid layout with `bg-[#1A0A2E]`, image on the right, and a decorative blur circle.
+**Что критично отсутствует:**
+1. **sitemap.xml** — нет совсем
+2. **Уникальные meta-теги для каждой страницы** — у всех страниц одинаковые title/description из index.html (SPA проблема)
+3. **Canonical URL** — отсутствуют
+4. **Структурированные данные (Schema.org JSON-LD)** — нет Organization, LocalBusiness, BreadcrumbList, Article для блога
+5. **Open Graph** — base URL https://hulkwork.online не указан, og:url отсутствует
+6. **robots.txt** — нет ссылки на sitemap, нет host директивы для Яндекса
+7. **H1 структура** — нужна проверка (на каждой странице должен быть один H1)
+8. **alt атрибуты** у изображений
+9. **404 страница** — нужно отдавать корректный статус (для SPA это сложно, но meta noindex поможет)
+10. **Хлебные крошки (breadcrumbs)** — нет ни визуально, ни в schema
+11. **Verification теги** — Google Search Console, Mail.ru
+12. **Ссылка на политику в robots/footer** для Яндекса
 
-**Changes to `src/components/blog/HeroSection.tsx`:**
-- Switch from full-bleed background image to two-column grid layout matching About page style
-- Use `bg-[#1A0A2E]` background
-- Place blog hero image on the right side in a rounded container
-- Add decorative blur circle element
-- Keep existing text content
+## План улучшений
 
-### Task 2 — Full Article Pages
+### 1. Sitemap.xml (критично)
+Создать `public/sitemap.xml` со всеми статическими страницами + 50 статьями блога:
+- `/`, `/services/web-development`, `/services/seo`, `/services/smm`, `/services/behavioral-factors`
+- `/portfolio`, `/about`, `/blog`, `/contacts`
+- `/offer`, `/terms`, `/privacy`
+- `/blog/{id}` × 50 статей (генерация из `blogArticles.ts`)
 
-Currently articles have no `content` field and no detail page exists. Clicking "Читать" does nothing.
+С правильными `<lastmod>`, `<changefreq>`, `<priority>`.
 
-**Step-by-step:**
+### 2. robots.txt — обновить
+Добавить:
+```
+Sitemap: https://hulkwork.online/sitemap.xml
+Host: hulkwork.online
+```
 
-1. **Add `content` field to `BlogArticle` interface** in `src/data/blogArticles.ts` — store full HTML/markdown text for each article parsed from the 5 uploaded documents (all 50 articles).
+### 3. Динамические meta-теги (react-helmet-async)
+Установить `react-helmet-async`, обернуть App в `HelmetProvider`. Создать компонент `<SEO>` с props: title, description, canonical, ogImage, jsonLd, noindex.
 
-2. **Create `src/pages/BlogArticlePage.tsx`** — a page component that:
-   - Takes article `id` from URL params (`/blog/:id`)
-   - Looks up article from `blogArticles` by id
-   - Renders full article text with proper typography
-   - Shows category badge, read time, date
-   - Has a "Back to blog" link
-   - Uses the same `Layout` wrapper
+Проставить уникальные SEO-теги на каждой странице:
+- **Главная**: «HulkWork Studio — создание сайтов, SEO, SMM в Симферополе»
+- **WebDevelopment**: «Создание сайтов под ключ — HulkWork Studio»
+- **SEO**: «SEO-продвижение сайтов в Яндекс и Google»
+- **SMM**: «SMM-продвижение в соцсетях»
+- **BehavioralFactors**: «Накрутка поведенческих факторов»
+- **Portfolio**: «Портфолио — наши работы»
+- **About**: «О студии HulkWork»
+- **Blog**: «Блог о digital-маркетинге»
+- **BlogArticle**: title/description из конкретной статьи + Article schema
+- **Contacts**: «Контакты HulkWork Studio»
+- **Offer/Terms/Privacy**: соответствующие, с `noindex` опционально
+- **NotFound**: с `noindex`
 
-3. **Add route** in `App.tsx`: `<Route path="/blog/:id" element={<BlogArticlePage />} />`
+### 4. Schema.org JSON-LD
+- В `index.html` или на главной: **Organization** + **LocalBusiness** (ИП Фурса, адрес, телефон, email, ИНН)
+- На страницах услуг: **Service**
+- На страницах блога: **Article** (заголовок, дата, автор, изображение)
+- На всех страницах: **BreadcrumbList**
+- На главной: **WebSite** с potentialAction (поиск)
 
-4. **Make cards clickable** — wrap article cards in `ArticleGrid.tsx` and `FeaturedSection.tsx` with `<Link to={/blog/${article.id}}>` so clicking anywhere on the card navigates to the full article.
+### 5. Canonical и Open Graph URL
+В `<SEO>` компоненте: `<link rel="canonical" href="https://hulkwork.online{pathname}" />` + `og:url`, `og:site_name="HulkWork Studio"`, `og:locale="ru_RU"`.
 
-### Technical Notes
+### 6. Технические улучшения
+- Добавить `lang="ru"` уже есть ✓
+- Добавить `<meta name="theme-color">` 
+- Добавить `<link rel="icon">` (favicon)
+- Добавить `<meta name="yandex-verification">` как альтернативу HTML-файлу (резервно)
+- Проверить и добавить `alt=""` на все `<img>` где их нет
 
-- The full article content from all 5 documents will be stored as string fields in `blogArticles.ts`. This will make the file large (~50 articles × ~2000 words each) but keeps the architecture simple without requiring a database.
-- Article content will be stored as plain text with paragraph breaks, rendered with proper typography classes.
-- The article detail page will follow the site's existing dark theme and layout patterns.
+### 7. Хлебные крошки
+Добавить визуальный компонент Breadcrumbs на внутренних страницах + соответствующий BreadcrumbList JSON-LD.
 
-### Files to Create/Edit
-- `src/components/blog/HeroSection.tsx` — restyle
-- `src/data/blogArticles.ts` — add `content` field to all 50 articles
-- `src/pages/BlogArticlePage.tsx` — new page
-- `src/App.tsx` — add route
-- `src/components/blog/ArticleGrid.tsx` — wrap cards with Link
-- `src/components/blog/FeaturedSection.tsx` — wrap cards with Link
+### 8. Производительность (косвенно влияет на SEO)
+- Шрифты: уже preconnect ✓
+- Lazy-loading для изображений ниже сгиба: `loading="lazy"`
+- Минификация уже через Vite ✓
+
+### 9. Пре-рендеринг (опционально, но идеал)
+SPA проблема: Яндекс/Google видят пустой HTML. Решения:
+- **Вариант A (быстрый)**: оставить SPA, полагаться на Yandex SSR-флаг и Googlebot rendering
+- **Вариант B (идеал)**: добавить пре-рендеринг через `vite-plugin-prerender` или перейти на SSG для статических страниц
+
+Рекомендую начать с варианта A, потому что react-helmet-async уже даст индексируемые мета-теги через client-side rendering (Googlebot и Яндекс это умеют).
+
+### Технические детали
+- Пакет: `react-helmet-async`
+- Новые файлы: `src/components/SEO.tsx`, `src/components/Breadcrumbs.tsx`, `src/lib/seo.ts` (константы базового URL, утилиты)
+- Обновить: `index.html` (Organization JSON-LD, theme-color), `public/robots.txt`, все 13 страниц (`<SEO />` в начале)
+- Сгенерировать: `public/sitemap.xml` (можно скриптом или вручную)
+
+### Что НЕ делаем (вне SEO)
+- Не трогаем существующий контент, формы, дизайн
+- Не меняем роутинг
+
+### Итог: после имплементации
+- Каждая страница имеет уникальный title, description, canonical, og-теги
+- Сайт виден в поиске со структурированными сниппетами (организация, статьи, хлебные крошки)
+- Sitemap указывает поисковикам на все 60+ страниц
+- robots.txt указывает на sitemap и host
+- Микроразметка LocalBusiness усилит локальное SEO (Симферополь)
 
