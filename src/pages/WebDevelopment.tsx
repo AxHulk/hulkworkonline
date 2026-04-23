@@ -117,11 +117,8 @@ const WebDevelopment = () => {
               Используя самые современные технологии и передовые нейросети, HulkWork Studio обеспечивает
               великолепную функциональность без ошибок — от 5 часов работы и от $500 за проект.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
+            <div className="mt-8 flex justify-center md:justify-start">
               <QuizCTAButton source="webdev_hero" size="lg" label="Узнать цену за 2 мин" />
-              <Button size="lg" variant="outline" className="font-heading font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-                <a href="#cta-form">Обсудить проект</a>
-              </Button>
             </div>
           </div>
           <div className="flex justify-center">
