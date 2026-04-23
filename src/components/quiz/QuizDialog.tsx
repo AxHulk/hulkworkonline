@@ -811,35 +811,41 @@ const QuizDialog = () => {
             </div>
 
             {/* Footer */}
-            <div className="sticky bottom-0 z-10 flex items-center justify-between gap-3 border-t bg-background/95 px-6 py-4 backdrop-blur">
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={goPrev}
-                disabled={step === 1 || submitting}
-                className="gap-2"
-              >
-                <ArrowLeft className="h-4 w-4" /> Назад
-              </Button>
-              {step < totalSteps ? (
-                <Button
-                  type="button"
-                  onClick={goNext}
-                  disabled={!canProceed()}
-                  className="gap-2 font-heading"
+            <div className="sticky bottom-0 z-10 border-t bg-background/95 px-6 py-4 backdrop-blur">
+              {stepError && (
+                <div
+                  role="alert"
+                  className="mb-3 flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive"
                 >
-                  Дальше <ArrowRight className="h-4 w-4" />
-                </Button>
-              ) : (
-                <Button
-                  type="button"
-                  onClick={submit}
-                  disabled={!canProceed() || submitting}
-                  className="gap-2 font-heading"
-                >
-                  {submitting ? "Отправляем…" : "Узнать цену и срок"}
-                </Button>
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{stepError}</span>
+                </div>
               )}
+              <div className="flex items-center justify-between gap-3">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={goPrev}
+                  disabled={step === 1 || submitting}
+                  className="gap-2"
+                >
+                  <ArrowLeft className="h-4 w-4" /> Назад
+                </Button>
+                {step < totalSteps ? (
+                  <Button type="button" onClick={goNext} className="gap-2 font-heading">
+                    Дальше <ArrowRight className="h-4 w-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={submit}
+                    disabled={submitting}
+                    className="gap-2 font-heading"
+                  >
+                    {submitting ? "Отправляем…" : "Узнать цену и срок"}
+                  </Button>
+                )}
+              </div>
             </div>
           </>
         ) : (
