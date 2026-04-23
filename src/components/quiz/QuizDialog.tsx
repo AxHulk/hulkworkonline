@@ -262,7 +262,7 @@ const QuizDialog = () => {
     setSubmitting(true);
     try {
       const { price, days } = offer;
-      const { error } = await supabase.from("quiz_submissions").insert({
+      const { error } = await (supabase.from("quiz_submissions") as any).insert({
         answers: { ...state, source },
         contact_name: state.contactName,
         contact_channel: state.channel || "unknown",
