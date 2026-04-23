@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, ArrowRight, Plus, Trash2, Sparkles, CheckCircle2, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Plus, Trash2, Sparkles, CheckCircle2, X, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { useQuiz } from "./QuizContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -165,6 +165,7 @@ const QuizDialog = () => {
   const [done, setDone] = useState(false);
   const [consent, setConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
+  const [stepError, setStepError] = useState<string | null>(null);
 
   // Calculate visible step list dynamically (skip 8 if competitors=no)
   const totalSteps = 15;
@@ -186,12 +187,20 @@ const QuizDialog = () => {
   };
 
   const goNext = () => {
+    const err = validateStep();
+    if (err) {
+      setStepError(err);
+      toast.error(err);
+      return;
+    }
+    setStepError(null);
     let next = step + 1;
     if (next === 8 && !showStep8) next = 9;
     if (next > totalSteps) return;
     setStep(next);
   };
   const goPrev = () => {
+    setStepError(null);
     let prev = step - 1;
     if (prev === 8 && !showStep8) prev = 7;
     if (prev < 1) return;
@@ -200,77 +209,112 @@ const QuizDialog = () => {
 
   const update = <K extends keyof QuizState>(key: K, value: QuizState[K]) => {
     setState((s) => ({ ...s, [key]: value }));
+    if (stepError) setStepError(null);
   };
 
-  const canProceed = (): boolean => {
+  /**
+   * Returns an error message string when current step is invalid, or null when OK.
+   */
+  const validateStep = (): string | null => {
     switch (step) {
       case 1:
-        return state.idea.trim().length >= 5;
+        if (state.idea.trim().length < 5) return "Опишите идею проекта (минимум 5 символов).";
+        return null;
       case 2:
-        if (!state.goal) return false;
-        if (state.goal === "other") return state.goalOther.trim().length > 1;
-        return true;
+        if (!state.goal) return "Выберите основную цель сайта из списка.";
+        if (state.goal === "other" && state.goalOther.trim().length < 2)
+          return "Кратко опишите вашу цель в поле «Другое».";
+        return null;
       case 3:
-        if (!state.hasName) return false;
-        if (state.hasName === "yes") return state.projectName.trim().length > 0;
-        return true;
+        if (!state.hasName) return "Выберите «Да» или «Нет».";
+        if (state.hasName === "yes" && !state.projectName.trim())
+          return "Укажите название проекта.";
+        return null;
       case 4:
-        if (!state.hasDomain) return false;
-        if (state.hasDomain === "yes") return state.domain.trim().length > 2;
-        return true;
+        if (!state.hasDomain) return "Выберите «Да» или «Нет».";
+        if (state.hasDomain === "yes" && state.domain.trim().length < 3)
+          return "Введите ваш домен (например, example.ru).";
+        return null;
       case 5:
-        if (!state.stage) return false;
-        if (state.stage === "other") return state.stageOther.trim().length > 1;
-        return true;
+        if (!state.stage) return "Выберите стадию проекта.";
+        if (state.stage === "other" && state.stageOther.trim().length < 2)
+          return "Опишите стадию в поле «Другое».";
+        return null;
       case 6:
-        return state.knowsAudience !== "";
+        if (!state.knowsAudience) return "Выберите «Да» или «Нет».";
+        return null;
       case 7:
-        if (!state.knowsCompetitors) return false;
-        if (state.knowsCompetitors === "yes") {
-          return state.competitors.some((c) => c.name.trim() || c.url.trim());
-        }
-        return true;
+        if (!state.knowsCompetitors) return "Выберите «Да» или «Нет».";
+        if (
+          state.knowsCompetitors === "yes" &&
+          !state.competitors.some((c) => c.name.trim() || c.url.trim())
+        )
+          return "Укажите хотя бы одного конкурента — название или ссылку.";
+        return null;
       case 8:
-        return state.competitorsLikes.trim().length > 0;
+        if (state.competitorsLikes.trim().length < 5)
+          return "Опишите, что нравится или не нравится у конкурентов (минимум 5 символов).";
+        return null;
       case 9:
-        return state.inspirationSites.some((s) => s.url.trim().length > 3);
+        if (!state.inspirationSites.some((s) => s.url.trim().length > 3))
+          return "Добавьте хотя бы одну ссылку на сайт-вдохновение.";
+        return null;
       case 10:
-        return state.hasBranding !== "";
+        if (!state.hasBranding) return "Выберите «Да» или «Нет».";
+        return null;
       case 11:
-        return state.legalForm !== "";
+        if (!state.legalForm) return "Выберите вашу юридическую форму.";
+        return null;
       case 12:
-        if (!state.usesExternal) return false;
-        if (state.usesExternal === "yes") {
-          return Object.values(state.externalServices).some((e) => e.selected);
-        }
-        return true;
+        if (!state.usesExternal) return "Выберите «Да» или «Нет».";
+        if (
+          state.usesExternal === "yes" &&
+          !Object.values(state.externalServices).some((e) => e.selected)
+        )
+          return "Отметьте хотя бы один используемый сервис.";
+        return null;
       case 13:
-        if (!state.needsAccount) return false;
-        if (state.needsAccount === "yes") return state.accountFunctions.trim().length > 5;
-        return true;
+        if (!state.needsAccount) return "Выберите один из вариантов.";
+        if (state.needsAccount === "yes" && state.accountFunctions.trim().length < 5)
+          return "Опишите, какой функционал нужен в личном кабинете.";
+        return null;
       case 14: {
         const r = contactSchema.safeParse({
           contactName: state.contactName,
           channel: state.channel,
           channelValue: state.channelValue,
         });
-        return r.success && consent;
+        if (!r.success) {
+          const first = r.error.issues[0];
+          if (first.path[0] === "contactName") return "Укажите ваше имя (минимум 2 символа).";
+          if (first.path[0] === "channel") return "Выберите канал связи: Telegram, WhatsApp или ВКонтакте.";
+          if (first.path[0] === "channelValue") return "Укажите контакт для выбранного канала.";
+          return first.message;
+        }
+        if (!consent) {
+          setConsentError(true);
+          return "Необходимо согласие на обработку персональных данных.";
+        }
+        return null;
       }
       case 15:
-        if (!state.bigIdeaShared) return false;
-        if (state.bigIdeaShared === "yes") return state.bigIdea.trim().length > 5;
-        return true;
+        if (!state.bigIdeaShared) return "Выберите «Пропустить» или «Рассказать».";
+        if (state.bigIdeaShared === "yes" && state.bigIdea.trim().length < 5)
+          return "Опишите вашу идею (минимум 5 символов) или нажмите «Пропустить».";
+        return null;
       default:
-        return false;
+        return null;
     }
   };
 
   const submit = async () => {
-    if (!consent) {
-      setConsentError(true);
-      toast.error("Необходимо дать согласие на обработку персональных данных");
+    const err = validateStep();
+    if (err) {
+      setStepError(err);
+      toast.error(err);
       return;
     }
+    setStepError(null);
     setSubmitting(true);
     try {
       const { price, days } = offer;
@@ -767,35 +811,41 @@ const QuizDialog = () => {
             </div>
 
             {/* Footer */}
-            <div className="sticky bottom-0 z-10 flex items-center justify-between gap-3 border-t bg-background/95 px-6 py-4 backdrop-blur">
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={goPrev}
-                disabled={step === 1 || submitting}
-                className="gap-2"
-              >
-                <ArrowLeft className="h-4 w-4" /> Назад
-              </Button>
-              {step < totalSteps ? (
-                <Button
-                  type="button"
-                  onClick={goNext}
-                  disabled={!canProceed()}
-                  className="gap-2 font-heading"
+            <div className="sticky bottom-0 z-10 border-t bg-background/95 px-6 py-4 backdrop-blur">
+              {stepError && (
+                <div
+                  role="alert"
+                  className="mb-3 flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive"
                 >
-                  Дальше <ArrowRight className="h-4 w-4" />
-                </Button>
-              ) : (
-                <Button
-                  type="button"
-                  onClick={submit}
-                  disabled={!canProceed() || submitting}
-                  className="gap-2 font-heading"
-                >
-                  {submitting ? "Отправляем…" : "Узнать цену и срок"}
-                </Button>
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{stepError}</span>
+                </div>
               )}
+              <div className="flex items-center justify-between gap-3">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={goPrev}
+                  disabled={step === 1 || submitting}
+                  className="gap-2"
+                >
+                  <ArrowLeft className="h-4 w-4" /> Назад
+                </Button>
+                {step < totalSteps ? (
+                  <Button type="button" onClick={goNext} className="gap-2 font-heading">
+                    Дальше <ArrowRight className="h-4 w-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={submit}
+                    disabled={submitting}
+                    className="gap-2 font-heading"
+                  >
+                    {submitting ? "Отправляем…" : "Узнать цену и срок"}
+                  </Button>
+                )}
+              </div>
             </div>
           </>
         ) : (
