@@ -34,6 +34,7 @@ import techStackIcons from "@/assets/tech_stack_icons.png";
 import aiToolsIcons from "@/assets/ai_tools_icons.png";
 import serviceFeatureIcons from "@/assets/service_feature_icons.png";
 import infrastructureIllustration from "@/assets/infrastructure_illustration.png";
+import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 
 const features = [
   { icon: Lightbulb, title: "Концепция и логотип", desc: "Разработка фирменного стиля с нуля — по необходимости, в рамках единого проекта" },
@@ -116,9 +117,12 @@ const WebDevelopment = () => {
               Используя самые современные технологии и передовые нейросети, HulkWork Studio обеспечивает
               великолепную функциональность без ошибок — от 5 часов работы и от $500 за проект.
             </p>
-            <Button size="lg" className="mt-8 font-heading font-semibold" asChild>
-              <a href="#cta-form">Обсудить проект</a>
-            </Button>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
+              <QuizCTAButton source="webdev_hero" size="lg" label="Узнать цену за 2 мин" />
+              <Button size="lg" variant="outline" className="font-heading font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                <a href="#cta-form">Обсудить проект</a>
+              </Button>
+            </div>
           </div>
           <div className="flex justify-center">
             <img

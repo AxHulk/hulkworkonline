@@ -6,6 +6,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import CookieBanner from "@/components/CookieBanner";
 import ScrollToTop from "@/components/ScrollToTop";
+import { QuizProvider } from "@/components/quiz/QuizContext";
+import QuizDialog from "@/components/quiz/QuizDialog";
+import QuizInviteBanner from "@/components/quiz/QuizInviteBanner";
 import Index from "./pages/Index.tsx";
 import WebDevelopment from "./pages/WebDevelopment.tsx";
 import BehavioralFactors from "./pages/BehavioralFactors.tsx";
@@ -31,6 +34,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <QuizProvider>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/services/web-development" element={<WebDevelopment />} />
@@ -49,6 +53,9 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
           <CookieBanner />
+          <QuizDialog />
+          <QuizInviteBanner />
+        </QuizProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
