@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import ConsentCheckbox from "@/components/ConsentCheckbox";
 import { logConsent } from "@/lib/consent";
+import { submitLead } from "@/lib/leads";
 import type { Group } from "three";
 
 function HulkModel() {
@@ -34,7 +35,7 @@ const CTASection = () => {
   const [consent, setConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!consent) {
       setConsentError(true);
@@ -44,12 +45,24 @@ const CTASection = () => {
     setConsentError(false);
     setLoading(true);
     logConsent("home_cta");
-    setTimeout(() => {
-      setLoading(false);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    try {
+      await submitLead({
+        source: "home_cta",
+        name: String(fd.get("name") || "").trim(),
+        contact: String(fd.get("contact") || "").trim(),
+        message: String(fd.get("task") || "").trim() || undefined,
+      });
       toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
-      (e.target as HTMLFormElement).reset();
+      form.reset();
       setConsent(false);
-    }, 800);
+    } catch (err) {
+      console.error(err);
+      toast.error("Не удалось отправить заявку. Попробуйте ещё раз или напишите в Telegram.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

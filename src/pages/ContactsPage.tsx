@@ -9,6 +9,7 @@ import contactsMessengers from "@/assets/contacts_messengers.png";
 import contactsLegal from "@/assets/contacts_legal.png";
 import ConsentCheckbox from "@/components/ConsentCheckbox";
 import { logConsent } from "@/lib/consent";
+import { submitLead } from "@/lib/leads";
 import { toast } from "sonner";
 
 /* ───── Hero ───── */
@@ -110,7 +111,7 @@ const ContactForm = () => {
   const [consent, setConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!consent) {
       setConsentError(true);
@@ -120,12 +121,25 @@ const ContactForm = () => {
     setConsentError(false);
     setLoading(true);
     logConsent("contacts_form");
-    setTimeout(() => {
-      setLoading(false);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    try {
+      await submitLead({
+        source: "contacts_form",
+        name: String(fd.get("name") || "").trim(),
+        contact: String(fd.get("contact") || "").trim(),
+        message: String(fd.get("task") || "").trim() || undefined,
+      });
       setSubmitted(true);
       setConsent(false);
+      form.reset();
       setTimeout(() => setSubmitted(false), 4000);
-    }, 800);
+    } catch (err) {
+      console.error(err);
+      toast.error("Не удалось отправить заявку. Попробуйте ещё раз.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -141,17 +155,20 @@ const ContactForm = () => {
         <form onSubmit={handleSubmit} className="mx-auto mt-10 max-w-xl space-y-5">
           <input
             type="text"
+            name="name"
             required
             placeholder="Как вас зовут?"
             className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           />
           <input
             type="text"
+            name="contact"
             required
             placeholder="@username или email@mail.ru"
             className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           />
           <textarea
+            name="task"
             rows={4}
             placeholder="Что будем создавать? Расскажите о проекте..."
             className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary resize-none"

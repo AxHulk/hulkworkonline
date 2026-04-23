@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react";
 import ConsentCheckbox from "@/components/ConsentCheckbox";
 import { logConsent } from "@/lib/consent";
+import { submitLead } from "@/lib/leads";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -73,7 +74,7 @@ const WebDevelopment = () => {
   const [consent, setConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!consent) {
       setConsentError(true);
@@ -83,12 +84,24 @@ const WebDevelopment = () => {
     setConsentError(false);
     setLoading(true);
     logConsent("web_development");
-    setTimeout(() => {
-      setLoading(false);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    try {
+      await submitLead({
+        source: "web_development",
+        name: String(fd.get("name") || "").trim(),
+        contact: String(fd.get("contact") || "").trim(),
+        message: String(fd.get("description") || "").trim() || undefined,
+      });
       toast.success("Заявка отправлена! Мы свяжемся с вами в течение 24 часов.");
-      (e.target as HTMLFormElement).reset();
+      form.reset();
       setConsent(false);
-    }, 800);
+    } catch (err) {
+      console.error(err);
+      toast.error("Не удалось отправить заявку. Попробуйте ещё раз.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

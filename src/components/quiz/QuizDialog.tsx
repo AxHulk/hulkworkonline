@@ -342,6 +342,29 @@ const QuizDialog = () => {
       });
       if (error) throw error;
       logConsent("quiz_submission");
+      // Уведомление по email владельцу студии (не блокируем UI)
+      try {
+        await supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "lead-notification",
+            recipientEmail: "Prezidenthulk@gmail.com",
+            idempotencyKey: `quiz-${crypto.randomUUID()}`,
+            templateData: {
+              source: "quiz_submission",
+              name: state.contactName,
+              contact: state.channelValue,
+              contactChannel: state.channel,
+              estimatedPriceUsd: price,
+              estimatedDays: days,
+              pageUrl: typeof window !== "undefined" ? window.location.href : "",
+              submittedAt: new Date().toLocaleString("ru-RU"),
+              quizAnswers: normalizedState,
+            },
+          },
+        });
+      } catch (notifyErr) {
+        console.warn("lead notification failed", notifyErr);
+      }
       setDone(true);
     } catch (err) {
       console.error(err);

@@ -1,0 +1,49 @@
+import { supabase } from "@/integrations/supabase/client";
+
+export interface SubmitLeadInput {
+  source: "home_cta" | "contacts_form" | "web_development";
+  name: string;
+  contact: string;
+  message?: string;
+}
+
+/**
+ * Сохраняет заявку из CTA-формы в БД и отправляет email-уведомление
+ * владельцу студии (Prezidenthulk@gmail.com).
+ * Email-уведомление не блокирует ответ — ошибки логируются, но не пробрасываются.
+ */
+export async function submitLead(input: SubmitLeadInput): Promise<void> {
+  const pageUrl = typeof window !== "undefined" ? window.location.href : "";
+  const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : null;
+
+  const { error } = await (supabase.from("contact_submissions") as any).insert({
+    source: input.source,
+    name: input.name,
+    contact: input.contact,
+    message: input.message ?? null,
+    page_url: pageUrl,
+    user_agent: userAgent,
+  });
+  if (error) throw error;
+
+  // Уведомление по email — не блокируем UX при ошибке
+  try {
+    await supabase.functions.invoke("send-transactional-email", {
+      body: {
+        templateName: "lead-notification",
+        recipientEmail: "Prezidenthulk@gmail.com",
+        idempotencyKey: `lead-${input.source}-${crypto.randomUUID()}`,
+        templateData: {
+          source: input.source,
+          name: input.name,
+          contact: input.contact,
+          message: input.message ?? "",
+          pageUrl,
+          submittedAt: new Date().toLocaleString("ru-RU"),
+        },
+      },
+    });
+  } catch (e) {
+    console.warn("lead notification failed", e);
+  }
+}
