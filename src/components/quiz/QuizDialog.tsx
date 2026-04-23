@@ -145,6 +145,18 @@ const contactSchema = z.object({
   channelValue: z.string().trim().min(3, "Укажите контакт").max(200),
 });
 
+/**
+ * Normalize a user-typed URL: trim, prepend https:// when no protocol is present.
+ * Returns empty string if input is empty/whitespace.
+ */
+const normalizeUrl = (raw: string): string => {
+  const v = (raw || "").trim();
+  if (!v) return "";
+  if (/^https?:\/\//i.test(v)) return v;
+  // Strip leading "//" if user pasted a protocol-relative URL
+  return "https://" + v.replace(/^\/+/, "");
+};
+
 const QuizDialog = () => {
   const { open, closeQuiz, source } = useQuiz();
   const [step, setStep] = useState(1);
@@ -262,8 +274,20 @@ const QuizDialog = () => {
     setSubmitting(true);
     try {
       const { price, days } = offer;
+      // Normalize URLs (add https:// when missing) before persisting
+      const normalizedState = {
+        ...state,
+        competitors: state.competitors.map((c) => ({
+          name: c.name.trim(),
+          url: normalizeUrl(c.url),
+        })),
+        inspirationSites: state.inspirationSites.map((s) => ({
+          url: normalizeUrl(s.url),
+          comment: s.comment.trim(),
+        })),
+      };
       const { error } = await (supabase.from("quiz_submissions") as any).insert({
-        answers: { ...state, source },
+        answers: { ...normalizedState, source },
         contact_name: state.contactName,
         contact_channel: state.channel || "unknown",
         contact_value: state.channelValue,
