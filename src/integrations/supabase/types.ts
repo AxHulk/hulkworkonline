@@ -41,6 +41,45 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_submissions: {
+        Row: {
+          answers: Json
+          contact_channel: string
+          contact_name: string
+          contact_value: string
+          created_at: string
+          estimated_days: number
+          estimated_price_usd: number
+          id: string
+          referrer: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          answers: Json
+          contact_channel: string
+          contact_name: string
+          contact_value: string
+          created_at?: string
+          estimated_days: number
+          estimated_price_usd: number
+          id?: string
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          answers?: Json
+          contact_channel?: string
+          contact_name?: string
+          contact_value?: string
+          created_at?: string
+          estimated_days?: number
+          estimated_price_usd?: number
+          id?: string
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
