@@ -155,17 +155,20 @@ const ContactForm = () => {
         <form onSubmit={handleSubmit} className="mx-auto mt-10 max-w-xl space-y-5">
           <input
             type="text"
+            name="name"
             required
             placeholder="Как вас зовут?"
             className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           />
           <input
             type="text"
+            name="contact"
             required
             placeholder="@username или email@mail.ru"
             className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           />
           <textarea
+            name="task"
             rows={4}
             placeholder="Что будем создавать? Расскажите о проекте..."
             className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary resize-none"
