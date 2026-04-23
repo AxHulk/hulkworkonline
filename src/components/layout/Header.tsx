@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import type { Group } from "three";
+import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 
 function Logo3D() {
   const { scene } = useGLTF("/models/logo_3d.glb");
@@ -86,6 +87,7 @@ const Header = () => {
               {link.label}
             </Link>
           ))}
+          <QuizCTAButton source="header" size="sm" className="ml-2" />
         </nav>
 
         {/* Mobile toggle */}
@@ -134,6 +136,7 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
+            <QuizCTAButton source="header_mobile" size="sm" className="mt-3 w-full" />
           </nav>
         </div>
       )}
