@@ -8,6 +8,7 @@ import CookieBanner from "@/components/CookieBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import { QuizProvider } from "@/components/quiz/QuizContext";
 import QuizDialog from "@/components/quiz/QuizDialog";
+import SeoQuizDialog from "@/components/quiz/SeoQuizDialog";
 import QuizInviteBanner from "@/components/quiz/QuizInviteBanner";
 import Index from "./pages/Index.tsx";
 import WebDevelopment from "./pages/WebDevelopment.tsx";
@@ -56,6 +57,7 @@ const App = () => (
         </Routes>
           <CookieBanner />
           <QuizDialog />
+          <SeoQuizDialog />
           <QuizInviteBanner />
         </QuizProvider>
         </BrowserRouter>

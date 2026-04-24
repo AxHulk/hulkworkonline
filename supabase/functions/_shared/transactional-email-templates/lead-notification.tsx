@@ -39,8 +39,11 @@ const LeadNotificationEmail = ({
   submittedAt,
 }: LeadNotificationProps) => {
   const isQuiz = source === 'quiz_submission'
+  const isSeoQuiz = source === 'seo_quiz_submission'
   const title = isQuiz
     ? '🎯 Новая заявка из опросника «Узнать цену»'
+    : isSeoQuiz
+    ? '🎯 Новая заявка из SEO-опросника'
     : '📩 Новая заявка с сайта'
 
   return (
@@ -80,7 +83,7 @@ const LeadNotificationEmail = ({
             </>
           ) : null}
 
-          {isQuiz && quizAnswers ? (
+          {(isQuiz || isSeoQuiz) && quizAnswers ? (
             <>
               <Hr style={hr} />
               <Heading as="h2" style={h2}>
@@ -120,6 +123,14 @@ function prettySource(s: string): string {
     contacts_form: 'Контакты — форма',
     web_development: 'Услуги: Веб-разработка',
     quiz_submission: 'Опросник «Узнать цену»',
+    seo_quiz_submission: 'SEO-опросник',
+    home_cta_seo: 'Главная — выбор SEO',
+    home_cta_behavioral: 'Главная — выбор «Поведенческие факторы»',
+    seo_page_hero: 'Страница SEO — Hero',
+    seo_page_cta: 'Страница SEO — CTA',
+    behavioral_page_hero: 'Страница ПФ — Hero',
+    behavioral_page_cta: 'Страница ПФ — CTA',
+    invite_banner: 'Всплывающий баннер опросника',
   }
   return map[s] ?? s
 }
@@ -140,6 +151,17 @@ function prettyKey(k: string): string {
     externalServices: 'Внешние сервисы',
     hasUserAccount: 'Личный кабинет',
     accountFunctionality: 'Функции ЛК',
+    // SEO quiz
+    siteUrl: 'Ссылка на сайт',
+    goal: 'Главная бизнес-задача',
+    keywords: 'Ключевые запросы / направления',
+    prevExperience: 'Предыдущий опыт продвижения',
+    contentParticipation: 'Участие в создании контента',
+    devSupport: 'Технический специалист',
+    flexibility: 'Готовность менять структуру/дизайн',
+    pace: 'Темп работы',
+    budget: 'Ежемесячный бюджет',
+    turbo: 'Турбо-режим (поведенческие факторы)',
   }
   return map[k] ?? k
 }

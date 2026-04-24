@@ -8,6 +8,8 @@ import { toast } from "sonner";
 import ConsentCheckbox from "@/components/ConsentCheckbox";
 import { logConsent } from "@/lib/consent";
 import { submitLead } from "@/lib/leads";
+import { useQuiz } from "@/components/quiz/QuizContext";
+import { Globe, Search, Activity, ArrowRight } from "lucide-react";
 import type { Group } from "three";
 
 function HulkModel() {
@@ -31,6 +33,9 @@ function HulkModel() {
 }
 
 const CTASection = () => {
+  const { openQuiz } = useQuiz();
+  type Service = "website" | "seo" | "behavioral";
+  const [service, setService] = useState<Service>("website");
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
@@ -76,9 +81,38 @@ const CTASection = () => {
           {/* Left — form */}
           <div className="rounded-2xl bg-background p-8 shadow-lg">
             <p className="mb-6 text-muted-foreground">
-              Оставьте заявку, и мы свяжемся с вами для обсуждения деталей
-              проекта.
+              Выберите услугу — и заполните короткую форму или ответьте на пару
+              вопросов. Мы свяжемся с вами в ближайшее время.
             </p>
+
+            {/* Service picker */}
+            <div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-3">
+              {([
+                { key: "website" as const, label: "Создать сайт", Icon: Globe },
+                { key: "seo" as const, label: "SEO", Icon: Search },
+                { key: "behavioral" as const, label: "Поведенческие факторы", Icon: Activity },
+              ]).map(({ key, label, Icon }) => {
+                const active = service === key;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setService(key)}
+                    className={`flex items-center justify-center gap-2 rounded-lg border px-3 py-2.5 text-xs font-heading font-semibold transition sm:text-sm ${
+                      active
+                        ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                        : "border-input bg-background text-foreground hover:border-primary/50"
+                    }`}
+                    aria-pressed={active}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span>{label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {service === "website" ? (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <Input placeholder="Ваше имя" name="name" required />
               <Input
@@ -102,6 +136,48 @@ const CTASection = () => {
                 {loading ? "Отправка..." : "Отправить заявку"}
               </Button>
             </form>
+            ) : (
+              <div className="flex flex-col gap-4">
+                <div className="rounded-lg border bg-secondary/40 p-4 text-sm text-muted-foreground">
+                  {service === "seo" ? (
+                    <>
+                      <p className="font-heading font-semibold text-foreground">
+                        SEO-продвижение в Яндекс и Google
+                      </p>
+                      <p className="mt-1">
+                        Ответьте на 12 коротких вопросов — мы подготовим персональную
+                        стратегию под вашу нишу, бюджет и темп. Менеджер свяжется в
+                        течение 12 часов.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="font-heading font-semibold text-foreground">
+                        Поведенческие факторы (Яндекс)
+                      </p>
+                      <p className="mt-1">
+                        Турбо-режим вывода в ТОП за 1–3 месяца. Ответьте на 12
+                        вопросов — рассчитаем персональное предложение под вашу нишу.
+                      </p>
+                    </>
+                  )}
+                </div>
+                <Button
+                  type="button"
+                  size="lg"
+                  className="gap-2 font-heading font-semibold"
+                  onClick={() =>
+                    openQuiz(
+                      service === "seo" ? "home_cta_seo" : "home_cta_behavioral",
+                      "seo"
+                    )
+                  }
+                >
+                  Пройти опросник
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Right — 3D model + Telegram */}

@@ -158,7 +158,8 @@ const normalizeUrl = (raw: string): string => {
 };
 
 const QuizDialog = () => {
-  const { open, closeQuiz, source } = useQuiz();
+  const { open, closeQuiz, source, track } = useQuiz();
+  const isOpen = open && track === "website";
   const [step, setStep] = useState(1);
   const [state, setState] = useState<QuizState>(initialState);
   const [submitting, setSubmitting] = useState(false);
@@ -375,7 +376,7 @@ const QuizDialog = () => {
   };
 
   return (
-    <Dialog open={open} onOpenChange={(o) => { if (!o) handleClose(); }}>
+    <Dialog open={isOpen} onOpenChange={(o) => { if (!o) handleClose(); }}>
       <DialogContent className="max-h-[92vh] max-w-2xl overflow-y-auto p-0 sm:rounded-2xl">
         <DialogTitle className="sr-only">Опросник «Бросить вызов» — узнайте цену и срок</DialogTitle>
         <DialogDescription className="sr-only">

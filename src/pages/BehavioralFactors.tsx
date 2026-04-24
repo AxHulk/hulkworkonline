@@ -1,11 +1,7 @@
-import { useState, FormEvent } from "react";
-import ConsentCheckbox from "@/components/ConsentCheckbox";
-import { logConsent } from "@/lib/consent";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 import Layout from "@/components/layout/Layout";
-import { toast } from "sonner";
 import {
   Code,
   Zap,
@@ -80,28 +76,6 @@ const serviceJsonLd = {
 };
 
 const BehavioralFactors = () => {
-  const [loading, setLoading] = useState(false);
-  const [consent, setConsent] = useState(false);
-  const [consentError, setConsentError] = useState(false);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!consent) {
-      setConsentError(true);
-      toast.error("Необходимо дать согласие на обработку персональных данных");
-      return;
-    }
-    setConsentError(false);
-    setLoading(true);
-    logConsent("behavioral_factors");
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Заявка отправлена! Мы свяжемся с вами в течение 24 часов.");
-      (e.target as HTMLFormElement).reset();
-      setConsent(false);
-    }, 800);
-  };
-
   return (
     <Layout>
       <SEO
@@ -129,9 +103,13 @@ const BehavioralFactors = () => {
               собственной разработки, который создаёт безупречную картину живого, вовлечённого трафика. От
               $400 в месяц.
             </p>
-            <Button size="lg" className="mt-8 font-heading font-semibold" asChild>
-              <a href="#cta-form">Запустить рост трафика</a>
-            </Button>
+            <QuizCTAButton
+              source="behavioral_page_hero"
+              track="seo"
+              size="lg"
+              className="mt-8"
+              label="Запустить рост трафика"
+            />
           </div>
           <div className="flex justify-center">
             <img
@@ -337,22 +315,19 @@ const BehavioralFactors = () => {
             Хватит терять клиентов из-за низких позиций в поиске. Подключите нашу систему и наблюдайте за
             тем, как ваши метрики меняются к лучшему — день за днём.
           </p>
-
-          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-            <Input placeholder="Ваше имя" name="name" required className="bg-primary-foreground" />
-            <Input placeholder="Ссылка на сайт" name="website" type="url" required className="bg-primary-foreground" />
-            <Input placeholder="Email или Telegram" name="contact" required className="bg-primary-foreground" />
-            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
-            <Button
-              type="submit"
+          <p className="mt-2 text-sm text-primary-foreground/70">
+            Ответьте на 12 коротких вопросов — персональный менеджер свяжется с вами
+            в течение 12 часов с готовой стратегией под вашу нишу.
+          </p>
+          <div className="mt-8 flex justify-center">
+            <QuizCTAButton
+              source="behavioral_page_cta"
+              track="seo"
               size="lg"
               variant="secondary"
-              className="w-full font-heading font-semibold"
-              disabled={loading}
-            >
-              {loading ? "Отправка..." : "Начать продвижение"}
-            </Button>
-          </form>
+              label="Пройти опросник"
+            />
+          </div>
         </div>
       </section>
     </Layout>
