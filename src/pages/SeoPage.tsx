@@ -1,13 +1,9 @@
-import { useState, FormEvent } from "react";
-import ConsentCheckbox from "@/components/ConsentCheckbox";
-import { logConsent } from "@/lib/consent";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
-import { toast } from "sonner";
 import {
   Link2Off,
   Gauge,
@@ -72,28 +68,6 @@ const serviceJsonLd = {
 };
 
 const SeoPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [consent, setConsent] = useState(false);
-  const [consentError, setConsentError] = useState(false);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!consent) {
-      setConsentError(true);
-      toast.error("Необходимо дать согласие на обработку персональных данных");
-      return;
-    }
-    setConsentError(false);
-    setLoading(true);
-    logConsent("seo");
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Заявка отправлена! Мы свяжемся с вами в течение 24 часов.");
-      (e.target as HTMLFormElement).reset();
-      setConsent(false);
-    }, 800);
-  };
-
   return (
     <Layout>
       <SEO
@@ -120,9 +94,13 @@ const SeoPage = () => {
               ошибок до написания уникальных SEO-статей и подготовки рекламных кампаний в Яндекс Директ и
               РСЯ — мы берём на себя полный цикл поискового продвижения.
             </p>
-            <Button size="lg" className="mt-8 font-heading font-semibold" asChild>
-              <a href="#cta-form">Заказать SEO-аудит</a>
-            </Button>
+            <QuizCTAButton
+              source="seo_page_hero"
+              track="seo"
+              size="lg"
+              className="mt-8"
+              label="Заказать SEO-аудит"
+            />
           </div>
           <div className="flex justify-center">
             <img src={seoHero} alt="SEO-аналитика — лупа с графиком роста" className="w-full max-w-lg rounded-2xl" />
