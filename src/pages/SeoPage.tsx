@@ -282,28 +282,19 @@ const SeoPage = () => {
             Готовы сделать свой сайт видимым для клиентов? Свяжитесь с нами — первичный аудит покажет
             реальную картину и точки роста вашего проекта.
           </p>
-
-          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-            <Input placeholder="Ваше имя" name="name" required className="bg-primary-foreground" />
-            <Input placeholder="Ссылка на сайт" name="website" type="url" required className="bg-primary-foreground" />
-            <Input placeholder="Email или Telegram" name="contact" required className="bg-primary-foreground" />
-            <textarea
-              name="description"
-              placeholder="Краткое описание задачи"
-              required
-              className="flex min-h-[100px] w-full rounded-md border border-input bg-primary-foreground px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            />
-            <ConsentCheckbox checked={consent} onChange={(v) => { setConsent(v); if (v) setConsentError(false); }} error={consentError} />
-            <Button
-              type="submit"
+          <p className="mt-2 text-sm text-primary-foreground/70">
+            Ответьте на 12 коротких вопросов — менеджер свяжется с вами в течение 12 часов
+            с персональным предложением.
+          </p>
+          <div className="mt-8 flex justify-center">
+            <QuizCTAButton
+              source="seo_page_cta"
+              track="seo"
               size="lg"
               variant="secondary"
-              className="w-full font-heading font-semibold"
-              disabled={loading}
-            >
-              {loading ? "Отправка..." : "Получить SEO-аудит"}
-            </Button>
-          </form>
+              label="Пройти SEO-опросник"
+            />
+          </div>
         </div>
       </section>
     </Layout>
