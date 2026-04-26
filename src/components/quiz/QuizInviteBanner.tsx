@@ -2,15 +2,20 @@ import { useEffect, useState } from "react";
 import { Sparkles, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "./QuizContext";
+import { useLocation } from "react-router-dom";
 
 const SESSION_KEY = "hw_quiz_invite_shown";
 
 const QuizInviteBanner = () => {
   const { openQuiz, open } = useQuiz();
   const [visible, setVisible] = useState(false);
+  const location = useLocation();
+  // На странице SMM показываем отдельный баннер маркетингового опросника.
+  const suppressed = location.pathname.startsWith("/services/smm");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (suppressed) return;
     if (sessionStorage.getItem(SESSION_KEY)) return;
 
     let shown = false;
@@ -37,10 +42,10 @@ const QuizInviteBanner = () => {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return cleanup;
-  }, []);
+  }, [suppressed]);
 
   // Hide while quiz dialog is open
-  if (!visible || open) return null;
+  if (suppressed || !visible || open) return null;
 
   return (
     <div
