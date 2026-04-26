@@ -40,10 +40,13 @@ const LeadNotificationEmail = ({
 }: LeadNotificationProps) => {
   const isQuiz = source === 'quiz_submission'
   const isSeoQuiz = source === 'seo_quiz_submission'
+  const isMarketingQuiz = source === 'marketing_quiz_submission'
   const title = isQuiz
     ? '🎯 Новая заявка из опросника «Узнать цену»'
     : isSeoQuiz
     ? '🎯 Новая заявка из SEO-опросника'
+    : isMarketingQuiz
+    ? '🎯 Новая заявка из опросника по маркетингу/SMM'
     : '📩 Новая заявка с сайта'
 
   return (
@@ -83,7 +86,7 @@ const LeadNotificationEmail = ({
             </>
           ) : null}
 
-          {(isQuiz || isSeoQuiz) && quizAnswers ? (
+          {(isQuiz || isSeoQuiz || isMarketingQuiz) && quizAnswers ? (
             <>
               <Hr style={hr} />
               <Heading as="h2" style={h2}>
@@ -124,6 +127,7 @@ function prettySource(s: string): string {
     web_development: 'Услуги: Веб-разработка',
     quiz_submission: 'Опросник «Узнать цену»',
     seo_quiz_submission: 'SEO-опросник',
+    marketing_quiz_submission: 'Опросник «Маркетинг и SMM»',
     home_cta_seo: 'Главная — выбор SEO',
     home_cta_behavioral: 'Главная — выбор «Поведенческие факторы»',
     seo_page_hero: 'Страница SEO — Hero',
@@ -131,6 +135,8 @@ function prettySource(s: string): string {
     behavioral_page_hero: 'Страница ПФ — Hero',
     behavioral_page_cta: 'Страница ПФ — CTA',
     invite_banner: 'Всплывающий баннер опросника',
+    smm_invite_banner: 'SMM — всплывающий баннер опросника',
+    smm_page_hero: 'Страница SMM — Hero',
   }
   return map[s] ?? s
 }
