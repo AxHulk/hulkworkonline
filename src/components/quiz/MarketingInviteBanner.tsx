@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { Sparkles, X, ArrowRight } from "lucide-react";
+import { Megaphone, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "./QuizContext";
-import { useLocation } from "react-router-dom";
 
-const SESSION_KEY = "hw_quiz_invite_shown";
+const SESSION_KEY = "hw_marketing_invite_shown";
 
-const QuizInviteBanner = () => {
+/**
+ * Промо-баннер, приглашающий пройти опросник по маркетингу/SMM.
+ * Появляется через 5 секунд или при скролле >40% страницы.
+ * Показывается один раз за сессию.
+ */
+const MarketingInviteBanner = () => {
   const { openQuiz, open } = useQuiz();
   const [visible, setVisible] = useState(false);
-  const location = useLocation();
-  // На странице SMM показываем отдельный баннер маркетингового опросника.
-  const suppressed = location.pathname.startsWith("/services/smm");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (suppressed) return;
     if (sessionStorage.getItem(SESSION_KEY)) return;
 
     let shown = false;
@@ -28,29 +28,25 @@ const QuizInviteBanner = () => {
     };
 
     const timer = window.setTimeout(trigger, 5000);
-
     const onScroll = () => {
       const scrolled = window.scrollY + window.innerHeight;
       const total = document.documentElement.scrollHeight;
       if (total > 0 && scrolled / total > 0.4) trigger();
     };
-
     const cleanup = () => {
       window.clearTimeout(timer);
       window.removeEventListener("scroll", onScroll);
     };
-
     window.addEventListener("scroll", onScroll, { passive: true });
     return cleanup;
-  }, [suppressed]);
+  }, []);
 
-  // Hide while quiz dialog is open
-  if (suppressed || !visible || open) return null;
+  if (!visible || open) return null;
 
   return (
     <div
       role="dialog"
-      aria-label="Бросьте вызов студии — узнайте цену и срок"
+      aria-label="Опросник по маркетингу — соберём стратегию под ваш бизнес"
       className="fixed bottom-4 left-1/2 z-40 w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 sm:bottom-6 sm:left-auto sm:right-6 sm:translate-x-0"
     >
       <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-background via-background to-accent/30 p-5 shadow-2xl animate-in slide-in-from-bottom-4 fade-in">
@@ -64,28 +60,29 @@ const QuizInviteBanner = () => {
 
         <div className="flex items-start gap-3 pr-6">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
-            <Sparkles className="h-5 w-5" />
+            <Megaphone className="h-5 w-5" />
           </div>
           <div>
             <p className="font-heading text-base font-bold leading-tight text-foreground">
-              Бросьте нам вызов
+              Соберём стратегию под ваш бизнес
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Ответьте на 15 коротких вопросов и узнайте <strong className="text-foreground">точную цену и срок</strong> разработки вашего сайта прямо сейчас.
+              Ответьте на короткие вопросы — и мы предложим <strong className="text-foreground">маркетинговый план</strong>,
+              который подходит именно вашей нише и бюджету.
             </p>
           </div>
         </div>
 
         <Button
-          onClick={() => { setVisible(false); openQuiz("invite_banner"); }}
+          onClick={() => { setVisible(false); openQuiz("smm_invite_banner", "marketing"); }}
           className="mt-4 w-full gap-2 font-heading font-semibold"
         >
-          Принять вызов <ArrowRight className="h-4 w-4" />
+          Пройти опрос <ArrowRight className="h-4 w-4" />
         </Button>
-        <p className="mt-2 text-center text-[11px] text-muted-foreground">≈ 2 минуты · без обязательств</p>
+        <p className="mt-2 text-center text-[11px] text-muted-foreground">≈ 3 минуты · персональное предложение</p>
       </div>
     </div>
   );
 };
 
-export default QuizInviteBanner;
+export default MarketingInviteBanner;

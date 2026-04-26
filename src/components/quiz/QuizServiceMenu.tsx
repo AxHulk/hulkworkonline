@@ -1,4 +1,4 @@
-import { Sparkles, Globe, Search, Activity, ChevronDown } from "lucide-react";
+import { Sparkles, Globe, Search, Activity, Megaphone, ChevronDown } from "lucide-react";
 import { Button, ButtonProps } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -56,6 +56,13 @@ const QuizServiceMenu = ({
         >
           <Activity className="h-4 w-4 text-primary" />
           <span>Поведенческие факторы</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => openQuiz(`${source}_marketing`, "marketing")}
+          className="gap-2"
+        >
+          <Megaphone className="h-4 w-4 text-primary" />
+          <span>Маркетинг и SMM</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

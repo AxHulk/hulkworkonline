@@ -30,6 +30,8 @@ import smmDesign from "@/assets/smm_design.png";
 import smmContentPlan from "@/assets/smm_content_plan.png";
 import smmManagement from "@/assets/smm_management.png";
 import smmLaunch from "@/assets/smm_launch.png";
+import MarketingInviteBanner from "@/components/quiz/MarketingInviteBanner";
+import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 
 const packagingItems = [
   {
@@ -174,6 +176,15 @@ const SmmPage = () => {
             <Button size="lg" className="mt-8 font-heading font-semibold" asChild>
               <a href="#cta-form">Обсудить SMM-стратегию</a>
             </Button>
+            <div className="mt-4 flex justify-center md:justify-start">
+              <QuizCTAButton
+                source="smm_page_hero"
+                track="marketing"
+                label="Пройти опрос за 3 минуты"
+                size="lg"
+                variant="secondary"
+              />
+            </div>
           </div>
           <div className="flex justify-center">
             <img src={smmHero} alt="SMM продвижение с визуалом соцсетей и реакций" className="w-full max-w-lg rounded-2xl" />
@@ -317,6 +328,7 @@ const SmmPage = () => {
           </form>
         </div>
       </section>
+      <MarketingInviteBanner />
     </Layout>
   );
 };
