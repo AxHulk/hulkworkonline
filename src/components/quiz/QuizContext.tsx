@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useState, ReactNode } from "react";
 
-export type QuizTrack = "website" | "seo";
+export type QuizTrack = "website" | "seo" | "marketing";
 
 interface QuizContextValue {
   open: boolean;
