@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import QuizCTAButton from "@/components/quiz/QuizCTAButton";
+import ServiceInviteBanner from "@/components/quiz/ServiceInviteBanner";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
@@ -297,6 +298,16 @@ const SeoPage = () => {
           </div>
         </div>
       </section>
+      <ServiceInviteBanner
+        storageKey="hw_seo_invite_shown"
+        source="seo_invite_banner"
+        track="seo"
+        icon={Search}
+        title="Подберём стратегию SEO под ваш сайт"
+        description={<>Ответьте на 12 вопросов — менеджер пришлёт <strong className="text-foreground">персональный план продвижения</strong> и оценку перспектив роста.</>}
+        ctaLabel="Пройти SEO-опросник"
+        footnote="≈ 3 минуты · персональное предложение"
+      />
     </Layout>
   );
 };
