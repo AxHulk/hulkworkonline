@@ -10,8 +10,12 @@ const QuizInviteBanner = () => {
   const { openQuiz, open } = useQuiz();
   const [visible, setVisible] = useState(false);
   const location = useLocation();
-  // На странице SMM показываем отдельный баннер маркетингового опросника.
-  const suppressed = location.pathname.startsWith("/services/smm");
+  // На страницах услуг показываем специализированные баннеры — глобальный отключаем.
+  const suppressed =
+    location.pathname.startsWith("/services/smm") ||
+    location.pathname.startsWith("/services/seo") ||
+    location.pathname.startsWith("/services/web-development") ||
+    location.pathname.startsWith("/services/behavioral-factors");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
