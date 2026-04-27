@@ -36,6 +36,8 @@ import aiToolsIcons from "@/assets/ai_tools_icons.png";
 import serviceFeatureIcons from "@/assets/service_feature_icons.png";
 import infrastructureIllustration from "@/assets/infrastructure_illustration.png";
 import QuizCTAButton from "@/components/quiz/QuizCTAButton";
+import ServiceInviteBanner from "@/components/quiz/ServiceInviteBanner";
+import { Rocket as RocketIcon } from "lucide-react";
 
 const features = [
   { icon: Lightbulb, title: "Концепция и логотип", desc: "Разработка фирменного стиля с нуля — по необходимости, в рамках единого проекта" },
@@ -345,6 +347,16 @@ const WebDevelopment = () => {
           </form>
         </div>
       </section>
+      <ServiceInviteBanner
+        storageKey="hw_webdev_invite_shown"
+        source="webdev_invite_banner"
+        track="website"
+        icon={RocketIcon}
+        title="Рассчитаем сайт под ваш проект"
+        description={<>Ответьте на 15 коротких вопросов — узнайте <strong className="text-foreground">точную цену и срок</strong> разработки именно вашего сайта.</>}
+        ctaLabel="Принять вызов"
+        footnote="≈ 2 минуты · без обязательств"
+      />
     </Layout>
   );
 };
