@@ -11,7 +11,8 @@ export type CityKey =
   | "krasnoyarsk"
   | "tula"
   | "barnaul"
-  | "saransk";
+  | "saransk"
+  | "yaroslavl";
 
 export interface CityData {
   slug: CityKey;
@@ -43,6 +44,7 @@ export const CITIES: CityData[] = [
   { slug: "tula", nom: "Тула", inLoc: "в Туле", gen: "Тулы", region: "Тульская область", marker: "оборонные предприятия, металлургия и пищепром, спрос на закрытые корпоративные порталы", webPriceFrom: 500 },
   { slug: "barnaul", nom: "Барнаул", inLoc: "в Барнауле", gen: "Барнаула", region: "Алтайский край", marker: "агросектор, туризм Горного Алтая и здоровое питание — востребованы каталоги и сайты-витрины", webPriceFrom: 500 },
   { slug: "saransk", nom: "Саранск", inLoc: "в Саранске", gen: "Саранска", region: "Республика Мордовия", marker: "электротехническая и пищевая промышленность, низкая локальная конкуренция в SEO — быстрый выход в топ", webPriceFrom: 500 },
+  { slug: "yaroslavl", nom: "Ярославль", inLoc: "в Ярославле", gen: "Ярославля", region: "Ярославская область", marker: "развитый агросектор, фермерские хозяйства, малый и средний бизнес — спрос на сайты-каталоги, e-commerce и доставку по ЦФО", webPriceFrom: 500 },
 ];
 
 export const CITY_MAP: Record<CityKey, CityData> = CITIES.reduce(
