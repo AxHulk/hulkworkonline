@@ -7,6 +7,37 @@ import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { CITY_MAP, CityKey, CITY_SLUGS } from "@/data/cities";
 import { CheckCircle2, MapPin, Rocket, Search } from "lucide-react";
+import tanecDushi1 from "@/assets/case-tanecdushi-1.png";
+import tanecDushi2 from "@/assets/case-tanecdushi-2.png";
+import tanecDushi3 from "@/assets/case-tanecdushi-3.png";
+
+interface CityCase {
+  title: string;
+  client: string;
+  summary: string;
+  highlights: string[];
+  images: { src: string; alt: string }[];
+}
+
+const CITY_CASES: Partial<Record<`${ServiceKey}_${CityKey}`, CityCase>> = {
+  "web-development_spb": {
+    title: "Веб-платформа для туристического агентства «Танец Души»",
+    client: "ИП Колесова, Санкт-Петербург",
+    summary:
+      "Разработали единую экосистему для авторского турагентства: продажа собственных прогулок по Петербургу, глобальный поиск туров через API ведущих туроператоров, защищённая корзина с платёжным шлюзом и SEO-оптимизированный блог о городе.",
+    highlights: [
+      "API-интеграции с ведущими туроператорами для сквозного поиска туров",
+      "Собственная корзина и платёжный шлюз с поддержкой российских эквайрингов",
+      "SEO-оптимизированный блог-журнал о Петербурге для органического трафика",
+      "Адаптивная вёрстка под десктоп, планшет и мобильный — основной трафик с телефонов",
+    ],
+    images: [
+      { src: tanecDushi1, alt: "Главная страница «Танец Души» — Петербург, который вы полюбите" },
+      { src: tanecDushi3, alt: "Страница блога «Компас по скрытому Петербургу» с категориями" },
+      { src: tanecDushi2, alt: "Блок «Свежее в блоге» — авторские заметки о Петербурге" },
+    ],
+  },
+};
 
 type ServiceKey = "web-development" | "seo";
 
@@ -80,6 +111,7 @@ const ServiceCityPage = ({ service }: Props) => {
   const data = CITY_MAP[city as CityKey];
   const meta = SERVICE_META[service];
   const url = `${SITE_URL}/services/${service}/${city}`;
+  const cityCase = CITY_CASES[`${service}_${city as CityKey}` as keyof typeof CITY_CASES];
 
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -226,6 +258,38 @@ const ServiceCityPage = ({ service }: Props) => {
       </section>
 
       {/* Pricing (web only) */}
+      {cityCase && (
+        <section className="py-14 md:py-20">
+          <div className="container max-w-5xl">
+            <div className="text-center">
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+                Кейс {data.gen}
+              </span>
+              <h2 className="mt-4 font-heading text-2xl font-bold md:text-3xl">{cityCase.title}</h2>
+              <p className="mt-2 text-sm text-muted-foreground">{cityCase.client}</p>
+            </div>
+            <p className="mx-auto mt-6 max-w-3xl text-center text-muted-foreground leading-relaxed">
+              {cityCase.summary}
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {cityCase.highlights.map((h) => (
+                <div key={h} className="flex items-start gap-3 rounded-xl border bg-card p-4">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <span className="text-sm leading-relaxed">{h}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {cityCase.images.map((img) => (
+                <div key={img.src} className="overflow-hidden rounded-xl border bg-card">
+                  <img src={img.src} alt={img.alt} loading="lazy" className="h-full w-full object-cover" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {service === "web-development" && (
         <section className="py-14 md:py-20">
           <div className="container max-w-4xl">
