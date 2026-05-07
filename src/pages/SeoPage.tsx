@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 import ServiceInviteBanner from "@/components/quiz/ServiceInviteBanner";
+import CitiesLinkGrid from "@/components/seo/CitiesLinkGrid";
+import FaqSection from "@/components/seo/FaqSection";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
@@ -74,7 +76,7 @@ const SeoPage = () => {
       <SEO
         title="SEO-продвижение сайтов в Яндекс и Google — HulkWork"
         description="Комплексное SEO: технический аудит, семантика, on-page оптимизация, ссылочное и контент. Прозрачные отчёты, рост трафика и позиций в Яндексе и Google."
-        keywords="SEO, продвижение сайта, оптимизация, Яндекс, Google, поисковое продвижение"
+        keywords="комплексное SEO, услуги комплексного интернет маркетинга, услуги комплексного продвижения в интернете, продвижение санкт петербург, продвижение спб, продвижение москва, продвижение краснодар, продвижение екатеринбург, продвижение уфа, продвижение самара, продвижение красноярск, продвижение тула, продвижение барнаул, продвижение саранск"
         jsonLd={[
           serviceJsonLd,
           buildBreadcrumbJsonLd([
