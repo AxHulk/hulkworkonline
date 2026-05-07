@@ -111,6 +111,7 @@ const ServiceCityPage = ({ service }: Props) => {
   const data = CITY_MAP[city as CityKey];
   const meta = SERVICE_META[service];
   const url = `${SITE_URL}/services/${service}/${city}`;
+  const cityCase = CITY_CASES[`${service}_${city as CityKey}` as keyof typeof CITY_CASES];
 
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -257,6 +258,38 @@ const ServiceCityPage = ({ service }: Props) => {
       </section>
 
       {/* Pricing (web only) */}
+      {cityCase && (
+        <section className="py-14 md:py-20">
+          <div className="container max-w-5xl">
+            <div className="text-center">
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+                Кейс {data.gen}
+              </span>
+              <h2 className="mt-4 font-heading text-2xl font-bold md:text-3xl">{cityCase.title}</h2>
+              <p className="mt-2 text-sm text-muted-foreground">{cityCase.client}</p>
+            </div>
+            <p className="mx-auto mt-6 max-w-3xl text-center text-muted-foreground leading-relaxed">
+              {cityCase.summary}
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {cityCase.highlights.map((h) => (
+                <div key={h} className="flex items-start gap-3 rounded-xl border bg-card p-4">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <span className="text-sm leading-relaxed">{h}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {cityCase.images.map((img) => (
+                <div key={img.src} className="overflow-hidden rounded-xl border bg-card">
+                  <img src={img.src} alt={img.alt} loading="lazy" className="h-full w-full object-cover" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {service === "web-development" && (
         <section className="py-14 md:py-20">
           <div className="container max-w-4xl">
