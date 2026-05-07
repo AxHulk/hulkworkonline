@@ -469,6 +469,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://hulkwork.online/services/web-development/yaroslavl</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://hulkwork.online/services/seo/moskva</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -542,6 +548,12 @@
   </url>
   <url>
     <loc>https://hulkwork.online/services/seo/saransk</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hulkwork.online/services/seo/yaroslavl</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
