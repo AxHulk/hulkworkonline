@@ -7,6 +7,37 @@ import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { CITY_MAP, CityKey, CITY_SLUGS } from "@/data/cities";
 import { CheckCircle2, MapPin, Rocket, Search } from "lucide-react";
+import tanecDushi1 from "@/assets/case-tanecdushi-1.png";
+import tanecDushi2 from "@/assets/case-tanecdushi-2.png";
+import tanecDushi3 from "@/assets/case-tanecdushi-3.png";
+
+interface CityCase {
+  title: string;
+  client: string;
+  summary: string;
+  highlights: string[];
+  images: { src: string; alt: string }[];
+}
+
+const CITY_CASES: Partial<Record<`${ServiceKey}_${CityKey}`, CityCase>> = {
+  "web-development_spb": {
+    title: "Веб-платформа для туристического агентства «Танец Души»",
+    client: "ИП Колесова, Санкт-Петербург",
+    summary:
+      "Разработали единую экосистему для авторского турагентства: продажа собственных прогулок по Петербургу, глобальный поиск туров через API ведущих туроператоров, защищённая корзина с платёжным шлюзом и SEO-оптимизированный блог о городе.",
+    highlights: [
+      "API-интеграции с ведущими туроператорами для сквозного поиска туров",
+      "Собственная корзина и платёжный шлюз с поддержкой российских эквайрингов",
+      "SEO-оптимизированный блог-журнал о Петербурге для органического трафика",
+      "Адаптивная вёрстка под десктоп, планшет и мобильный — основной трафик с телефонов",
+    ],
+    images: [
+      { src: tanecDushi1, alt: "Главная страница «Танец Души» — Петербург, который вы полюбите" },
+      { src: tanecDushi3, alt: "Страница блога «Компас по скрытому Петербургу» с категориями" },
+      { src: tanecDushi2, alt: "Блок «Свежее в блоге» — авторские заметки о Петербурге" },
+    ],
+  },
+};
 
 type ServiceKey = "web-development" | "seo";
 
