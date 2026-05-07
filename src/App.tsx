@@ -16,6 +16,7 @@ import WebDevelopment from "./pages/WebDevelopment.tsx";
 import BehavioralFactors from "./pages/BehavioralFactors.tsx";
 import SeoPage from "./pages/SeoPage.tsx";
 import SmmPage from "./pages/SmmPage.tsx";
+import ServiceCityPage from "./pages/ServiceCityPage.tsx";
 import PortfolioPage from "./pages/PortfolioPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
 import BlogPage from "./pages/BlogPage.tsx";
@@ -41,8 +42,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/services/web-development" element={<WebDevelopment />} />
+          <Route path="/services/web-development/:city" element={<ServiceCityPage service="web-development" />} />
           <Route path="/services/behavioral-factors" element={<BehavioralFactors />} />
           <Route path="/services/seo" element={<SeoPage />} />
+          <Route path="/services/seo/:city" element={<ServiceCityPage service="seo" />} />
           <Route path="/services/smm" element={<SmmPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/about" element={<AboutPage />} />
