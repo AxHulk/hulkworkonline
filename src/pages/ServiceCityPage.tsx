@@ -334,7 +334,7 @@ const ServiceCityPage = ({ service }: Props) => {
               Стоимость сайта под ключ {data.inLoc}
             </h2>
             <p className="mt-3 text-center text-muted-foreground">
-              Базовая ставка студии — от ${data.webPriceFrom}. Финальная цена зависит от типа сайта и набора интеграций.
+              Базовая ставка студии — от $500. Финальная цена зависит от типа сайта и набора интеграций.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {PRICING_WEB.map((p) => (
