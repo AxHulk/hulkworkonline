@@ -68,6 +68,14 @@ const serviceJsonLd = {
 };
 
 const BehavioralFactors = () => {
+  const rate = useUsdRubRate();
+  const pricingRows = [
+    { icon: DollarSign, label: "Стоимость", value: `от ${formatRub(400, rate)} / месяц` },
+    { icon: Activity, label: "Режим работы", value: "Ежедневно, 24/7" },
+    { icon: Wrench, label: "Настройка", value: "Паттерны поведения под вашу нишу и запросы" },
+    { icon: ClipboardCheck, label: "Отчётность", value: "Регулярный мониторинг позиций и метрик" },
+    { icon: Lock, label: "Безопасность", value: "Проходит все проверки вебмастера, GA, Яндекс Метрики" },
+  ];
   return (
     <Layout>
       <SEO
@@ -93,7 +101,7 @@ const BehavioralFactors = () => {
               Ваш сайт может быть идеально сделан — но без правильных поведенческих сигналов поисковые
               системы не поставят его в топ. Мы решаем эту задачу с помощью уникального алгоритма
               собственной разработки, который создаёт безупречную картину живого, вовлечённого трафика. От
-              $400 в месяц.
+              {formatRub(400, rate)} в месяц.
             </p>
             <QuizCTAButton
               source="behavioral_page_hero"
