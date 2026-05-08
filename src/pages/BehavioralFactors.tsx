@@ -56,14 +56,6 @@ const metrics = [
   { icon: TrendingUp, label: "Позиции по запросам", value: "Уверенный рост по целевым коммерческим ключевым словам" },
 ];
 
-const pricingRows = [
-  { icon: DollarSign, label: "Стоимость", value: "от $400 / месяц" },
-  { icon: Activity, label: "Режим работы", value: "Ежедневно, 24/7" },
-  { icon: Wrench, label: "Настройка", value: "Паттерны поведения под вашу нишу и запросы" },
-  { icon: ClipboardCheck, label: "Отчётность", value: "Регулярный мониторинг позиций и метрик" },
-  { icon: Lock, label: "Безопасность", value: "Проходит все проверки вебмастера, GA, Яндекс Метрики" },
-];
-
 const serviceJsonLd = {
   "@context": "https://schema.org",
   "@type": "Service",
