@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 import Layout from "@/components/layout/Layout";
+import { useUsdRubRate, formatRub } from "@/lib/exchangeRate";
 import {
   Code,
   Zap,
