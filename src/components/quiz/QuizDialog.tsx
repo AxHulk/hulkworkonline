@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { useQuiz } from "./QuizContext";
 import { supabase } from "@/integrations/supabase/client";
 import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { formatRub } from "@/lib/exchangeRate";
 import { logConsent } from "@/lib/consent";
 
 type GoalKey =
@@ -928,7 +929,7 @@ const ResultScreen = ({
       <div className="grid grid-cols-2 gap-6">
         <div>
           <p className="text-xs uppercase tracking-wider text-muted-foreground">Цена</p>
-          <p className="font-heading text-3xl font-extrabold text-primary">${offer.price}</p>
+          <p className="font-heading text-3xl font-extrabold text-primary">{formatRub(offer.price)}</p>
         </div>
         <div>
           <p className="text-xs uppercase tracking-wider text-muted-foreground">Срок</p>
