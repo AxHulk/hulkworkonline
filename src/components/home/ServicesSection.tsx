@@ -1,14 +1,17 @@
 import { Monitor, MousePointerClick, SearchCheck, Megaphone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useUsdRubRate, formatRub } from "@/lib/exchangeRate";
 
-const services = [
+const ServicesSection = () => {
+  const rate = useUsdRubRate();
+  const services = [
   {
     icon: Monitor,
     title: "Создание сайтов",
     description:
       "Современные технологии, ИИ-интеграции (ChatGPT, Claude, Manus, Grok), любые базы данных, магазины, личные кабинеты и безупречная логика пути клиента.",
-    price: "от $500 · от 5 часов",
+    price: `от ${formatRub(500, rate)} · от 5 часов`,
     href: "/services/web-development",
     linkText: "Подробнее об услуге →",
   },
@@ -17,7 +20,7 @@ const services = [
     title: "Поведенческие факторы",
     description:
       "Уникальная технология имитации поведенческих факторов на собственном коде. Ежедневная работа, высокие нагрузки, полное прохождение проверок GA и Метрики.",
-    price: "от $400/месяц",
+    price: `от ${formatRub(400, rate)}/месяц`,
     href: "/services/behavioral-factors",
     linkText: "Узнать как это работает →",
   },
@@ -35,14 +38,13 @@ const services = [
     title: "SMM Продвижение",
     description:
       "Покупка групп ВКонтакте и Telegram с историей, профессиональное оформление, контент-план и ведение. Ваш бренд — живой и узнаваемый.",
-    price: "от $250 за 2 месяца",
+    price: `от ${formatRub(250, rate)} за 2 месяца`,
     href: "/services/smm",
     linkText: "Посмотреть пакеты →",
   },
-];
-
-const ServicesSection = () => (
-  <section className="bg-background py-20 md:py-28">
+  ];
+  return (
+    <section className="bg-background py-20 md:py-28">
     <div className="container">
       <h2 className="text-center font-heading text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
         Что мы создаём
@@ -78,7 +80,8 @@ const ServicesSection = () => (
         ))}
       </div>
     </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default ServicesSection;
