@@ -39,6 +39,7 @@ import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 import ServiceInviteBanner from "@/components/quiz/ServiceInviteBanner";
 import CitiesLinkGrid from "@/components/seo/CitiesLinkGrid";
 import FaqSection from "@/components/seo/FaqSection";
+import { useUsdRubRate, formatRub } from "@/lib/exchangeRate";
 
 const features = [
   { icon: Lightbulb, title: "Концепция и логотип", desc: "Разработка фирменного стиля с нуля — по необходимости, в рамках единого проекта" },
@@ -49,16 +50,6 @@ const features = [
   { icon: Database, title: "Базы данных", desc: "Работа с MySQL, PostgreSQL, MongoDB и любыми другими существующими БД" },
   { icon: UserCheck, title: "Личные кабинеты", desc: "Защищённые профили пользователей с персонализированным функционалом" },
   { icon: Settings, title: "CMS решения", desc: "Интеграция с популярными платформами или создание собственной системы управления" },
-];
-
-const pricingRows = [
-  { icon: DollarSign, label: "Стартовая цена", value: "от $500" },
-  { icon: Clock, label: "Сроки реализации", value: "от 5 часов" },
-  { icon: Code, label: "Языки и фреймворки", value: "HTML, PHP, Java, Laravel, Python" },
-  { icon: Cpu, label: "ИИ-инструменты", value: "ChatGPT, Claude, Grok, DeepSeek, Lovable, Manus" },
-  { icon: HardDrive, label: "Базы данных", value: "MySQL, PostgreSQL, MongoDB и любые другие" },
-  { icon: Wrench, label: "Инфраструктура", value: "Установка на сервер, хостинг, домен" },
-  { icon: Plus, label: "Дополнительно", value: "Магазин, Telegram-бот, личные кабинеты, CMS, ИИ-функции" },
 ];
 
 const serviceJsonLd = {
@@ -76,6 +67,17 @@ const WebDevelopment = () => {
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
+  const rate = useUsdRubRate();
+
+  const pricingRows = [
+    { icon: DollarSign, label: "Стартовая цена", value: `от ${formatRub(500, rate)}` },
+    { icon: Clock, label: "Сроки реализации", value: "от 5 часов" },
+    { icon: Code, label: "Языки и фреймворки", value: "HTML, PHP, Java, Laravel, Python" },
+    { icon: Cpu, label: "ИИ-инструменты", value: "ChatGPT, Claude, Grok, DeepSeek, Lovable, Manus" },
+    { icon: HardDrive, label: "Базы данных", value: "MySQL, PostgreSQL, MongoDB и любые другие" },
+    { icon: Wrench, label: "Инфраструктура", value: "Установка на сервер, хостинг, домен" },
+    { icon: Plus, label: "Дополнительно", value: "Магазин, Telegram-бот, личные кабинеты, CMS, ИИ-функции" },
+  ];
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
