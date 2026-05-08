@@ -7,6 +7,7 @@ import QuizCTAButton from "@/components/quiz/QuizCTAButton";
 import { buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { CITY_MAP, CityKey, CITY_SLUGS } from "@/data/cities";
 import { CheckCircle2, MapPin, Rocket, Search } from "lucide-react";
+import { useUsdRubRate, formatRub } from "@/lib/exchangeRate";
 import tanecDushi1 from "@/assets/case-tanecdushi-1.png";
 import tanecDushi2 from "@/assets/case-tanecdushi-2.png";
 import tanecDushi3 from "@/assets/case-tanecdushi-3.png";
@@ -149,6 +150,7 @@ const ServiceCityPage = ({ service }: Props) => {
   const meta = SERVICE_META[service];
   const url = `${SITE_URL}/services/${service}/${city}`;
   const cityCase = CITY_CASES[`${service}_${city as CityKey}` as keyof typeof CITY_CASES];
+  const rate = useUsdRubRate();
 
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -166,18 +168,18 @@ const ServiceCityPage = ({ service }: Props) => {
 
   const faqs = service === "web-development"
     ? [
-        { q: `Сколько стоит сделать сайт для компании ${data.inLoc}?`, a: `Стартовая цена лендинга — от $500, корпоративного сайта под ключ — от $700, интернет-магазина — от $800, корпоративного портала — от $1500. Точная стоимость рассчитывается после короткого брифа за 24 часа.` },
+        { q: `Сколько стоит сделать сайт для компании ${data.inLoc}?`, a: `Стартовая цена лендинга — от ${formatRub(500, rate)}, корпоративного сайта под ключ — от ${formatRub(700, rate)}, интернет-магазина — от ${formatRub(800, rate)}, корпоративного портала — от ${formatRub(1500, rate)}. Точная стоимость рассчитывается после короткого брифа за 24 часа.` },
         { q: `За какой срок вы делаете корпоративный сайт под ключ?`, a: `Лендинг — от 1 рабочего дня, корпоративный сайт — от 5 дней, портал — от 2 недель. Сроки фиксируются в договоре и не сдвигаются по нашей вине.` },
         { q: `Вы работаете только ${data.inLoc} или удалённо?`, a: `Мы базируемся в Крыму (ИП Фурса Н.Н., Симферополь), но 95% работы ведётся удалённо. Клиенты из ${data.gen} получают тот же сервис: видеосозвоны, договор, акты, оплата с НДС или без — по запросу.` },
         { q: `Что входит в «сайт под ключ»?`, a: `Концепция и прототип, дизайн, вёрстка и фронтенд, бэкенд и БД, SEO-база (мета, sitemap, robots, schema), размещение на хостинге, домен, тестирование и обучение по управлению контентом.` },
         { q: `Делаете ли вы лендинг и рекламу под ключ?`, a: `Да. Связка лендинг + Яндекс Директ + РСЯ + сквозная аналитика — наш стандартный пакет для быстрого старта продаж ${data.inLoc}.` },
       ]
     : [
-        { q: `Сколько стоит SEO-продвижение ${data.inLoc}?`, a: `Стоимость зависит от тематики и конкуренции. Базовый аудит и настройка — от $500, ежемесячное сопровождение — от $400/мес. Точная вилка определяется после анализа ниши ${data.inLoc}.` },
+        { q: `Сколько стоит SEO-продвижение ${data.inLoc}?`, a: `Стоимость зависит от тематики и конкуренции. Базовый аудит и настройка — от ${formatRub(500, rate)}, ежемесячное сопровождение — от ${formatRub(400, rate)}/мес. Точная вилка определяется после анализа ниши ${data.inLoc}.` },
         { q: `За какой срок сайт выйдет в топ ${data.gen}?`, a: `Первые позиции по низкочастотным гео-запросам появляются на 2–3 месяце, по высокочастотным — на 4–8 месяцев. Регион ${data.nom}: ${data.marker}.` },
         { q: `Что входит в комплексное SEO?`, a: `Технический аудит, исправление ошибок, сбор семантики, on-page оптимизация, написание SEO-статей, наращивание ссылочного профиля, ежемесячные отчёты.` },
         { q: `Работаете ли вы с региональным продвижением?`, a: `Да, мы делаем региональное SEO для ${data.region}: настраиваем Яндекс Бизнес, привязываем сайт к региону в Вебмастере, работаем с локальными каталогами и отзывами.` },
-        { q: `Можно ли заказать только аудит без сопровождения?`, a: `Да. Разовый SEO-аудит сайта — от $300. Получите отчёт на 30+ страниц с приоритизированным списком работ.` },
+        { q: `Можно ли заказать только аудит без сопровождения?`, a: `Да. Разовый SEO-аудит сайта — от ${formatRub(300, rate)}. Получите отчёт на 30+ страниц с приоритизированным списком работ.` },
       ];
 
   const faqJsonLd = {
@@ -334,7 +336,7 @@ const ServiceCityPage = ({ service }: Props) => {
               Стоимость сайта под ключ {data.inLoc}
             </h2>
             <p className="mt-3 text-center text-muted-foreground">
-              Базовая ставка студии — от $500. Финальная цена зависит от типа сайта и набора интеграций.
+              Базовая ставка студии — от {formatRub(500, rate)}. Финальная цена зависит от типа сайта и набора интеграций.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {PRICING_WEB.map((p) => (
@@ -342,7 +344,7 @@ const ServiceCityPage = ({ service }: Props) => {
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between">
                       <h3 className="font-heading text-base font-semibold">{p.type}</h3>
-                      <span className="font-heading text-sm text-primary">от ${p.from}</span>
+                      <span className="font-heading text-sm text-primary">от {formatRub(p.from, rate)}</span>
                     </div>
                     <p className="mt-1 text-xs text-muted-foreground">{p.days}</p>
                     <p className="mt-3 text-sm text-muted-foreground">{p.desc}</p>
