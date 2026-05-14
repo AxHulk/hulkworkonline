@@ -14,6 +14,9 @@ import tanecDushi3 from "@/assets/case-tanecdushi-3.png";
 import fermerFedor1 from "@/assets/case-fermerfedor-1.png";
 import fermerFedor2 from "@/assets/case-fermerfedor-2.png";
 import fermerFedor3 from "@/assets/case-fermerfedor-3.png";
+import designerCrimea1 from "@/assets/case-designer-crimea-1.png";
+import designerCrimea2 from "@/assets/case-designer-crimea-2.png";
+import designerCrimea3 from "@/assets/case-designer-crimea-3.png";
 
 interface CityCase {
   title: string;
@@ -73,6 +76,23 @@ const CITY_CASES: Partial<Record<`${ServiceKey}_${CityKey}`, CityCase>> = {
       { src: fermerFedor1, alt: "Главный экран «Фермер Фёдор» — Настоящее: продукты с именем и историей" },
       { src: fermerFedor2, alt: "Каталог свежих продуктов с фильтрами по категориям и регионам" },
       { src: fermerFedor3, alt: "Карта зон доставки «Фермер Фёдор»: Москва и МО, Ярославль и ЯО" },
+    ],
+  },
+  "web-development_crimea": {
+    title: "Премиальный сайт-визитка и портфолио для дизайнера интерьеров",
+    client: "Студия дизайна интерьеров, Симферополь и ЮБК",
+    summary:
+      "Премиальный сайт-визитка и портфолио для дизайнера интерьеров. Проект объединяет эстетику глянцевого журнала с мощными инструментами лидогенерации: сложная архитектура портфолио с вложенностью «объекты → комнаты», интерактивный многошаговый квиз для захвата заявок и кастомная дизайн-система, подчёркивающая премиальность услуг.",
+    highlights: [
+      "Эстетика глянцевого журнала: типографика, ритм и крупная фотография объектов",
+      "Архитектура портфолио с вложенностью: объекты → комнаты → фотографии и описания",
+      "Многошаговый квиз для расчёта стоимости и сроков — основной инструмент лидогенерации",
+      "Кастомная дизайн-система и адаптив под десктоп, ноутбук, планшет и мобильный",
+    ],
+    images: [
+      { src: designerCrimea1, alt: "Раздел «Портфолио» дизайнера интерьеров — карточки реализованных объектов" },
+      { src: designerCrimea2, alt: "Блок «Мой подход» с фотографией и плавающим CTA на квиз" },
+      { src: designerCrimea3, alt: "Тарифы услуг дизайна интерьера: Концептуальный, Стандартный, Премиум" },
     ],
   },
 };
