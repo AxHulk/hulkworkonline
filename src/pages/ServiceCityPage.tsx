@@ -17,6 +17,9 @@ import fermerFedor3 from "@/assets/case-fermerfedor-3.png";
 import designerCrimea1 from "@/assets/case-designer-crimea-1.png";
 import designerCrimea2 from "@/assets/case-designer-crimea-2.png";
 import designerCrimea3 from "@/assets/case-designer-crimea-3.png";
+import lilBrazil1 from "@/assets/case-lilbrazil-barnaul-1.png";
+import lilBrazil2 from "@/assets/case-lilbrazil-barnaul-2.png";
+import lilBrazil3 from "@/assets/case-lilbrazil-barnaul-3.png";
 
 interface CityCase {
   title: string;
@@ -93,6 +96,23 @@ const CITY_CASES: Partial<Record<`${ServiceKey}_${CityKey}`, CityCase>> = {
       { src: designerCrimea1, alt: "Раздел «Портфолио» дизайнера интерьеров — карточки реализованных объектов" },
       { src: designerCrimea2, alt: "Блок «Мой подход» с фотографией и плавающим CTA на квиз" },
       { src: designerCrimea3, alt: "Тарифы услуг дизайна интерьера: Концептуальный, Стандартный, Премиум" },
+    ],
+  },
+  "web-development_barnaul": {
+    title: "Сайт для бар-ресторана «Lil Brazil» в Барнауле",
+    client: "Бар-ресторан «Lil Brazil», Барнаул",
+    summary:
+      "Сайт для заведения сферы гостеприимства, где главное — атмосфера, вкус и эмоции. Задача: передать через экран запахи, звуки и настроение бара-ресторана, оставаясь цифровым продолжением интерьера. При этом эстетика не должна мешать функциональности — гость должен быстро посмотреть меню с аппетитными фотографиями и легко забронировать столик.",
+    highlights: [
+      "Баланс между визуальной насыщенностью и молниеносной скоростью загрузки на телефонах",
+      "Афиша концертов и мероприятий с карточками артистов и быстрой покупкой билета",
+      "Меню с крупными аппетитными фотографиями блюд и удобной категоризацией",
+      "Бронирование столика «на ходу» — короткая форма, минимум полей, мобильный приоритет",
+    ],
+    images: [
+      { src: lilBrazil1, alt: "Раздел «Концерты» бар-ресторана Lil Brazil — афиши и кнопки покупки билетов" },
+      { src: lilBrazil2, alt: "Раздел «Наше меню» Lil Brazil — карточки категорий с фотографиями блюд" },
+      { src: lilBrazil3, alt: "Раздел «Афиша» Lil Brazil — ближайшие мероприятия и бронирование" },
     ],
   },
 };
