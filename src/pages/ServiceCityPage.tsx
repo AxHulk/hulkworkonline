@@ -23,6 +23,9 @@ import lilBrazil3 from "@/assets/case-lilbrazil-barnaul-3.png";
 import unikFood1 from "@/assets/case-unikfood-ekb-1.png";
 import unikFood2 from "@/assets/case-unikfood-ekb-2.png";
 import unikFood3 from "@/assets/case-unikfood-ekb-3.png";
+import dacartur1 from "@/assets/case-dacartur-kazan-1.png";
+import dacartur2 from "@/assets/case-dacartur-kazan-2.png";
+import dacartur3 from "@/assets/case-dacartur-kazan-3.png";
 
 interface CityCase {
   title: string;
@@ -133,6 +136,23 @@ const CITY_CASES: Partial<Record<`${ServiceKey}_${CityKey}`, CityCase>> = {
       { src: unikFood1, alt: "Блок выбора рациона: стандартные и премиум, пример меню по дням недели" },
       { src: unikFood2, alt: "Раздел «Ваши отзывы» — лента публикаций клиентов из VK" },
       { src: unikFood3, alt: "Раздел «Часто задаваемые вопросы» с категориями и иконками" },
+    ],
+  },
+  "web-development_kazan": {
+    title: "Федеральный портал аренды автомобилей DACARTUR (Казань)",
+    client: "Федеральная сеть проката автомобилей DACARTUR, головной офис — Казань",
+    summary:
+      "Масштабный федеральный портал аренды автомобилей: единая платформа обслуживает клиентов из 15 городов, показывая для каждого региона собственный автопарк и цены. Задача — презентовать машины красиво и современно, чтобы их хотелось арендовать, и одновременно строго и понятно донести правила, лимиты, штрафы и условия страховки, защищая бизнес от спорных ситуаций с клиентами.",
+    highlights: [
+      "Мультигородовая архитектура: единая база, для каждого из 15 городов — свой парк и цены",
+      "Каталог с фильтрами по классу, марке, КПП, году выпуска и ценам за 1 и 3 суток",
+      "Бронирование «в пару кликов» с честной коммуникацией залогов, лимитов и условий КАСКО/ОСАГО",
+      "Полностью адаптивная вёрстка — бронирование прямо со смартфона, плюс блок «Новости» и SEO",
+    ],
+    images: [
+      { src: dacartur1, alt: "Главный экран DACARTUR — «Аренда автомобилей на все случаи жизни»" },
+      { src: dacartur2, alt: "Каталог «Аренда автомобилей в Казани» с фильтрами по классу и марке" },
+      { src: dacartur3, alt: "Раздел «Новости» DACARTUR с карточками публикаций о городе и автопарке" },
     ],
   },
 };
