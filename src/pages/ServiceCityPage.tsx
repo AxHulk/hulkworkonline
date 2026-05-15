@@ -20,6 +20,9 @@ import designerCrimea3 from "@/assets/case-designer-crimea-3.png";
 import lilBrazil1 from "@/assets/case-lilbrazil-barnaul-1.png";
 import lilBrazil2 from "@/assets/case-lilbrazil-barnaul-2.png";
 import lilBrazil3 from "@/assets/case-lilbrazil-barnaul-3.png";
+import unikFood1 from "@/assets/case-unikfood-ekb-1.png";
+import unikFood2 from "@/assets/case-unikfood-ekb-2.png";
+import unikFood3 from "@/assets/case-unikfood-ekb-3.png";
 
 interface CityCase {
   title: string;
@@ -113,6 +116,23 @@ const CITY_CASES: Partial<Record<`${ServiceKey}_${CityKey}`, CityCase>> = {
       { src: lilBrazil1, alt: "Раздел «Концерты» бар-ресторана Lil Brazil — афиши и кнопки покупки билетов" },
       { src: lilBrazil2, alt: "Раздел «Наше меню» Lil Brazil — карточки категорий с фотографиями блюд" },
       { src: lilBrazil3, alt: "Раздел «Афиша» Lil Brazil — ближайшие мероприятия и бронирование" },
+    ],
+  },
+  "web-development_ekaterinburg": {
+    title: "Сайт сервиса доставки рационов правильного питания в Екатеринбурге",
+    client: "Сервис доставки готовых рационов ПП, Екатеринбург",
+    summary:
+      "Современный сервис доставки готовых рационов правильного питания в Екатеринбурге. Ниша подписочной доставки еды — одна из самых конкурентных, поэтому сайт должен с первых секунд объяснять, почему заказывать стоит именно здесь, и максимально упрощать выбор: без калькуляторов БЖУ и долгих сравнений. Сайт стал персональным цифровым диетологом пользователя и инструментом удержания, мотивирующим возвращаться за новыми заказами.",
+    highlights: [
+      "Интерактивный калькулятор рациона: подбор калорийности и программы под цель клиента",
+      "Динамическое меню на неделю с примерами блюд по дням — выбор как увлекательная игра",
+      "Социальное доказательство: лента отзывов клиентов из VK с фото и упоминанием бренда",
+      "Умный FAQ с категориями (оплата, доставка, питание, похудение, detox, кешбэк) и онлайн-чатом",
+    ],
+    images: [
+      { src: unikFood1, alt: "Блок выбора рациона: стандартные и премиум, пример меню по дням недели" },
+      { src: unikFood2, alt: "Раздел «Ваши отзывы» — лента публикаций клиентов из VK" },
+      { src: unikFood3, alt: "Раздел «Часто задаваемые вопросы» с категориями и иконками" },
     ],
   },
 };
