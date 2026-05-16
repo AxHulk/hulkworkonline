@@ -38,6 +38,9 @@ import ogniSamary3 from "@/assets/case-ognisamary-samara-3.png";
 import vananaPark1 from "@/assets/case-vananapark-saransk-1.png";
 import vananaPark2 from "@/assets/case-vananapark-saransk-2.png";
 import vananaPark3 from "@/assets/case-vananapark-saransk-3.png";
+import avax1 from "@/assets/case-avax-sochi-1.png";
+import avax2 from "@/assets/case-avax-sochi-2.png";
+import avax3 from "@/assets/case-avax-sochi-3.png";
 
 interface CityCase {
   title: string;
