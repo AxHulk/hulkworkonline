@@ -35,6 +35,9 @@ import smCity3 from "@/assets/case-smcity-krasnoyarsk-3.png";
 import ogniSamary1 from "@/assets/case-ognisamary-samara-1.png";
 import ogniSamary2 from "@/assets/case-ognisamary-samara-2.png";
 import ogniSamary3 from "@/assets/case-ognisamary-samara-3.png";
+import vananaPark1 from "@/assets/case-vananapark-saransk-1.png";
+import vananaPark2 from "@/assets/case-vananapark-saransk-2.png";
+import vananaPark3 from "@/assets/case-vananapark-saransk-3.png";
 
 interface CityCase {
   title: string;
@@ -213,6 +216,23 @@ const CITY_CASES: Partial<Record<`${ServiceKey}_${CityKey}`, CityCase>> = {
       { src: ogniSamary1, alt: "Главный экран «Огни Самары» — агентство недвижимости с поисковым фильтром" },
       { src: ogniSamary2, alt: "Раздел «Затрудняетесь с выбором? Мы поможем» с карточками услуг агентства" },
       { src: ogniSamary3, alt: "Блок «Контроль качества» с фото руководителя и логотипами банков-партнёров" },
+    ],
+  },
+  "web-development_saransk": {
+    title: "Сайт детского развлекательного центра Vanana Park в Саранске",
+    client: "Vanana Park, ТРЦ «Сити Парк», Саранск",
+    summary:
+      "Основная задача — создание портала, который стал бы главным цифровым администратором парка. Предмет особой гордости в этом проекте — успешная трансформация сложной офлайн-услуги в простой цифровой продукт. Интеграция верхнего и выпадающего меню делает навигацию интуитивной, а продуманная мобильная версия гарантирует, что родители могут планировать выходные прямо со смартфона.",
+    highlights: [
+      "Цифровой администратор парка: мероприятия, день рождения «под ключ», стоимость и кафе в одном окне",
+      "Трансформация сложной офлайн-услуги в простой и понятный онлайн-продукт",
+      "Интуитивная навигация с верхним и выпадающим меню по игровым зонам и услугам",
+      "Продуманная мобильная версия — родители планируют выходные прямо со смартфона",
+    ],
+    images: [
+      { src: vananaPark1, alt: "Главный экран Vanana Park в Саранске — мир детских развлечений в ТРЦ «Сити Парк»" },
+      { src: vananaPark2, alt: "Раздел «Короткие ролики из жизни нашего парка» с видео праздников и игровых зон" },
+      { src: vananaPark3, alt: "Раздел «Игровые зоны» Vanana Park — карточки зон с возрастной маркировкой" },
     ],
   },
 };
