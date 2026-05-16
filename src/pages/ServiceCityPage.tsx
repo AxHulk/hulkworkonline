@@ -35,6 +35,9 @@ import smCity3 from "@/assets/case-smcity-krasnoyarsk-3.png";
 import ogniSamary1 from "@/assets/case-ognisamary-samara-1.png";
 import ogniSamary2 from "@/assets/case-ognisamary-samara-2.png";
 import ogniSamary3 from "@/assets/case-ognisamary-samara-3.png";
+import vananaPark1 from "@/assets/case-vananapark-saransk-1.png";
+import vananaPark2 from "@/assets/case-vananapark-saransk-2.png";
+import vananaPark3 from "@/assets/case-vananapark-saransk-3.png";
 
 interface CityCase {
   title: string;
