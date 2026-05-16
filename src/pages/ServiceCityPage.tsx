@@ -32,6 +32,9 @@ import quest101_3 from "@/assets/case-101quest-krasnodar-3.png";
 import smCity1 from "@/assets/case-smcity-krasnoyarsk-1.png";
 import smCity2 from "@/assets/case-smcity-krasnoyarsk-2.png";
 import smCity3 from "@/assets/case-smcity-krasnoyarsk-3.png";
+import ogniSamary1 from "@/assets/case-ognisamary-samara-1.png";
+import ogniSamary2 from "@/assets/case-ognisamary-samara-2.png";
+import ogniSamary3 from "@/assets/case-ognisamary-samara-3.png";
 
 interface CityCase {
   title: string;
