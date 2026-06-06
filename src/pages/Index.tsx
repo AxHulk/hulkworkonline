@@ -7,13 +7,23 @@ import PortfolioSection from "@/components/home/PortfolioSection";
 import BlogSection from "@/components/home/BlogSection";
 import CTASection from "@/components/home/CTASection";
 import { LOCAL_BUSINESS_JSONLD, ORGANIZATION_JSONLD, WEBSITE_JSONLD } from "@/lib/seo";
+import { useT } from "@/i18n/translations";
 
-const Index = () => (
+const Index = () => {
+  const { lang } = useT();
+  const isEn = lang === "en";
+  return (
   <Layout>
     <SEO
-      title="HulkWork Studio — создание сайтов, SEO, SMM в Симферополе"
-      description="Студия HulkWork: разработка сайтов под ключ, SEO-продвижение в Яндекс и Google, SMM и поведенческие факторы. Команда лучших фрилансеров для вашего бизнеса."
-      keywords="создание сайтов, SEO, SMM, поведенческие факторы, Симферополь, разработка сайтов"
+      title={isEn
+        ? "HulkWork Studio — web development, SEO and SMM"
+        : "HulkWork Studio — создание сайтов, SEO, SMM в Симферополе"}
+      description={isEn
+        ? "HulkWork Studio: custom web development, SEO in Google & Yandex, SMM and behavioral factors. A team of senior freelancers for your business."
+        : "Студия HulkWork: разработка сайтов под ключ, SEO-продвижение в Яндекс и Google, SMM и поведенческие факторы. Команда лучших фрилансеров для вашего бизнеса."}
+      keywords={isEn
+        ? "web development, SEO, SMM, behavioral factors, digital agency"
+        : "создание сайтов, SEO, SMM, поведенческие факторы, Симферополь, разработка сайтов"}
       jsonLd={[ORGANIZATION_JSONLD, LOCAL_BUSINESS_JSONLD, WEBSITE_JSONLD]}
     />
     <HeroSection />
@@ -23,6 +33,7 @@ const Index = () => (
     <BlogSection />
     <CTASection />
   </Layout>
-);
+  );
+};
 
 export default Index;

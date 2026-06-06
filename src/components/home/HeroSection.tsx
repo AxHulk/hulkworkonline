@@ -1,8 +1,11 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImg from "@/assets/main_hero.png";
+import { useT } from "@/i18n/translations";
 
-const HeroSection = () => (
+const HeroSection = () => {
+  const { t } = useT();
+  return (
   <section
     className="relative overflow-hidden py-16 md:py-24"
     style={{ background: "#FAFAFA" }}
@@ -21,12 +24,10 @@ const HeroSection = () => (
         {/* Text */}
         <div className="order-2 text-center lg:order-1 lg:text-left">
           <h1 className="font-heading text-3xl font-extrabold leading-tight text-foreground sm:text-4xl md:text-5xl lg:text-[3.5rem] lg:leading-[1.1]">
-            Цифровые шедевры, созданные для лидерства.
+            {t("home.hero.title")}
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg lg:mx-0 mx-auto">
-            Мы не просто пишем код. Мы проектируем логику, имитируем поведение
-            и&nbsp;выводим бизнес в&nbsp;топ. От&nbsp;концепции до готового
-            продукта — за&nbsp;72&nbsp;часа.
+            {t("home.hero.subtitle")}
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start sm:justify-center">
@@ -36,7 +37,7 @@ const HeroSection = () => (
               asChild
             >
               <a href="#cta">
-                Начать проект <ArrowRight className="h-4 w-4" />
+                {t("home.hero.ctaPrimary")} <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
             <Button
@@ -54,7 +55,7 @@ const HeroSection = () => (
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
                 </span>
-                Написать в Telegram
+                {t("home.hero.ctaTelegram")}
               </a>
             </Button>
           </div>
@@ -71,6 +72,7 @@ const HeroSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default HeroSection;

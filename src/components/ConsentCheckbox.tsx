@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Checkbox } from "@/components/ui/checkbox";
-import { CONSENT_TEXT } from "@/lib/consent";
+import { useT } from "@/i18n/translations";
 
 interface Props {
   checked: boolean;
@@ -8,7 +8,9 @@ interface Props {
   error?: boolean;
 }
 
-const ConsentCheckbox = ({ checked, onChange, error }: Props) => (
+const ConsentCheckbox = ({ checked, onChange, error }: Props) => {
+  const { t, lang } = useT();
+  return (
   <div className="flex items-start gap-3">
     <Checkbox
       id="consent"
@@ -17,12 +19,17 @@ const ConsentCheckbox = ({ checked, onChange, error }: Props) => (
       className={error ? "border-red-500" : ""}
     />
     <label htmlFor="consent" className={`text-xs leading-relaxed ${error ? "text-red-500" : "text-muted-foreground"}`}>
-      {CONSENT_TEXT.replace("Политики конфиденциальности", "")}{" "}
-      <Link to="/privacy" className="text-primary underline hover:text-primary/80">
-        Политики конфиденциальности
-      </Link>
+      {t("consent.text")}
+      {lang === "ru" ? (
+        <Link to="/privacy" className="text-primary underline hover:text-primary/80">
+          {t("consent.policy")}
+        </Link>
+      ) : (
+        <span className="text-primary">{t("consent.policy")}</span>
+      )}
     </label>
   </div>
-);
+  );
+};
 
 export default ConsentCheckbox;

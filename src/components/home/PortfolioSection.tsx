@@ -3,36 +3,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useT } from "@/i18n/translations";
 
-const projects = [
-  {
-    title: "PayCross",
-    category: "Платёжный сервис / Веб",
-    description: "Мультивалютная платёжная система с интеграцией криптовалют и фиатных шлюзов.",
-  },
-  {
-    title: "HulkWork Studio",
-    category: "Сайт-магазин услуг / Веб",
-    description: "Корпоративный сайт студии с блогом, портфолио и системой заявок.",
-  },
-  {
-    title: "Бот ПФ (Open Source)",
-    category: "Поведенческие факторы",
-    description: "Автоматизация накрутки поведенческих факторов на собственном коде.",
-  },
-  {
-    title: "Kvanteks",
-    category: "Интернет-магазин / Веб",
-    description: "Масштабный магазин электроники с интеграцией складских баз.",
-  },
-  {
-    title: "SMM ВКонтакте",
-    category: "Упаковка и ведение",
-    description: "Полная упаковка и контент-стратегия для группы ВКонтакте с нуля.",
-  },
-];
-
-const PortfolioSection = () => (
+const PortfolioSection = () => {
+  const { t, lp } = useT();
+  const projects = [
+    { title: "PayCross", category: t("home.portfolio.paycross.cat"), description: t("home.portfolio.paycross.desc") },
+    { title: "HulkWork Studio", category: t("home.portfolio.hulkwork.cat"), description: t("home.portfolio.hulkwork.desc") },
+    { title: t("home.portfolio.botpf.title"), category: t("home.portfolio.botpf.cat"), description: t("home.portfolio.botpf.desc") },
+    { title: "Kvanteks", category: t("home.portfolio.kvanteks.cat"), description: t("home.portfolio.kvanteks.desc") },
+    { title: t("home.portfolio.smm.title"), category: t("home.portfolio.smm.cat"), description: t("home.portfolio.smm.desc") },
+  ];
+  return (
   <section
     className="relative overflow-hidden py-20 md:py-28"
     style={{ background: "#FAFAFA" }}
@@ -48,7 +30,7 @@ const PortfolioSection = () => (
 
     <div className="container relative z-10">
       <h2 className="text-center font-heading text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
-        Наша гордость. Ваша уверенность.
+        {t("home.portfolio.title")}
       </h2>
 
       {/* Horizontal scroll */}
@@ -77,13 +59,14 @@ const PortfolioSection = () => (
 
       <div className="mt-8 text-center">
         <Button variant="outline" className="gap-2 font-heading font-semibold" asChild>
-          <Link to="/portfolio">
-            Смотреть все работы <ArrowRight className="h-4 w-4" />
+          <Link to={lp("/portfolio")}>
+            {t("home.portfolio.viewAll")} <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default PortfolioSection;
