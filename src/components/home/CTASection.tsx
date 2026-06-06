@@ -11,6 +11,7 @@ import { submitLead } from "@/lib/leads";
 import { useQuiz } from "@/components/quiz/QuizContext";
 import { Globe, Search, Activity, ArrowRight } from "lucide-react";
 import type { Group } from "three";
+import { useT } from "@/i18n/translations";
 
 function HulkModel() {
   const { scene } = useGLTF("/models/hulk_bust.glb");
@@ -33,6 +34,7 @@ function HulkModel() {
 }
 
 const CTASection = () => {
+  const { t } = useT();
   const { openQuiz } = useQuiz();
   type Service = "website" | "seo" | "behavioral";
   const [service, setService] = useState<Service>("website");
@@ -44,7 +46,7 @@ const CTASection = () => {
     e.preventDefault();
     if (!consent) {
       setConsentError(true);
-      toast.error("Необходимо дать согласие на обработку персональных данных");
+      toast.error(t("toast.consentRequired"));
       return;
     }
     setConsentError(false);
@@ -59,12 +61,12 @@ const CTASection = () => {
         contact: String(fd.get("contact") || "").trim(),
         message: String(fd.get("task") || "").trim() || undefined,
       });
-      toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
+      toast.success(t("toast.leadSuccess"));
       form.reset();
       setConsent(false);
     } catch (err) {
       console.error(err);
-      toast.error("Не удалось отправить заявку. Попробуйте ещё раз или напишите в Telegram.");
+      toast.error(t("toast.leadError"));
     } finally {
       setLoading(false);
     }
@@ -74,23 +76,22 @@ const CTASection = () => {
     <section id="cta" className="relative py-20 md:py-28" style={{ background: "#F0E8F8" }}>
       <div className="container">
         <h2 className="mb-12 text-center font-heading text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
-          Готовы создать шедевр?
+          {t("home.cta.title")}
         </h2>
 
         <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left — form */}
           <div className="rounded-2xl bg-background p-8 shadow-lg">
             <p className="mb-6 text-muted-foreground">
-              Выберите услугу — и заполните короткую форму или ответьте на пару
-              вопросов. Мы свяжемся с вами в ближайшее время.
+              {t("home.cta.formIntro")}
             </p>
 
             {/* Service picker */}
             <div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-3">
               {([
-                { key: "website" as const, label: "Создать сайт", Icon: Globe },
-                { key: "seo" as const, label: "SEO", Icon: Search },
-                { key: "behavioral" as const, label: "Поведенческие факторы", Icon: Activity },
+                { key: "website" as const, label: t("home.cta.service.website"), Icon: Globe },
+                { key: "seo" as const, label: t("home.cta.service.seo"), Icon: Search },
+                { key: "behavioral" as const, label: t("home.cta.service.behavioral"), Icon: Activity },
               ]).map(({ key, label, Icon }) => {
                 const active = service === key;
                 return (
@@ -114,14 +115,14 @@ const CTASection = () => {
 
             {service === "website" ? (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <Input placeholder="Ваше имя" name="name" required />
+              <Input placeholder={t("home.cta.placeholder.name")} name="name" required />
               <Input
-                placeholder="Telegram или Email"
+                placeholder={t("home.cta.placeholder.contact")}
                 name="contact"
                 required
               />
               <Textarea
-                placeholder="Кратко о задаче"
+                placeholder={t("home.cta.placeholder.task")}
                 name="task"
                 rows={4}
                 className="resize-none"
@@ -133,7 +134,7 @@ const CTASection = () => {
                 className="font-heading font-semibold"
                 disabled={loading}
               >
-                {loading ? "Отправка..." : "Отправить заявку"}
+                {loading ? t("home.cta.submitting") : t("home.cta.submit")}
               </Button>
             </form>
             ) : (
@@ -142,22 +143,19 @@ const CTASection = () => {
                   {service === "seo" ? (
                     <>
                       <p className="font-heading font-semibold text-foreground">
-                        SEO-продвижение в Яндекс и Google
+                        {t("home.cta.seo.title")}
                       </p>
                       <p className="mt-1">
-                        Ответьте на 12 коротких вопросов — мы подготовим персональную
-                        стратегию под вашу нишу, бюджет и темп. Менеджер свяжется в
-                        течение 12 часов.
+                        {t("home.cta.seo.desc")}
                       </p>
                     </>
                   ) : (
                     <>
                       <p className="font-heading font-semibold text-foreground">
-                        Поведенческие факторы (Яндекс)
+                        {t("home.cta.behavioral.title")}
                       </p>
                       <p className="mt-1">
-                        Турбо-режим вывода в ТОП за 1–3 месяца. Ответьте на 12
-                        вопросов — рассчитаем персональное предложение под вашу нишу.
+                        {t("home.cta.behavioral.desc")}
                       </p>
                     </>
                   )}
@@ -173,7 +171,7 @@ const CTASection = () => {
                     )
                   }
                 >
-                  Пройти опросник
+                  {t("home.cta.openQuiz")}
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
@@ -200,8 +198,7 @@ const CTASection = () => {
 
             <div className="w-full max-w-sm rounded-2xl bg-background p-6 text-center shadow-lg">
               <p className="mb-4 text-sm text-muted-foreground">
-                Или напишите нам напрямую. Мы отвечаем за&nbsp;5&nbsp;минут и
-                готовы обсудить проект прямо сейчас.
+                {t("home.cta.directMessage")}
               </p>
               <Button
                 size="lg"
