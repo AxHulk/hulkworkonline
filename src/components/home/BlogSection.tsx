@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { blogArticles, categoryLabels } from "@/data/blogArticles";
 import blogImg from "@/assets/main_blog.png";
+import { useT } from "@/i18n/translations";
 
 // Pick one from each of 3 different categories
 const getLatestArticles = () => {
@@ -21,7 +22,11 @@ const getLatestArticles = () => {
 
 const latestArticles = getLatestArticles();
 
-const BlogSection = () => (
+const BlogSection = () => {
+  const { lang } = useT();
+  // Blog is intentionally Russian-only.
+  if (lang === "en") return null;
+  return (
   <section className="bg-background py-20 md:py-28">
     <div className="container">
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
@@ -76,6 +81,7 @@ const BlogSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default BlogSection;
