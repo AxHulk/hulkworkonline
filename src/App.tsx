@@ -61,10 +61,8 @@ const App = () => (
           {/* English mirror routes. Blog and legal pages are intentionally RU-only. */}
           <Route path="/en" element={<Index />} />
           <Route path="/en/services/web-development" element={<WebDevelopment />} />
-          <Route path="/en/services/web-development/:city" element={<ServiceCityPage service="web-development" />} />
           <Route path="/en/services/behavioral-factors" element={<BehavioralFactors />} />
           <Route path="/en/services/seo" element={<SeoPage />} />
-          <Route path="/en/services/seo/:city" element={<ServiceCityPage service="seo" />} />
           <Route path="/en/services/smm" element={<SmmPage />} />
           <Route path="/en/portfolio" element={<PortfolioPage />} />
           <Route path="/en/about" element={<AboutPage />} />

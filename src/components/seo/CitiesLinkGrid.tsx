@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { CITIES } from "@/data/cities";
 import { MapPin } from "lucide-react";
+import { useT } from "@/i18n/translations";
 
 interface Props {
   service: "web-development" | "seo";
@@ -8,7 +9,11 @@ interface Props {
   subtitle?: string;
 }
 
-const CitiesLinkGrid = ({ service, title, subtitle }: Props) => (
+const CitiesLinkGrid = ({ service, title, subtitle }: Props) => {
+  const { lang } = useT();
+  // Regional Russian city pages are not available in English.
+  if (lang === "en") return null;
+  return (
   <section className="border-t bg-secondary py-12 md:py-16">
     <div className="container max-w-5xl">
       <h2 className="text-center font-heading text-xl font-bold md:text-2xl">{title}</h2>
@@ -29,6 +34,7 @@ const CitiesLinkGrid = ({ service, title, subtitle }: Props) => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default CitiesLinkGrid;
