@@ -223,9 +223,9 @@ const CopyField = ({ label, value }: { label: string; value: string }) => {
 
 const LegalSection = () => {
   const { lang } = useT();
+  const [open, setOpen] = useState(false);
   // RU-only legal block: requisites are Russian IP details.
   if (lang === "en") return null;
-  const [open, setOpen] = useState(false);
 
   return (
     <section className="container mx-auto px-4 py-16 md:py-20">
