@@ -343,19 +343,20 @@ const WebDevelopment = () => {
       <section id="cta-form" className="bg-primary py-16 md:py-24">
         <div className="container max-w-xl text-center">
           <h2 className="font-heading text-2xl font-bold text-primary-foreground md:text-3xl">
-            Готовы создать выдающийся проект?
+            {isEn ? "Ready to build an outstanding project?" : "Готовы создать выдающийся проект?"}
           </h2>
           <p className="mt-3 text-primary-foreground/80">
-            Оставьте заявку, и мы обсудим, как современные технологии и искусственный интеллект могут решить
-            задачи вашего бизнеса. Мы ответим в течение 24 часов.
+            {isEn
+              ? "Send a request and we'll discuss how modern tech and AI can solve your business challenges. We respond within 24 hours."
+              : "Оставьте заявку, и мы обсудим, как современные технологии и искусственный интеллект могут решить задачи вашего бизнеса. Мы ответим в течение 24 часов."}
           </p>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-            <Input placeholder="Ваше имя" name="name" required className="bg-primary-foreground" />
-            <Input placeholder="Email или Telegram" name="contact" required className="bg-primary-foreground" />
+            <Input placeholder={isEn ? "Your name" : "Ваше имя"} name="name" required className="bg-primary-foreground" />
+            <Input placeholder={isEn ? "Email or Telegram" : "Email или Telegram"} name="contact" required className="bg-primary-foreground" />
             <textarea
               name="description"
-              placeholder="Краткое описание задачи"
+              placeholder={isEn ? "Briefly describe your task" : "Краткое описание задачи"}
               required
               className="flex min-h-[100px] w-full rounded-md border border-input bg-primary-foreground px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
@@ -367,7 +368,7 @@ const WebDevelopment = () => {
               className="w-full font-heading font-semibold"
               disabled={loading}
             >
-              {loading ? "Отправка..." : "Начать сотрудничество"}
+              {loading ? (isEn ? "Sending..." : "Отправка...") : (isEn ? "Start working together" : "Начать сотрудничество")}
             </Button>
           </form>
         </div>
@@ -378,9 +379,16 @@ const WebDevelopment = () => {
         subtitle="Делаем сайты для компаний по всей России. Выберите свой регион — увидите цены, сроки и FAQ под город."
       />
       <FaqSection
-        title="Сколько стоит и что входит в сайт под ключ"
-        items={[
-          { q: "Сколько стоит сделать сайт для компании?", a: `Стартовая цена лендинга — от ${formatRub(500, rate)}, корпоративного сайта под ключ — от ${formatRub(700, rate)}, интернет-магазина — от ${formatRub(800, rate)}, корпоративного портала — от ${formatRub(1500, rate)}. Точную стоимость рассчитываем за 24 часа после короткого брифа.` },
+        title={isEn ? "Pricing and what's included" : "Сколько стоит и что входит в сайт под ключ"}
+        items={isEn ? [
+          { q: "How much does a business website cost?", a: `Landing page from ${fmt(500)}, corporate website from ${fmt(700)}, e-commerce from ${fmt(800)}, corporate portal from ${fmt(1500)}. Exact price calculated within 24 hours after a short brief.` },
+          { q: "What's included in a full-cycle corporate website?", a: "Concept and prototype, brand identity (if needed), design, frontend, backend, integrations (CRM, payments, Telegram bot), SEO setup, hosting deployment, domain, CMS training and one month of support." },
+          { q: "How is a web agency different from a freelancer?", a: "An agency covers the full cycle: planning, design, development, testing, SEO, support. It's contractual responsibility, fixed deadlines, accounting documents and a team instead of one person." },
+          { q: "Do you build landing pages and ad campaigns together?", a: "Yes. Landing + Google/Yandex Ads + end-to-end analytics is our standard package for a fast sales launch." },
+          { q: "Can we work remotely from any country?", a: "Yes. We work remotely worldwide. All steps via video calls and a task tracker." },
+          { q: "How long does a corporate portal take?", a: "A simple portal — from 14 days. A complex one with roles, document flow and ERP integrations — from 6-8 weeks. Deadlines are fixed in the contract." },
+        ] : [
+          { q: "Сколько стоит сделать сайт для компании?", a: `Стартовая цена лендинга — от ${fmt(500)}, корпоративного сайта под ключ — от ${fmt(700)}, интернет-магазина — от ${fmt(800)}, корпоративного портала — от ${fmt(1500)}. Точную стоимость рассчитываем за 24 часа после короткого брифа.` },
           { q: "Что входит в «корпоративный сайт под ключ»?", a: "Концепция и прототип, фирменный стиль (если нужен), дизайн, вёрстка, бэкенд, интеграции (1С, CRM, оплата, Telegram-бот), SEO-настройка, размещение на хостинге, домен, обучение по управлению контентом и месяц поддержки." },
           { q: "Чем агентство веб-разработки отличается от фрилансера?", a: "Агентство закрывает весь цикл: проектирование, дизайн, разработка, тестирование, SEO, поддержка. Это ответственность по договору, фиксированные сроки, документы для бухгалтерии и команда вместо одного человека." },
           { q: "Делаете ли вы лендинги и рекламу под ключ?", a: "Да. Связка лендинг + Яндекс Директ + РСЯ + сквозная аналитика — наш стандартный пакет для быстрого запуска продаж." },
@@ -393,10 +401,10 @@ const WebDevelopment = () => {
         source="webdev_invite_banner"
         track="website"
         icon={Rocket}
-        title="Рассчитаем сайт под ваш проект"
-        description={<>Ответьте на 15 коротких вопросов — узнайте <strong className="text-foreground">точную цену и срок</strong> разработки именно вашего сайта.</>}
-        ctaLabel="Принять вызов"
-        footnote="≈ 2 минуты · без обязательств"
+        title={isEn ? "Calculate a quote for your site" : "Рассчитаем сайт под ваш проект"}
+        description={isEn ? <>Answer 15 quick questions — get the <strong className="text-foreground">exact price and timeline</strong> for your project.</> : <>Ответьте на 15 коротких вопросов — узнайте <strong className="text-foreground">точную цену и срок</strong> разработки именно вашего сайта.</>}
+        ctaLabel={isEn ? "Accept the challenge" : "Принять вызов"}
+        footnote={isEn ? "≈ 2 minutes · no commitment" : "≈ 2 минуты · без обязательств"}
       />
     </Layout>
   );
