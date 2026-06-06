@@ -5,6 +5,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import type { Group } from "three";
 import QuizServiceMenu from "@/components/quiz/QuizServiceMenu";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useT } from "@/i18n/translations";
 
 function Logo3D() {
   const { scene } = useGLTF("/models/logo_3d.glb");
@@ -15,29 +17,31 @@ function Logo3D() {
   return <primitive ref={ref} object={scene} scale={0.9} position={[0, 0, 0]} />;
 }
 
-const serviceLinks = [
-  { label: "Создание сайтов", href: "/services/web-development" },
-  { label: "Поведенческие факторы", href: "/services/behavioral-factors" },
-  { label: "SEO-продвижение", href: "/services/seo" },
-  { label: "SMM-продвижение", href: "/services/smm" },
-];
-
-const navLinks = [
-  { label: "Портфолио", href: "/portfolio" },
-  { label: "Блог", href: "/blog" },
-  { label: "О нас", href: "/about" },
-  { label: "Контакты", href: "/contacts" },
-];
-
 const Header = () => {
+  const { t, lang, lp } = useT();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
+  const serviceLinks = [
+    { label: t("header.service.webDev"), href: "/services/web-development" },
+    { label: t("header.service.behavioral"), href: "/services/behavioral-factors" },
+    { label: t("header.service.seo"), href: "/services/seo" },
+    { label: t("header.service.smm"), href: "/services/smm" },
+  ];
+
+  const navLinks = [
+    { label: t("header.portfolio"), href: "/portfolio" },
+    // Blog hidden on English version
+    ...(lang === "ru" ? [{ label: t("header.blog"), href: "/blog" }] : []),
+    { label: t("header.about"), href: "/about" },
+    { label: t("header.contacts"), href: "/contacts" },
+  ];
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to={lp("/")} className="flex items-center gap-2">
           <div className="h-10 w-10 overflow-hidden rounded">
             <Suspense fallback={<img src="/logo.png" alt="HulkWork Studio" className="h-10 w-auto" />}>
               <Canvas camera={{ position: [0, 0, 3], fov: 40 }} style={{ width: 40, height: 40 }}>
@@ -57,7 +61,7 @@ const Header = () => {
             onMouseLeave={() => setServicesOpen(false)}
           >
             <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-              Услуги
+              {t("header.services")}
               <ChevronDown className={`h-3.5 w-3.5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
             </button>
             {servicesOpen && (
@@ -66,7 +70,7 @@ const Header = () => {
                   {serviceLinks.map((link) => (
                     <Link
                       key={link.href}
-                      to={link.href}
+                      to={lp(link.href)}
                       className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
                       onClick={() => setServicesOpen(false)}
                     >
@@ -81,23 +85,27 @@ const Header = () => {
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              to={link.href}
+              to={lp(link.href)}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               {link.label}
             </Link>
           ))}
           <QuizServiceMenu source="header" size="sm" className="ml-2" />
+          <LanguageSwitcher className="ml-2" />
         </nav>
 
         {/* Mobile toggle */}
-        <button
-          className="inline-flex items-center justify-center rounded-md p-2 text-foreground md:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Меню"
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <LanguageSwitcher />
+          <button
+            className="inline-flex items-center justify-center rounded-md p-2 text-foreground"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={t("header.menu")}
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile nav */}
@@ -108,7 +116,7 @@ const Header = () => {
               className="flex items-center justify-between rounded-md px-1 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
               onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
             >
-              Услуги
+              {t("header.services")}
               <ChevronDown className={`h-4 w-4 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`} />
             </button>
             {mobileServicesOpen && (
@@ -116,7 +124,7 @@ const Header = () => {
                 {serviceLinks.map((link) => (
                   <Link
                     key={link.href}
-                    to={link.href}
+                    to={lp(link.href)}
                     className="py-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
                     onClick={() => { setMobileOpen(false); setMobileServicesOpen(false); }}
                   >
@@ -129,7 +137,7 @@ const Header = () => {
             {navLinks.map((link) => (
               <Link
                 key={link.href}
-                to={link.href}
+                to={lp(link.href)}
                 className="rounded-md px-1 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                 onClick={() => setMobileOpen(false)}
               >
