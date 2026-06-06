@@ -100,3 +100,19 @@ export function formatRub(usd: number, rate?: number): string {
   const formatted = rub.toLocaleString("ru-RU").replace(/\s/g, "\u202F");
   return `${formatted}\u202F₽`;
 }
+
+/**
+ * Formats USD without conversion. Returns "$500" style with thin nbsp.
+ */
+export function formatUsd(usd: number): string {
+  const formatted = Math.round(usd).toLocaleString("en-US");
+  return `$${formatted}`;
+}
+
+/**
+ * Returns price formatted in the active language's currency:
+ * USD for English, RUB (converted) for Russian.
+ */
+export function formatPrice(usd: number, lang: "ru" | "en", rate?: number): string {
+  return lang === "en" ? formatUsd(usd) : formatRub(usd, rate);
+}

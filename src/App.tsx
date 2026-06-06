@@ -11,6 +11,7 @@ import QuizDialog from "@/components/quiz/QuizDialog";
 import SeoQuizDialog from "@/components/quiz/SeoQuizDialog";
 import MarketingQuizDialog from "@/components/quiz/MarketingQuizDialog";
 import QuizInviteBanner from "@/components/quiz/QuizInviteBanner";
+import { LanguageProvider } from "@/i18n/LanguageContext";
 import Index from "./pages/Index.tsx";
 import WebDevelopment from "./pages/WebDevelopment.tsx";
 import BehavioralFactors from "./pages/BehavioralFactors.tsx";
@@ -38,6 +39,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <LanguageProvider>
         <QuizProvider>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -56,6 +58,17 @@ const App = () => (
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/unsubscribe" element={<UnsubscribePage />} />
+          {/* English mirror routes. Blog and legal pages are intentionally RU-only. */}
+          <Route path="/en" element={<Index />} />
+          <Route path="/en/services/web-development" element={<WebDevelopment />} />
+          <Route path="/en/services/web-development/:city" element={<ServiceCityPage service="web-development" />} />
+          <Route path="/en/services/behavioral-factors" element={<BehavioralFactors />} />
+          <Route path="/en/services/seo" element={<SeoPage />} />
+          <Route path="/en/services/seo/:city" element={<ServiceCityPage service="seo" />} />
+          <Route path="/en/services/smm" element={<SmmPage />} />
+          <Route path="/en/portfolio" element={<PortfolioPage />} />
+          <Route path="/en/about" element={<AboutPage />} />
+          <Route path="/en/contacts" element={<ContactsPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -65,6 +78,7 @@ const App = () => (
           <MarketingQuizDialog />
           <QuizInviteBanner />
         </QuizProvider>
+        </LanguageProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
