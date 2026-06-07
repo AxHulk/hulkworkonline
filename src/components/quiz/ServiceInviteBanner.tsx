@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { LucideIcon, Sparkles, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuiz, QuizTrack } from "./QuizContext";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface ServiceInviteBannerProps {
   /** Уникальный ключ для sessionStorage, чтобы баннеры разных страниц не конфликтовали. */
@@ -36,12 +37,16 @@ const ServiceInviteBanner = ({
   icon: Icon = Sparkles,
   title,
   description,
-  footnote = "≈ 3 минуты · персональное предложение",
-  ctaLabel = "Пройти опрос",
+  footnote,
+  ctaLabel,
   ariaLabel,
 }: ServiceInviteBannerProps) => {
   const { openQuiz, open } = useQuiz();
   const [visible, setVisible] = useState(false);
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
+  const resolvedFootnote = footnote ?? (isEn ? "≈ 3 minutes · personal offer" : "≈ 3 минуты · персональное предложение");
+  const resolvedCta = ctaLabel ?? (isEn ? "Take the quiz" : "Пройти опрос");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -82,7 +87,7 @@ const ServiceInviteBanner = ({
         <button
           onClick={() => setVisible(false)}
           className="absolute right-2 top-2 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          aria-label="Закрыть"
+          aria-label={isEn ? "Close" : "Закрыть"}
         >
           <X className="h-4 w-4" />
         </button>
@@ -103,9 +108,9 @@ const ServiceInviteBanner = ({
           onClick={() => { setVisible(false); openQuiz(source, track); }}
           className="mt-4 w-full gap-2 font-heading font-semibold"
         >
-          {ctaLabel} <ArrowRight className="h-4 w-4" />
+          {resolvedCta} <ArrowRight className="h-4 w-4" />
         </Button>
-        <p className="mt-2 text-center text-[11px] text-muted-foreground">{footnote}</p>
+        <p className="mt-2 text-center text-[11px] text-muted-foreground">{resolvedFootnote}</p>
       </div>
     </div>
   );

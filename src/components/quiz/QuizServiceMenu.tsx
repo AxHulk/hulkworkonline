@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useQuiz } from "./QuizContext";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface Props extends Omit<ButtonProps, "onClick"> {
   source: string;
@@ -16,11 +17,14 @@ interface Props extends Omit<ButtonProps, "onClick"> {
 
 const QuizServiceMenu = ({
   source,
-  label = "Узнать цену за 2 мин",
+  label,
   className,
   ...rest
 }: Props) => {
   const { openQuiz } = useQuiz();
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
+  const resolvedLabel = label ?? (isEn ? "Get price in 2 min" : "Узнать цену за 2 мин");
 
   return (
     <DropdownMenu>
@@ -31,7 +35,7 @@ const QuizServiceMenu = ({
           {...rest}
         >
           <Sparkles className="h-4 w-4" />
-          {label}
+          {resolvedLabel}
           <ChevronDown className="h-3.5 w-3.5 opacity-80" />
         </Button>
       </DropdownMenuTrigger>
@@ -41,28 +45,28 @@ const QuizServiceMenu = ({
           className="gap-2"
         >
           <Globe className="h-4 w-4 text-primary" />
-          <span>Создать сайт</span>
+          <span>{isEn ? "Build a website" : "Создать сайт"}</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => openQuiz(`${source}_seo`, "seo")}
           className="gap-2"
         >
           <Search className="h-4 w-4 text-primary" />
-          <span>SEO-продвижение</span>
+          <span>{isEn ? "SEO promotion" : "SEO-продвижение"}</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => openQuiz(`${source}_behavioral`, "seo")}
           className="gap-2"
         >
           <Activity className="h-4 w-4 text-primary" />
-          <span>Поведенческие факторы</span>
+          <span>{isEn ? "Behavioral factors" : "Поведенческие факторы"}</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => openQuiz(`${source}_marketing`, "marketing")}
           className="gap-2"
         >
           <Megaphone className="h-4 w-4 text-primary" />
-          <span>Маркетинг и SMM</span>
+          <span>{isEn ? "Marketing & SMM" : "Маркетинг и SMM"}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
