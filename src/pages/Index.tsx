@@ -6,7 +6,7 @@ import ApproachSection from "@/components/home/ApproachSection";
 import PortfolioSection from "@/components/home/PortfolioSection";
 import BlogSection from "@/components/home/BlogSection";
 import CTASection from "@/components/home/CTASection";
-import { LOCAL_BUSINESS_JSONLD, ORGANIZATION_JSONLD, WEBSITE_JSONLD } from "@/lib/seo";
+import { getLocalBusinessJsonLd, getOrganizationJsonLd, getWebsiteJsonLd } from "@/lib/seo";
 import { useT } from "@/i18n/translations";
 
 const Index = () => {
@@ -24,7 +24,7 @@ const Index = () => {
       keywords={isEn
         ? "web development, SEO, SMM, behavioral factors, digital agency"
         : "создание сайтов, SEO, SMM, поведенческие факторы, Симферополь, разработка сайтов"}
-      jsonLd={[ORGANIZATION_JSONLD, LOCAL_BUSINESS_JSONLD, WEBSITE_JSONLD]}
+      jsonLd={[getOrganizationJsonLd(lang), getLocalBusinessJsonLd(lang), getWebsiteJsonLd(lang)]}
     />
     <HeroSection />
     <ServicesSection />

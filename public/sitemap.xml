@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://hulkwork.online/</loc>
     <lastmod>2026-04-17</lastmod>
@@ -581,5 +582,78 @@
     <lastmod>2026-05-14</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.1</priority>
+  </url>
+  <!-- English versions (mirror of the 7 main routes) -->
+  <url>
+    <loc>https://hulkwork.online/en</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://hulkwork.online/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hulkwork.online/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hulkwork.online/"/>
+  </url>
+  <url>
+    <loc>https://hulkwork.online/en/services/web-development</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://hulkwork.online/services/web-development"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hulkwork.online/en/services/web-development"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hulkwork.online/services/web-development"/>
+  </url>
+  <url>
+    <loc>https://hulkwork.online/en/services/seo</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://hulkwork.online/services/seo"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hulkwork.online/en/services/seo"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hulkwork.online/services/seo"/>
+  </url>
+  <url>
+    <loc>https://hulkwork.online/en/services/smm</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://hulkwork.online/services/smm"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hulkwork.online/en/services/smm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hulkwork.online/services/smm"/>
+  </url>
+  <url>
+    <loc>https://hulkwork.online/en/services/behavioral-factors</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://hulkwork.online/services/behavioral-factors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hulkwork.online/en/services/behavioral-factors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hulkwork.online/services/behavioral-factors"/>
+  </url>
+  <url>
+    <loc>https://hulkwork.online/en/portfolio</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://hulkwork.online/portfolio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hulkwork.online/en/portfolio"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hulkwork.online/portfolio"/>
+  </url>
+  <url>
+    <loc>https://hulkwork.online/en/about</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://hulkwork.online/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hulkwork.online/en/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hulkwork.online/about"/>
+  </url>
+  <url>
+    <loc>https://hulkwork.online/en/contacts</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://hulkwork.online/contacts"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hulkwork.online/en/contacts"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hulkwork.online/contacts"/>
   </url>
 </urlset>

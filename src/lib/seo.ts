@@ -59,6 +59,31 @@ export const WEBSITE_JSONLD = {
   inLanguage: "ru-RU",
 };
 
+// English variants for the EN locale. Address stays the same (it's factual),
+// only natural-language description and inLanguage differ.
+export const ORGANIZATION_JSONLD_EN = {
+  ...ORGANIZATION_JSONLD,
+  legalName: "IE Fursa Nataliia Nikolaevna",
+};
+
+export const LOCAL_BUSINESS_JSONLD_EN = {
+  ...LOCAL_BUSINESS_JSONLD,
+  description:
+    "HulkWork Studio — web development, SEO promotion, SMM and behavioral-factors services. Based in Simferopol, working across Russia and internationally.",
+};
+
+export const WEBSITE_JSONLD_EN = {
+  ...WEBSITE_JSONLD,
+  inLanguage: "en-US",
+};
+
+export const getOrganizationJsonLd = (lang: "ru" | "en") =>
+  lang === "en" ? ORGANIZATION_JSONLD_EN : ORGANIZATION_JSONLD;
+export const getLocalBusinessJsonLd = (lang: "ru" | "en") =>
+  lang === "en" ? LOCAL_BUSINESS_JSONLD_EN : LOCAL_BUSINESS_JSONLD;
+export const getWebsiteJsonLd = (lang: "ru" | "en") =>
+  lang === "en" ? WEBSITE_JSONLD_EN : WEBSITE_JSONLD;
+
 export type BreadcrumbCrumb = { name: string; url: string };
 
 export const buildBreadcrumbJsonLd = (crumbs: BreadcrumbCrumb[]) => ({
