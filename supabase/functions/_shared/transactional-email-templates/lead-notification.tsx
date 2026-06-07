@@ -24,6 +24,7 @@ interface LeadNotificationProps {
   contactChannel?: string
   quizAnswers?: Record<string, any>
   submittedAt?: string
+  formLang?: string
 }
 
 const LeadNotificationEmail = ({
@@ -37,17 +38,19 @@ const LeadNotificationEmail = ({
   contactChannel,
   quizAnswers,
   submittedAt,
+  formLang,
 }: LeadNotificationProps) => {
   const isQuiz = source === 'quiz_submission'
   const isSeoQuiz = source === 'seo_quiz_submission'
   const isMarketingQuiz = source === 'marketing_quiz_submission'
+  const langBadge = formLang === 'en' ? ' 🇬🇧 EN' : ''
   const title = isQuiz
-    ? '🎯 Новая заявка из опросника «Узнать цену»'
+    ? `🎯 Новая заявка из опросника «Узнать цену»${langBadge}`
     : isSeoQuiz
-    ? '🎯 Новая заявка из SEO-опросника'
+    ? `🎯 Новая заявка из SEO-опросника${langBadge}`
     : isMarketingQuiz
-    ? '🎯 Новая заявка из опросника по маркетингу/SMM'
-    : '📩 Новая заявка с сайта'
+    ? `🎯 Новая заявка из опросника по маркетингу/SMM${langBadge}`
+    : `📩 Новая заявка с сайта${langBadge}`
 
   return (
     <Html lang="ru" dir="ltr">
@@ -59,6 +62,7 @@ const LeadNotificationEmail = ({
 
           <Section style={card}>
             <Row label="Источник" value={prettySource(source)} />
+            {formLang ? <Row label="Язык формы" value={formLang.toUpperCase()} /> : null}
             <Row label="Имя" value={name} />
             <Row
               label={contactChannel ? `Контакт (${contactChannel})` : 'Контакт'}
