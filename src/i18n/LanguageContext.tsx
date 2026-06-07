@@ -27,6 +27,28 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const lang = detectLang(location.pathname);
 
+  // First-visit auto-detect: if the visitor previously chose EN, or browser
+  // language starts with "en", redirect "/" → "/en" once per session.
+  // Skips when already on /en, on RU-only sections (blog/legal), or after first run.
+  if (typeof window !== "undefined") {
+    try {
+      const flag = sessionStorage.getItem("hw_lang_autodetect");
+      if (!flag) {
+        sessionStorage.setItem("hw_lang_autodetect", "1");
+        const stored = localStorage.getItem("hw_lang");
+        const browser = (navigator.language || "").toLowerCase();
+        const wantsEn = stored === "en" || (!stored && browser.startsWith("en"));
+        const isRuOnly = /^\/(blog|offer|terms|privacy|unsubscribe)(\/|$)/.test(location.pathname);
+        if (wantsEn && lang === "ru" && !isRuOnly) {
+          const target = location.pathname === "/" ? "/en" : `/en${location.pathname}`;
+          window.location.replace(target + location.search + location.hash);
+        }
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+
   const value = useMemo<LanguageContextValue>(() => {
     const lp = (path: string) => {
       if (!path.startsWith("/")) return path;
