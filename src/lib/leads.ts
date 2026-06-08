@@ -1,10 +1,13 @@
 import { supabase } from "@/integrations/supabase/client";
+import { sendClientConfirmation } from "@/lib/clientEmail";
+import type { Lang } from "@/i18n/LanguageContext";
 
 export interface SubmitLeadInput {
   source: "home_cta" | "contacts_form" | "web_development";
   name: string;
   contact: string;
   message?: string;
+  lang?: Lang;
 }
 
 /**
@@ -26,6 +29,13 @@ export async function submitLead(input: SubmitLeadInput): Promise<void> {
   });
   if (error) throw error;
 
+  const lang: Lang = input.lang ?? "ru";
+  const trackBySource: Record<SubmitLeadInput["source"], "web" | "general"> = {
+    home_cta: "general",
+    contacts_form: "general",
+    web_development: "web",
+  };
+
   // Уведомление по email — не блокируем UX при ошибке
   try {
     await supabase.functions.invoke("send-transactional-email", {
@@ -39,11 +49,21 @@ export async function submitLead(input: SubmitLeadInput): Promise<void> {
           contact: input.contact,
           message: input.message ?? "",
           pageUrl,
-          submittedAt: new Date().toLocaleString("ru-RU"),
+          submittedAt: new Date().toLocaleString(lang === "en" ? "en-US" : "ru-RU"),
+          formLang: lang,
         },
       },
     });
   } catch (e) {
     console.warn("lead notification failed", e);
   }
+
+  // Авто-подтверждение клиенту (только если контакт — email)
+  await sendClientConfirmation({
+    contact: input.contact,
+    name: input.name,
+    lang,
+    source: input.source,
+    track: trackBySource[input.source],
+  });
 }

@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { useQuiz } from "./QuizContext";
 import { supabase } from "@/integrations/supabase/client";
 import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { sendClientConfirmation } from "@/lib/clientEmail";
 import { logConsent } from "@/lib/consent";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -573,6 +574,13 @@ const MarketingQuizDialog = () => {
           },
         });
       } catch (e) { console.warn("marketing lead notification failed", e); }
+      await sendClientConfirmation({
+        contact: state.channelValue,
+        name: state.contactName,
+        lang,
+        source: "marketing_quiz_submission",
+        track: "smm",
+      });
 
       setDone(true);
     } catch (e) {
