@@ -574,6 +574,13 @@ const MarketingQuizDialog = () => {
           },
         });
       } catch (e) { console.warn("marketing lead notification failed", e); }
+      await sendClientConfirmation({
+        contact: state.channelValue,
+        name: state.contactName,
+        lang,
+        source: "marketing_quiz_submission",
+        track: "smm",
+      });
 
       setDone(true);
     } catch (e) {

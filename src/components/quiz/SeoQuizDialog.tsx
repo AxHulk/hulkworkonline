@@ -305,6 +305,13 @@ const SeoQuizDialog = () => {
           },
         });
       } catch (e) { console.warn("seo lead notification failed", e); }
+      await sendClientConfirmation({
+        contact: state.channelValue,
+        name: state.contactName,
+        lang,
+        source: "seo_quiz_submission",
+        track: "seo",
+      });
       setDone(true);
     } catch (e) {
       console.error(e);
