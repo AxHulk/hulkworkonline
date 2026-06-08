@@ -34,7 +34,7 @@ function HulkModel() {
 }
 
 const CTASection = () => {
-  const { t } = useT();
+  const { t, lang } = useT();
   const { openQuiz } = useQuiz();
   type Service = "website" | "seo" | "behavioral";
   const [service, setService] = useState<Service>("website");
@@ -60,6 +60,7 @@ const CTASection = () => {
         name: String(fd.get("name") || "").trim(),
         contact: String(fd.get("contact") || "").trim(),
         message: String(fd.get("task") || "").trim() || undefined,
+        lang,
       });
       toast.success(t("toast.leadSuccess"));
       form.reset();
