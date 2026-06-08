@@ -116,6 +116,7 @@ const WebDevelopment = () => {
         name: String(fd.get("name") || "").trim(),
         contact: String(fd.get("contact") || "").trim(),
         message: String(fd.get("description") || "").trim() || undefined,
+        lang,
       });
       toast.success(isEn ? "Request sent! We'll get back to you within 24 hours." : "Заявка отправлена! Мы свяжемся с вами в течение 24 часов.");
       form.reset();

@@ -141,6 +141,7 @@ const ContactForm = () => {
         name: String(fd.get("name") || "").trim(),
         contact: String(fd.get("contact") || "").trim(),
         message: String(fd.get("task") || "").trim() || undefined,
+        lang,
       });
       setSubmitted(true);
       setConsent(false);
