@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { useQuiz } from "./QuizContext";
 import { supabase } from "@/integrations/supabase/client";
 import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { sendClientConfirmation } from "@/lib/clientEmail";
 import { logConsent } from "@/lib/consent";
 import { useLanguage } from "@/i18n/LanguageContext";
 

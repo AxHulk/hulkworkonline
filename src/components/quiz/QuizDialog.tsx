@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { useQuiz } from "./QuizContext";
 import { supabase } from "@/integrations/supabase/client";
 import ConsentCheckbox from "@/components/ConsentCheckbox";
+import { sendClientConfirmation } from "@/lib/clientEmail";
 import { formatPrice } from "@/lib/exchangeRate";
 import { logConsent } from "@/lib/consent";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -299,6 +300,13 @@ const QuizDialog = () => {
           },
         });
       } catch (notifyErr) { console.warn("lead notification failed", notifyErr); }
+      await sendClientConfirmation({
+        contact: state.channelValue,
+        name: state.contactName,
+        lang,
+        source: "quiz_submission",
+        track: "web",
+      });
       setDone(true);
     } catch (err) {
       console.error(err);
